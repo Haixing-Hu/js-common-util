@@ -1,7 +1,8 @@
 /*******************************************************************************
  *
- *    Copyright (c) 2017 - 2020
- *    Nanjing Smart Medical Investment Operation Service Co. Ltd.
+ *    Copyright (c) 2022 - 2023.
+ *    Haixing Hu, Qubit Co. Ltd.
+ *
  *    All rights reserved.
  *
  ******************************************************************************/
@@ -15,7 +16,7 @@ import getHash from './get-hash';
  * 因为Vue.js的地址都是hash形式做路由，因此基本的 window.location.search 不能获得
  * query string。 例如 http://dev.example.com/test/#/finish?params=xxx
  *
- * @param {Object}
+ * @param {Object} params
  *     待添加的参数对象，其每个属性名称和属性值都会被作为key-value添加到当前地址
  *     的query string。
  * @param {String|URL} url

@@ -6,21 +6,9 @@
  *    All rights reserved.
  *
  ******************************************************************************/
+import kindOf from 'kind-of';
 
 /**
- * 此枚举表示性别
- *
- * @author 胡海星
+ * Exports the `kindOf` function from the `kind-of` library.
  */
-const Gender = {
-  MALE: {
-    name: '男',
-    value: 'MALE',
-  },
-  FEMALE: {
-    name: '女',
-    value: 'FEMALE',
-  },
-};
-
-export default Gender;
+export default kindOf;

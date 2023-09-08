@@ -1,7 +1,8 @@
 /*******************************************************************************
  *
- *    Copyright (c) 2017 - 2018
- *    Nanjing Smart Medical Investment Operation Service Co. Ltd.
+ *    Copyright (c) 2022 - 2023.
+ *    Haixing Hu, Qubit Co. Ltd.
+ *
  *    All rights reserved.
  *
  ******************************************************************************/
@@ -15,7 +16,7 @@ import assign from './src/assign';
 import clone from './src/clone';
 
 import decycle from './src/decycle';
-import deepEqual from 'deep-equal';
+import deepEqual from './src/deep-equal';
 import defaultIfNull from './src/default-if-null';
 import defaultIfUndefinedOrNull from './src/default-if-undefined-or-null';
 import defaultIfUndefined from './src/default-if-undefined';
@@ -81,12 +82,9 @@ import scrollTo from './src/scroll-to';
 import getAncestorClasses from './src/get-ancestor-classes';
 import getDeclaringClass from './src/get-declaring-class';
 
-import kindOf from 'kind-of';
+import kindOf from './src/kind-of';
 
-import queryString from 'qs';
-
-// 为了兼容性，保留 isUndefinedOrNullOrEmpty 的函数名
-const isUndefinedOrNullOrEmpty = isUndefinedOrNullOrEmptyString;
+import queryString from './src/query-string';
 
 export {
   addClassToHmlElement,
@@ -120,7 +118,6 @@ export {
   isIos,
   isMyNanjingApp,
   isUndefinedOrNull,
-  isUndefinedOrNullOrEmpty,         // 已被重命名为isUndefinedOrNullOrEmptyString，但为了兼容性暂时保留此函数名
   isUndefinedOrNullOrEmptyString,
   isUndefinedOrNullOrEmptyArray,
   isWechat,

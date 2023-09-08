@@ -6,21 +6,9 @@
  *    All rights reserved.
  *
  ******************************************************************************/
+import deepEqual from 'deep-equal';
 
 /**
- * 此枚举表示性别
- *
- * @author 胡海星
+ * Exports the `deepEqual` function from the `deep-equal` library.
  */
-const Gender = {
-  MALE: {
-    name: '男',
-    value: 'MALE',
-  },
-  FEMALE: {
-    name: '女',
-    value: 'FEMALE',
-  },
-};
-
-export default Gender;
+export default deepEqual;

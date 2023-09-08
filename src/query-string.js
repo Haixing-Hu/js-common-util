@@ -6,21 +6,9 @@
  *    All rights reserved.
  *
  ******************************************************************************/
+import queryString from 'qs';
 
 /**
- * 此枚举表示性别
- *
- * @author 胡海星
+ * Exports the `queryString` function from the `qs` library.
  */
-const Gender = {
-  MALE: {
-    name: '男',
-    value: 'MALE',
-  },
-  FEMALE: {
-    name: '女',
-    value: 'FEMALE',
-  },
-};
-
-export default Gender;
+export default queryString;
