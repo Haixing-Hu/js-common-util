@@ -252,4 +252,5 @@ const logger = new Logger();
 export {
   Logger,
   logger,
+  logger as default,
 };
