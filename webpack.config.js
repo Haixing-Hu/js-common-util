@@ -28,11 +28,6 @@ const commonConfig = {
   mode: 'production',
   stats: 'summary',
   target: ['web', 'es5'],
-  resolve: {
-    alias: {
-      '@': resolve(__dirname, 'src'),
-    },
-  },
   externals: {
     'crypto-js': 'commonjs2 crypto-js',
     'dayjs': 'commonjs2 dayjs',
