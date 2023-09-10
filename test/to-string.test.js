@@ -6,7 +6,6 @@
  *    All rights reserved.
  *
  ******************************************************************************/
-import dayjs from 'dayjs';
 import { toString } from '../main';
 import CredentialType from './model/CredentialType';
 import Credential from './model/Credential';
@@ -69,7 +68,7 @@ describe('toString', () => {
   // });
   test('toString(Date)', () => {
     const obj = new Date();
-    expect(toString(obj)).toBe(dayjs(obj).format());
+    expect(toString(obj)).toBe(obj.toISOString());
   });
   // TODO：增加对其他类型的测试
   test('toString(Insurant)', () => {

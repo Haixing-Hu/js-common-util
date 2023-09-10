@@ -20,13 +20,12 @@ import getHash from './get-hash';
  *     待添加的参数对象，其每个属性名称和属性值都会被作为key-value添加到当前地址
  *     的query string。
  * @param {String|URL} url
- *     字符串或URL对象，可选参数。表示待解析的URL地址。若无此参数则使用
- *     window.location.href。
+ *     字符串或URL对象，可选参数。表示待解析的URL地址。若无此参数则使用`window.location`。
  * @returns {String}
  *     添加了指定参数的新的链接地址，并且被正确正则化。
  * @author 谷贤旺
  */
-function addSearchParams(params, url) {
+function addSearchParams(params, url = window.location) {
   if (url === undefined) {
     url = window.location;
   } else if (!(url instanceof URL)) {

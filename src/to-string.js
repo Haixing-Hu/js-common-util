@@ -7,7 +7,6 @@
  *
  ******************************************************************************/
 import kindOf from 'kind-of';
-import dayjs from 'dayjs';
 import jsonStringify from './json-stringify';
 
 /**
@@ -45,7 +44,7 @@ function toString(value, beautify = false) {
     case 'promise':
       return String(value);
     case 'date':
-      return dayjs(value).format();
+      return value.toISOString();
     case 'int8array':
     case 'uint8array':
     case 'uint8clampedarray':

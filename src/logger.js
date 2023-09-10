@@ -6,7 +6,6 @@
  *    All rights reserved.
  *
  ******************************************************************************/
-import dayjs from 'dayjs';
 import translateConsoleArguments from './impl/translate-console-arguments';
 
 /**
@@ -16,6 +15,7 @@ import translateConsoleArguments from './impl/translate-console-arguments';
  * @private
  */
 const LOG_LEVEL_VALUE = {
+  TRACE: -1,
   DEBUG: 0,
   INFO: 1,
   WARN: 2,
@@ -30,14 +30,6 @@ const LOG_LEVEL_VALUE = {
  * @private
  */
 const DEFAULT_LOG_LEVEL = 'DEBUG';
-
-/**
- * 日期时间格式。
- *
- * @author 胡海星
- * @private
- */
-const TIMESTAMP_FORMAT = 'YYYY-MM-DD HH:mm:ss';
 
 /**
  * 一个简单的日志类。
@@ -58,6 +50,7 @@ class Logger {
     this.setLevel(level);
     this.setAppender(appender);
     this.log = this._log;
+    this.trace = this._trace;
     this.debug = this._debug;
     this.info = this._info;
     this.warn = this._warn;
@@ -151,7 +144,7 @@ class Logger {
     if (LOG_LEVEL_VALUE[level] < LOG_LEVEL_VALUE[this.level]) {
       return;
     }
-    const timestamp = dayjs().format(TIMESTAMP_FORMAT);
+    const timestamp = new Date().toISOString();
     const parameters = translateConsoleArguments(message, args);
     const output = this._getOutput(level);
     output(`[${level}]`, timestamp, ...parameters);
@@ -184,6 +177,20 @@ class Logger {
       default:
         return () => {};
     }
+  }
+
+  /**
+   * Logs a message in the TRaCE level.
+   *
+   * @param {String} message
+   *     the message or message template, which may contain zero or more
+   *     placeholders, e.g., '{0}', '{1}', ...
+   * @param {Array} args
+   *     the array of arguments used to format the message.
+   * @private
+   */
+  _trace(message, ...args) {
+    this._log('TRACE', message, args);
   }
 
   /**
@@ -253,5 +260,6 @@ const logger = new Logger();
 export {
   Logger,
   logger,
+  // eslint-disable-next-line no-restricted-exports
   logger as default,
 };

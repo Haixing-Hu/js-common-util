@@ -6,7 +6,7 @@
  *    All rights reserved.
  *
  ******************************************************************************/
-import { logger, Logger } from '../main';
+import { Logger } from '../main';
 
 /**
  * 单元测试 'logger'，使用默认的 console 作为输出。
@@ -14,6 +14,7 @@ import { logger, Logger } from '../main';
  * @author 胡海星
  */
 describe('logger: Use console', () => {
+  const logger = new Logger();
   test('logger.debug', () => {
     const arg1 = 'hello';
     const arg2 = {
@@ -54,8 +55,13 @@ describe('logger: Use console', () => {
  * @author 胡海星
  */
 describe('logger: Use customized appender', () => {
+  const logger = new Logger();
   const logs = [];        // 记录所有的日志
   const appender = {
+    trace: (...args) => {
+      logs.push({ type: 'TRACE', args });
+      console.trace(...args);
+    },
     debug: (...args) => {
       logs.push({ type: 'DEBUG', args });
       console.debug(...args);
@@ -155,8 +161,13 @@ describe('logger: Use customized appender', () => {
  * @author 胡海星
  */
 describe('logger: set logging level', () => {
+  const logger = new Logger();
   let logs = [];        // 记录所有的日志
   const appender = {
+    trace: (...args) => {
+      logs.push({ type: 'TRACE', args });
+      console.trace(...args);
+    },
     debug: (...args) => {
       logs.push({ type: 'DEBUG', args });
       console.debug(...args);

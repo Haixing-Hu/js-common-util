@@ -1,6 +1,6 @@
 {
   "name": "@haixing_hu/common-util",
-  "version": "2.9.1",
+  "version": "2.10.0",
   "description": "A JavaScript ES6 library of common utility functions",
   "main": "dist/common-util.min.js",
   "scripts": {
@@ -34,10 +34,6 @@
     "kind-of": "^6.0.3",
     "qs": "^6.11.0"
   },
-  "peerDependencies": {
-    "crypto-js": "^4.1.1",
-    "dayjs": "^1.10.7"
-  },
   "devDependencies": {
     "@babel/core": "^7.16.0",
     "@babel/eslint-parser": "^7.17.0",
@@ -55,8 +51,6 @@
     "babel-plugin-transform-object-hasown": "^1.1.0",
     "check-es-version": "^1.1.2",
     "core-js": "^3.19.1",
-    "crypto-js": "^4.1.1",
-    "dayjs": "^1.10.7",
     "eslint": "^8.12.0",
     "gulp": "^4.0.2",
     "gulp-connect": "^5.7.0",

@@ -9,7 +9,7 @@
 import qs from 'qs';
 import { logger } from './logger';
 import getSearch from './get-search';
-import addSearchParam from './add-search-param';
+import addSearchParams from './add-search-params';
 import redirect from './redirect';
 import loadScript from './load-script';
 
@@ -47,11 +47,11 @@ class TalkingData {
       const search = getSearch();
       const args = qs.parse(search);
       if (!args.source) {
-        let url = addSearchParam('source', options.default_source);
-        url = addSearchParam('td_channelid', options.default_source, url);
+        let url = addSearchParams({ source: options.default_source });
+        url = addSearchParams({ td_channelid: options.default_source }, url);
         redirect(url, 0).then(() => resolve(null));
       } else if (!args.td_channelid) {
-        const url = addSearchParam('td_channelid', args.source);
+        const url = addSearchParams({ td_channelid: args.source });
         redirect(url, 0).then(() => resolve(null));
       } else {
         this.source = args.source;  //  记录渠道代码

@@ -28,10 +28,6 @@ const commonConfig = {
   mode: 'production',
   stats: 'summary',
   target: ['web', 'es5'],
-  externals: {
-    'crypto-js': 'commonjs2 crypto-js',
-    'dayjs': 'commonjs2 dayjs',
-  },
   optimization: {
     minimize: true,
     minimizer: [

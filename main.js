@@ -7,10 +7,7 @@
  *
  ******************************************************************************/
 import addClassToHmlElement from './src/add-class-to-html-element';
-import addSearchParam from './src/add-search-param';
 import addSearchParams from './src/add-search-params';
-import aesEncrypt from './src/aes-encrypt';
-import aesDecrypt from './src/aes-decrypt';
 import assign from './src/assign';
 
 import clone from './src/clone';
@@ -88,10 +85,7 @@ import queryString from './src/query-string';
 
 export {
   addClassToHmlElement,
-  addSearchParam,
   addSearchParams,
-  aesEncrypt,
-  aesDecrypt,
   assign,
 
   clone,
