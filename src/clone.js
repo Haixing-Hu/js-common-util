@@ -63,7 +63,7 @@ function mirror(source, result, options, cache) {
       continue; // ignore non-enumerable properties
     }
     if (!options.includeReadonly && descriptor.writable !== undefined && !descriptor.writable) {
-      console.log(`ignore readonly property ${key}`);
+      // console.log(`ignore readonly property ${key}`);
       continue; // ignore readonly properties
     }
     if (options.includeAccessor && (descriptor.get || descriptor.set)) {
@@ -92,7 +92,7 @@ function mirror(source, result, options, cache) {
  *     目标数组。
  */
 function cloneArrayImpl(source, options, cache) {
-  console.log('cloneArrayImpl: source = ', source, ', options = ', options);
+  // console.log('cloneArrayImpl: source = ', source, ', options = ', options);
   const result = [];
   cache.set(source, result);
   const keys = Reflect.ownKeys(source);
@@ -131,7 +131,7 @@ function cloneArrayImpl(source, options, cache) {
  *     目标对象。
  */
 function cloneObjectImpl(source, options, cache) {
-  console.log('cloneObjectImpl: source = ', source, ', options = ', options);
+  // console.log('cloneObjectImpl: source = ', source, ', options = ', options);
   const prototype = Object.getPrototypeOf(source);
   const result = Object.create(prototype);
   cache.set(source, result);
@@ -161,7 +161,7 @@ function cloneImpl(source, options, cache) {
     return cache.get(source);
   }
   const prototype = Object.getPrototypeOf(source);
-  console.log('cloneImpl: prototype = ', prototype);
+  // console.log('cloneImpl: prototype = ', prototype);
   switch (prototype) {
     // Some types must be handled specially
     // (For instance if they have any internal slots)
