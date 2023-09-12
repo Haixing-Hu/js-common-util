@@ -173,7 +173,7 @@ function cloneImpl(source, options, cache) {
     }
     case Boolean.prototype: {
       // We must get the primitive value of a Boolean object, since if
-      // it is monkey patched, directly convertion by new Boolean(source)
+      // it is monkey patched, directly conversion by new Boolean(source)
       // will always get a true value. For example,
       //
       // const b = new Boolean(false);
