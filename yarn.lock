@@ -1055,6 +1055,11 @@
   resolved "https://registry.npmmirror.com/@eslint/js/-/js-8.43.0.tgz#559ca3d9ddbd6bf907ad524320a0d14b85586af0"
   integrity sha512-s2UHCoiXfxMvmfzqoN+vrQ84ahUSYde9qNO1MdxmoEhyHWsfmwOpFlwYV+ePJEVc7gFnATGUi376WowX1N7tFg==
 
+"@haixing_hu/common-logging@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.npmjs.org/@haixing_hu/common-logging/-/common-logging-0.3.0.tgz#e2dc171bbc732a68af633b371f4fa54c46f9a262"
+  integrity sha512-/y55beugt+aAepnMi8Ib1X8wsz5hh43KPw7zs7G0ClnYSP4xvEgNboZjI2VKhRjibKik1wQogRFDg/MISUTpHA==
+
 "@haixing_hu/eslint-config@^1.0.0":
   version "1.0.0"
   resolved "https://registry.npmmirror.com/@haixing_hu/eslint-config/-/eslint-config-1.0.0.tgz#0e07d95a1b7607df9f7dbc0a26befcd870988c87"
@@ -2688,7 +2693,14 @@ core-util-is@~1.0.0:
   resolved "https://registry.npmmirror.com/core-util-is/-/core-util-is-1.0.3.tgz#a6042d3634c2b27e9328f837b965fac83808db85"
   integrity sha512-ZQBvi1DcpJ4GDqanjucZ2Hj3wEO5pZDS89BWbkcrvdxksJorwUDDZamX9ldFkp9aw2lmBDLgkObEA4DWNJ9FYQ==
 
-cross-spawn@^7.0.2, cross-spawn@^7.0.3:
+cross-env@^7.0.3:
+  version "7.0.3"
+  resolved "https://registry.npmjs.org/cross-env/-/cross-env-7.0.3.tgz#865264b29677dc015ba8418918965dd232fc54cf"
+  integrity sha512-+/HKd6EgcQCJGh2PSjZuUitQBQynKor4wrFbRg4DtAgS1aWO+gU52xpH7M9ScGgXSYmAVS9bIJ8EzuaGw0oNAw==
+  dependencies:
+    cross-spawn "^7.0.1"
+
+cross-spawn@^7.0.1, cross-spawn@^7.0.2, cross-spawn@^7.0.3:
   version "7.0.3"
   resolved "https://registry.npmmirror.com/cross-spawn/-/cross-spawn-7.0.3.tgz#f73a85b9d5d41d045551c177e2882d4ac85728a6"
   integrity sha512-iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==

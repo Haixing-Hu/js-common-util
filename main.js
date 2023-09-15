@@ -47,7 +47,6 @@ import isBuiltInClass from './src/is-built-in-class';
 
 import jsonStringify from './src/json-stringify';
 import loadScript from './src/load-script';
-import { logger, Logger } from './src/logger';
 
 import normalizeUrl from './src/normalize-url';
 
@@ -126,8 +125,6 @@ export {
   jsonStringify,
 
   loadScript,
-  logger,
-  Logger,
 
   normalizeUrl,
 

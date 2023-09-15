@@ -8,25 +8,29 @@
  ******************************************************************************/
 
 /**
- * 动态载入JavaScript脚本。
+ * Dynamically loads a JavaScript script.
  *
  * @param {String} src
- *     待载入的脚本的URL。
+ *     The URL of the script to be loaded.
  * @param {Object} attrs
- *     可选，需要加在新建的script标签上的属性。
+ *     Optional, attributes that need to be added to the newly created script
+ *     tag.
  * @param {Node} parentNode
- *     可选，新建的script标签的父节点。
+ *     Optional, the parent node of the new script tag.
  * @return {Promise}
- *     一个异步执行的{@link Promise}对象。
- * @author 胡海星
+ *     A {@link Promise} object that executes asynchronously, whose resolving
+ *     value is the newly created script tag.
+ * @author Haixing Hu
  */
-function loadScript(src, attrs, parentNode) {
+function loadScript(src, attrs = undefined, parentNode = undefined) {
   return new Promise((resolve, reject) => {
     const script = document.createElement('script');
     script.async = true;
     script.src = src;
-    for (const [k, v] of Object.entries(attrs || {})) {
-      script.setAttribute(k, v);
+    if (attrs) {
+      for (const [k, v] of Object.entries(attrs)) {
+        script.setAttribute(k, v);
+      }
     }
     script.onload = () => {
       script.onerror = null;
@@ -38,7 +42,9 @@ function loadScript(src, attrs, parentNode) {
       script.onload = null;
       reject(new Error(`Failed to load ${src}`));
     };
-    const node = parentNode || document.head || document.getElementsByTagName('head')[0];
+    const node = parentNode
+      || document.head
+      || document.getElementsByTagName('head')[0];
     node.appendChild(script);
   });
 }

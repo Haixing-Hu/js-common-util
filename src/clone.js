@@ -30,40 +30,44 @@ import {
 } from './impl/buildin-prototype';
 
 /**
- * 将源对象的属性复制到目标对象。
+ * Copies the properties of the source object to the target object.
  *
- * 注意，为了支持Vue.js对对象的响应式监控，我们只能复制对象的enumerable属性，并且
- * 不考虑对象的getter/setter，而是直接把源对象的属性值取出来（可能是调用了源对象
- * 对应属性的getter），递归地深度克隆后复制到目标对象中（可能是调用了目标对象对
- * 应属性的setter）。因此参数options的includeAccessor和
- * includeNonEnumerable应该不设置或者设置为false.
+ * **NOTE:** In order to support the reactivity of Vue.js, we only copy the
+ * enumerable properties of the object, and do not consider the getters and
+ * setters of the object. We directly take out the property value from the
+ * source object (possibly by calling the getter), recursively deep-clone it
+ * and copy it to the target object (possibly by calling the setter). Therefore,
+ * the `includeAccessor` and `includeNonEnumerable` parameters of options should
+ * not be set or should be set to `false`.
  *
- * 关于Vue.js的响应式原理，请参见：https://cn.vuejs.org/v2/guide/reactivity.html
+ * For the reactivity of Vue.js, see:
+ * <a href="https://v2.vuejs.org/v2/guide/reactivity.html">Reactivity</a>
  *
  * @param {Object} source
- *     源对象。
+ *     The source object.
  * @param {Object} result
- *     目标对象。
+ *     The target object.
  * @param {Object} options
- *     克隆算法的参数。
- * @param {Map} cache
- *     对象缓存，用于防止出现循环引用对象。
- * @author 胡海星
- * @see https://cn.vuejs.org/v2/guide/reactivity.html
+ *     The options of the cloning algorithm.
+ * @param {WeakMap} cache
+ *     The object cache used to prevent circular references.
  * @private
+ * @see https://v2.vuejs.org/v2/guide/reactivity.html
+ * @author Haixing Hu
  */
 function mirror(source, result, options, cache) {
   const keys = Reflect.ownKeys(source);
   for (const key of keys) {
     const descriptor = Object.getOwnPropertyDescriptor(source, key);
-    if (!options.includeNonConfigurable && !descriptor.configurable) {
+    if ((!options.includeNonConfigurable) && (!descriptor.configurable)) {
       continue; // ignore non-configurable properties, such as string[0]
     }
-    if (!options.includeNonEnumerable && !descriptor.enumerable) {
+    if ((!options.includeNonEnumerable) && (!descriptor.enumerable)) {
       continue; // ignore non-enumerable properties
     }
-    if (!options.includeReadonly && descriptor.writable !== undefined && !descriptor.writable) {
-      // console.log(`ignore readonly property ${key}`);
+    if ((!options.includeReadonly)
+        && (descriptor.writable !== undefined)
+        && (!descriptor.writable)) {
       continue; // ignore readonly properties
     }
     if (options.includeAccessor && (descriptor.get || descriptor.set)) {
@@ -74,22 +78,24 @@ function mirror(source, result, options, cache) {
     // the property has getter/setter, descriptor.value do not exist, and
     // use [] will invoke the getter, which is just what we want.
     const value = source[key];
-    const clonedValue = cloneImpl(value, options, cache); // eslint-disable-line no-use-before-define
-    result[key] = clonedValue;
+    // eslint-disable-next-line no-use-before-define
+    result[key] = cloneImpl(value, options, cache);
   }
 }
 
 /**
- * Clone一个指定的数组。
+ * Clones a specified array.
  *
  * @param {Array} source
- *     源数组。
+ *     The source array.
  * @param {Object} options
- *     克隆算法的参数。
- * @param {Map} cache
- *     对象缓存，用于防止出现循环引用对象。
+ *     Options of the cloning algorithm.
+ * @param {WeakMap} cache
+ *     The object cache used to prevent circular references.
  * @returns {Array}
- *     目标数组。
+ *     The target array.
+ * @private
+ * @author Haixing Hu
  */
 function cloneArrayImpl(source, options, cache) {
   // console.log('cloneArrayImpl: source = ', source, ', options = ', options);
@@ -102,7 +108,8 @@ function cloneArrayImpl(source, options, cache) {
     let i;
     for (i = 0; i < source.length; i++) {
       if (i in source) {
-        result.push(cloneImpl(source[i], options, cache)); // eslint-disable-line no-use-before-define
+        // eslint-disable-next-line no-use-before-define
+        result.push(cloneImpl(source[i], options, cache));
       } else {  // Array is sparse
         break wellBehaved;        // eslint-disable-line no-labels
       }
@@ -119,16 +126,18 @@ function cloneArrayImpl(source, options, cache) {
 }
 
 /**
- * Clone一个用户自定义对象。
+ * Clone a user-defined object.
  *
  * @param {Object} source
- *     源对象。
+ *     The source object.
  * @param {Object} options
- *     克隆算法的参数。
- * @param {Map} cache
- *     对象缓存，用于防止出现循环引用对象。
+ *     Options of the cloning algorithm.
+ * @param {WeakMap} cache
+ *     The object cache used to prevent circular references.
  * @returns {Object}
- *     目标对象。
+ *     The target object.
+ * @private
+ * @author Haixing Hu
  */
 function cloneObjectImpl(source, options, cache) {
   // console.log('cloneObjectImpl: source = ', source, ', options = ', options);
@@ -140,16 +149,16 @@ function cloneObjectImpl(source, options, cache) {
 }
 
 /**
- * Clone函数的具体实现。
+ * The implementation of the `clone` function.
  *
  * @param {Object} source
- *     待克隆的对象。
+ *     The object to be cloned.
  * @param {Object} options
- *     克隆算法的参数。
- * @param {Map} cache
- *     对象缓存，用于防止出现循环引用对象。
- * @author 胡海星
+ *     The options of the cloning algorithm.
+ * @param {WeakMap} cache
+ *     The object cache used to prevent circular references.
  * @private
+ * @author Haixing Hu
  */
 function cloneImpl(source, options, cache) {
   // Return primitive and Function values directly
@@ -199,11 +208,13 @@ function cloneImpl(source, options, cache) {
       return result;
     }
     case MapPrototype: {
-      const result = new Map();       // eslint-disable-line no-undef
+      // eslint-disable-next-line no-undef
+      const result = new Map();
       cache.set(source, result);
       mirror(source, result, options, cache);
       for (const [key, val] of source.entries()) {
-        result.set(cloneImpl(key, options, cache), cloneImpl(val, options, cache));
+        result.set(cloneImpl(key, options, cache),
+          cloneImpl(val, options, cache));
       }
       return result;
     }
@@ -219,7 +230,8 @@ function cloneImpl(source, options, cache) {
       return result;
     }
     case PromisePrototype: {
-      const result = new Promise(source.then.bind(source)); // eslint-disable-line no-undef
+      // eslint-disable-next-line no-undef
+      const result = new Promise(source.then.bind(source));
       mirror(source, result, options, cache);
       return result;
     }
@@ -229,7 +241,8 @@ function cloneImpl(source, options, cache) {
       return result;
     }
     case SetPrototype: {
-      const result = new Set();   // eslint-disable-line no-undef
+      // eslint-disable-next-line no-undef
+      const result = new Set();
       cache.set(source, result);
       mirror(source, result, options, cache);
       for (const val of source) {
@@ -266,66 +279,77 @@ function cloneImpl(source, options, cache) {
     }
     case DataViewPrototype: {
       const buffer = cloneImpl(source.buffer, options, cache);
-      const result = new DataView(buffer, source.byteOffset, source.byteLength); // eslint-disable-line no-undef
+      // eslint-disable-next-line no-undef
+      const result = new DataView(buffer, source.byteOffset, source.byteLength);
       mirror(source, result, options, cache);
       return result;
     }
     case BigInt64ArrayPrototype: {
-      const result = new BigInt64Array(source); // eslint-disable-line no-undef
+      // eslint-disable-next-line no-undef
+      const result = new BigInt64Array(source);
       mirror(source, result, options, cache);
       return result;
     }
     case BigUint64ArrayPrototype: {
-      const result = new BigUint64Array(source);  // eslint-disable-line no-undef
+      // eslint-disable-next-line no-undef
+      const result = new BigUint64Array(source);
       mirror(source, result, options, cache);
       return result;
     }
     case Float32ArrayPrototype: {
-      const result = new Float32Array(source);  // eslint-disable-line no-undef
+      // eslint-disable-next-line no-undef
+      const result = new Float32Array(source);
       mirror(source, result, options, cache);
       return result;
     }
     case Float64ArrayPrototype: {
-      const result = new Float64Array(source);  // eslint-disable-line no-undef
+      // eslint-disable-next-line no-undef
+      const result = new Float64Array(source);
       mirror(source, result, options, cache);
       return result;
     }
     case Int8ArrayPrototype: {
-      const result = new Int8Array(source);     // eslint-disable-line no-undef
+      // eslint-disable-next-line no-undef
+      const result = new Int8Array(source);
       mirror(source, result, options, cache);
       return result;
     }
     case Int16ArrayPrototype: {
-      const result = new Int16Array(source);    // eslint-disable-line no-undef
+      // eslint-disable-next-line no-undef
+      const result = new Int16Array(source);
       mirror(source, result, options, cache);
       return result;
     }
     case Int32ArrayPrototype: {
-      const result = new Int32Array(source);    // eslint-disable-line no-undef
+      // eslint-disable-next-line no-undef
+      const result = new Int32Array(source);
       mirror(source, result, options, cache);
       return result;
     }
     case Uint8ArrayPrototype: {
-      const result = new Uint8Array(source);    // eslint-disable-line no-undef
+      // eslint-disable-next-line no-undef
+      const result = new Uint8Array(source);
       mirror(source, result, options, cache);
       return result;
     }
     case Uint8ClampedArrayPrototype: {
-      const result = new Uint8ClampedArray(source);   // eslint-disable-line no-undef
+      // eslint-disable-next-line no-undef
+      const result = new Uint8ClampedArray(source);
       mirror(source, result, options, cache);
       return result;
     }
     case Uint16ArrayPrototype: {
-      const result = new Uint16Array(source);   // eslint-disable-line no-undef
+      // eslint-disable-next-line no-undef
+      const result = new Uint16Array(source);
       mirror(source, result, options, cache);
       return result;
     }
     case Uint32ArrayPrototype: {
-      const result = new Uint32Array(source);   // eslint-disable-line no-undef
+      // eslint-disable-next-line no-undef
+      const result = new Uint32Array(source);
       mirror(source, result, options, cache);
       return result;
     }
-    // == ERRORS == //
     case Error.prototype: {
       const result = new Error(source.message, source.fileName, source.lineNumber);
       mirror(source, result, options, cache);
@@ -363,7 +387,8 @@ function cloneImpl(source, options, cache) {
     }
     case null:  // fallback
     default: {  // Likely a user-defined type
-      // 注意，有些Array对象会被修改原型(prototype)，例如被Vue托管的Array对象
+      // Note that some `Array` objects may have their prototype modified, such
+      // as the Array objects managed by `Vue`.
       if (Array.isArray(source)) {
         return cloneArrayImpl(source, options, cache);
       } else {
@@ -374,35 +399,44 @@ function cloneImpl(source, options, cache) {
 }
 
 /**
- * 深度克隆一个值或对象。
+ * Deep clone a value or an object.
  *
- * 注意，为了支持`Vue.js`对对象的响应式监控，我们只复制对象的`enumerable`属性，并且
- * 不考虑对象的`getter/setter`，而是直接把源对象的属性值取出来（可能是调用了源对象
- * 对应属性的`getter`），递归地深度克隆后复制到目标对象中（可能是调用了目标对象对
- * 应属性的`setter`）。
+ * **NOTE:** In order to support the reactivity of Vue.js, we only copy the
+ * enumerable properties of the object, and do not consider the getters and
+ * setters of the object. We directly take out the property value from the
+ * source object (possibly by calling the getter), recursively deep-clone it
+ * and copy it to the target object (possibly by calling the setter).
+ *
+ * The cloning algorithm have the following options:
+ *
+ * - `includeAccessor` - If this options is set to `true`, the cloning algorithm
+ *   will clone the accessors of the properties (i.e. getters and setters) from
+ *   the source object. The default value of this option is `false`.
+ * - `includeNonEnumerable` - If this options is set to `true`, the cloning
+ *   algorithm will clone the non-enumerable attributes from the source object.
+ *   The default value of this option is `false`.
+ * - `includeReadonly` - If this options is set to `true`, the cloning algorithm
+ *   will clone the readonly attributes from the source object. The default
+ *   value of this option is `true`.
+ * - `includeNonConfigurable` - If this options is set to `true`, the cloning
+ *   algorithm will clone the non-configurable attributes from the source
+ *   object. The default value of this option is `false`.
  *
  * @param {any} source
- *     待克隆的值或对象。
+ *     The value or object to be cloned.
  * @param {Object} options
- *     可选，克隆算法的参数。默认值为空对象。目前可选的参数有：
- *     - `includeAccessor` - 此参数为 `true` 表示克隆对象属性的 accessor (即 getter
- *     和 setter )，默认值为 `false`；
- *     - `includeNonEnumerable` - 此参数为 `true` 表示克隆对象的 non-enumerable 属
- *     性，默认值为 `false` ；
- *     - `includeReadonly` - 此参数为 `true` 表示克隆对象的 readonly 属性，默认值为
- *     `true` ；
- *     - `includeNonConfigurable` - 此参数为 `true` 表示克隆对象的 non-configurable
- *     属性，默认值为 `false` ；
+ *     Optional argument, representing the options of the cloning algorithm.
+ *     The default value is `{includeReadonly: true}`.
  * @return {any}
- *     指定的值或对象的深度克隆。
- * @author 胡海星
+ *     The deep clone of the specified value or object.
+ * @author Haixing Hu
  */
 function clone(source, options = { includeReadonly: true }) {
   // We want to preserve correct structure in objects with tricky references,
   // e.g. cyclic structures or structures with two references to the same object.
-  // To do this, we'll cache the results of this function during this invokation,
+  // To do this, we'll cache the results of this function during this invocation,
   // and return from this cache when possible.
-  // Note that we only store certiain values, like Arrays or plain object
+  // Note that we only store certain values, like Arrays or plain object.
   const cache = new WeakMap();
   return cloneImpl(source, options, cache);
 }

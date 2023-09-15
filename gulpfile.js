@@ -46,7 +46,7 @@ function test() {
       '\\.js$': 'babel-jest',
       '\\.vue$': 'vue-jest',
     },
-    transformIgnorePatterns: ["/node_modules/"],
+    transformIgnorePatterns: ['/node_modules/(?!@haixing_hu)'],
     testEnvironment: 'jest-environment-jsdom-global',
     setupFilesAfterEnv: ['jest-extended/all'],
     collectCoverage: true,

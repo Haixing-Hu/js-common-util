@@ -8,19 +8,22 @@
  ******************************************************************************/
 
 /**
- * 获取当前地址的query string
+ * Get the query string of the specified URL.
  *
- * 因为Vue.js的地址都是hash形式做路由，因此基本的 window.location.search 不能获得
- * query string。 例如 http://dev.example.com/test/#/finish?params=xxx
+ * Because the addresses of Vue.js are all in hash form for routing, the basic
+ * `window.location.search` cannot be used to obtain the correct query string.
+ * For example: `http://dev.example.com/test/#/finish?params=xxx`
  *
  * @param {String|URL} url
- *     可选，表示待解析的URL地址。若无此参数则使用 window.location.href。
+ *     Optional, indicating the URL address to be parsed. If this argument is
+ *     not provided, the `window.location.href` will be used.
  * @return {String}
- *     URL地址中的query string，不包含?，也不解析其中的参数，也不对URL编码的参数
- *     进行解码。若不存在query string参数，则返回null.
- * @author 胡海星
+ *     The query string in the URL address, which does not contain `?`, nor parsed,
+ *     and the URL-encoded parameters are not decoded. If the query string
+ *     parameter does not exist, null is returned.
+ * @author Haixing Hu
  */
-function getSearch(url) {
+function getSearch(url = undefined) {
   let theUrl;
   if (url === undefined) {
     theUrl = window.location;

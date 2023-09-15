@@ -7,10 +7,9 @@
  *
  ******************************************************************************/
 
-// 定义各类ES5+内置对象的类
+// Classes that define various ES5+ built-in objects
 
 /* eslint-disable no-undef */
-
 export const PromiseClass = (typeof Promise !== 'undefined' ? Promise : undefined);
 export const MapClass = (typeof Map !== 'undefined' ? Map : undefined);
 export const SetClass = (typeof Set !== 'undefined' ? Set : undefined);

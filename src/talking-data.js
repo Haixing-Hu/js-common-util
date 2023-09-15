@@ -7,23 +7,25 @@
  *
  ******************************************************************************/
 import qs from 'qs';
-import { logger } from './logger';
+import Logger from '@haixing_hu/common-logging/src/logger';
 import getSearch from './get-search';
 import addSearchParams from './add-search-params';
 import redirect from './redirect';
 import loadScript from './load-script';
 
 /**
- * TalkingData 的 H5 SDK 的 URL。
+ * The URL of TalkingData’s H5 SDK.
  *
  * @private
  */
 const SDK_URL = 'https://jic.talkingdata.com/app/h5/v1';
 
+const logger = Logger.getLogger('TalkingData');
+
 /**
- * 封装了 TalkingData 应用跟踪的 API 函数。
+ * Encapsulates the API function of TalkingData application tracking.
  *
- * @author 胡海星
+ * @author Haixing Hu
  */
 class TalkingData {
   constructor() {
@@ -31,37 +33,44 @@ class TalkingData {
   }
 
   /**
-   * 初始化 TalkingData 的SDK.
+   * Initialize the SDK of TalkingData.
    *
-   * @param {Object} options
-   *     配置参数对象，必须包含以下属性：default_source，表示应用默认的渠道编码；
-   *     app_name，表示应用名称；app_version，表示应用版本号；talking_data_app_id，
-   *     表示TalkingData的APP ID；
+   * @param {String} appId
+   *     The App ID of the application in TalkingData.
+   * @param {String} appName
+   *     The name of the application.
+   * @param {String} appVersion
+   *     The version of the application.
+   * @param {String} defaultSource
+   *     The optional default source of the application.
    * @return {Promise}
-   *     一个{@link Promise}对象。
-   * @author 胡海星
+   *     A {@link Promise} object.
    */
-  init(options) {
+  init(appId, appName, appVersion, defaultSource) {
     return new Promise((resolve, reject) => {
       logger.info('Initializing the TalkingData SDK ...');
       const search = getSearch();
       const args = qs.parse(search);
       if (!args.source) {
-        let url = addSearchParams({ source: options.default_source });
-        url = addSearchParams({ td_channelid: options.default_source }, url);
+        const url = addSearchParams({
+          td_channelid: defaultSource,
+          source: defaultSource,
+        });
         redirect(url, 0).then(() => resolve(null));
       } else if (!args.td_channelid) {
-        const url = addSearchParams({ td_channelid: args.source });
+        const url = addSearchParams({
+          td_channelid: args.source,
+        });
         redirect(url, 0).then(() => resolve(null));
       } else {
         this.source = args.source;  //  记录渠道代码
-        const url = `${SDK_URL}?appid=${options.talking_data_app_id}&vn=${options.app_name}&vc=${options.app_version}`;
-        logger.info('Loading Talking Data SDK script: {0}', url);
+        const url = `${SDK_URL}?appid=${appId}&vn=${appName}&vc=${appVersion}`;
+        logger.info('Loading Talking Data SDK script:', url);
         loadScript(url).then((script) => {
           logger.info('Successfully loading the Talking Data SDK script.');
           resolve(script);
         }).catch((error) => {
-          logger.error('Failed to load the Talking Data SDK script: {0}', error);
+          logger.error('Failed to load the Talking Data SDK script:', error);
           reject(error);
         });
       }
@@ -69,56 +78,62 @@ class TalkingData {
   }
 
   /**
-   * 触发 Talking Data 应用使用统计跟踪事件。
+   * Triggers the TalkingData application usage statistics tracking event.
    *
-   * 尽量不要直接调用此函数，推荐使用{@link enter}和{@link perform}函数。
+   * Do not call this function directly. It is recommended to use the
+   * {@link enter} and {@link perform} functions.
    *
    * @param {String} event
-   *    事件名称。
+   *     The event.
    * @param {String} label
-   *    标签名称。
-   * @author 胡海星
+   *     The optional tag.
+   * @author Haixing Hu
    */
-  trace(event, label) {
+  trace(event, label = undefined) {
     if (window.TDAPP) {
       if (label) {
-        logger.info(`[TalkingData] ${event} - ${label}`);
+        logger.info('Fire the event: %s (%s)', event, label);
         window.TDAPP.onEvent(event, label);
       } else {
-        logger.info(`[TalkingData] ${event}`);
+        logger.info('Fire the event:', event);
         window.TDAPP.onEvent(event);
       }
     } else if (label) {
-      logger.error(`[TalkingData] ${event} - ${label}: TalkingData SKD was not loaded.`);
+      logger.error('Fire the event: %s (%s), but the TalkingData SKD was not '
+        + 'loaded.', event, label);
     } else {
-      logger.error(`[TalkingData] ${event}: TalkingData SKD was not loaded.`);
+      logger.error('Fire the event: %s, but the TalkingData SKD was not loaded.', event);
     }
   }
 
   /**
-   * 进入一个页面时，触发 Talking Data 应用使用统计跟踪事件。
+   * When visiting a page, a TalkingData application usage statistics tracking
+   * event is triggered.
    *
    * @param {String} page
-   *     进入的页面的名称。
+   *     The name of the page.
    * @param {String} source
-   *     可选，指定的渠道代码；如果不提供此参数，则使用初始化时从URL中获取的渠道码。
+   *     The optional source code. If this parameter is not provided, the
+   *     source code obtained from the URL during initialization is used.
    */
-  enter(page, source) {
-    this.trace(`${page}——进入`, source || this.source);
+  enter(page, source = undefined) {
+    this.trace(`Enter ${page}`, source || this.source);
   }
 
   /**
-   * 在某个页面上进行某种操作时，触发 Talking Data 应用使用统计跟踪事件。
+   * When an operation is performed on a specified page, the TalkingData
+   * application usage statistics tracking event is triggered.
    *
    * @param {String} page
-   *     页面的名称。
+   *     The name of the page.
    * @param {String} action
-   *     操作的名称。
+   *     The name of the operation.
    * @param {String} source
-   *     可选，指定的渠道代码；如果不提供此参数，则使用初始化时从URL中获取的渠道码。
+   *     The optional source code. if this parameter is not provided, the
+   *     source code obtained from the URL during initialization is used.
    */
-  perform(page, action, source) {
-    this.trace(`${page}——操作——${action}`, source || this.source);
+  perform(page, action, source = undefined) {
+    this.trace(`Enter ${page} and perform ${action}`, source || this.source);
   }
 }
 

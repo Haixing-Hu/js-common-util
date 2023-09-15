@@ -6,42 +6,51 @@
  *    All rights reserved.
  *
  ******************************************************************************/
-import deepEqual from 'deep-equal';
+import deepEqual from './deep-equal';
 import clone from './clone';
 
 /**
- * 将源对象的所有属性值，复制到目标对象的对应属性中，但仅仅更改那些不同的属性值
- * （通过{@link deepEqual}判定），返回一个对象包含所有被更改过的属性值。
+ * Copies all attribute values of the source object to the corresponding
+ * attributes of the target object, but only changes those different attribute
+ * values (determined by {@link deepEqual}), and returns an object containing
+ * all changed attribute values.
  *
  * @param {Object} target
- *     目标对象，必须是一个{@link Object}，可以是用户自定义类。调用此函数后将更改
- *     此对象的某些属性。
+ *     The target object, which can be an instance of a user-defined class.
+ *     Calling this function will change some properties of this object.
  * @param {Object} source
- *     源对象，必须是一个{@link Object}，可以是用户自定义类。可以和target
- *     具有不同的prototype（即可以是不同的类）。
+ *     The source object, which can be an instance of a user-defined class. It
+ *     can have a different prototype than the target (that is, they can be of
+ *     different classes).
  * @param {Object} changes
- *     可选，用于存储source对象所有更改的属性值的深度克隆。默认值为一个
- *     空对象。
+ *     Optional argument, which will be used to store the deep clones of changed
+ *     property of the source object. The default value of this argument is an
+ *     empty object.
  * @return {Object}
- *     对于target对象的所有属性，此函数将source对象中同名属性的值，
- *     深度克隆后复制到source对象的对应属性中，但仅仅更改那些target
- *     和source中不同的属性值（通过{@link deepEqual}判定）；此函数会将所
- *     有更改后的属性值，复制一份深度拷贝到changes参数对象中，并最终返回
- *     changes对象。
- * @author 胡海星
+ *     For all attributes of the target object, this function deep clones the
+ *     value of the attribute with the same name in the source object and copies
+ *     it to the corresponding attribute of the source object, but only changes
+ *     the attribute values that are different in the target and source
+ *     (determined by {@link deepEqual} ). This function will make a deep copy
+ *     of all changed attribute values into the changes parameter object, and
+ *     finally return the changes object.
+ * @author Haixing Hu
  */
 function assign(target, source, changes = {}) {
-  if (target === undefined || target === null
-      || source === undefined || source === null
-      || typeof target !== 'object' || typeof source !== 'object') {
+  if ((target === undefined)
+      || (target === null)
+      || (source === undefined)
+      || (source === null)
+      || (typeof target !== 'object')
+      || (typeof source !== 'object')) {
     return changes;
   }
   Object.keys(target).forEach((prop) => {
     const our = target[prop];
     const their = source[prop];
-    if (their !== undefined && their !== null && !deepEqual(their, our)) {
-      target[prop] = clone(their);  // 注意这里需要deep clone属性值
-      changes[prop] = clone(their); // 注意这里需要deep clone属性值
+    if ((their !== undefined)&& (their !== null) && !deepEqual(their, our)) {
+      target[prop] = clone(their);  // Note that a deep clone is required here.
+      changes[prop] = clone(their); // Note that a deep clone is required here.
     }
   });
   return changes;

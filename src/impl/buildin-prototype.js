@@ -7,10 +7,9 @@
  *
  ******************************************************************************/
 
-// 定义各类ES5+内置对象的prototype
+// Define prototypes for various ES5+ built-in objects
 
 /* eslint-disable no-undef */
-
 export const PromisePrototype = (typeof Promise !== 'undefined' ? Promise.prototype : undefined);
 export const MapPrototype = (typeof Map !== 'undefined' ? Map.prototype : undefined);
 export const SetPrototype = (typeof Set !== 'undefined' ? Set.prototype : undefined);

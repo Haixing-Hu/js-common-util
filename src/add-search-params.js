@@ -11,19 +11,24 @@ import getSearch from './get-search';
 import getHash from './get-hash';
 
 /**
- * 在当前地址的query string中添加一个参数，注意添加的参数会被URL编码。
+ * Add a parameter to the query string of the current address. Note that the
+ * added parameter will be URL encoded.
  *
- * 因为Vue.js的地址都是hash形式做路由，因此基本的 window.location.search 不能获得
- * query string。 例如 http://dev.example.com/test/#/finish?params=xxx
+ * Because the addresses of Vue.js are all in hash form for routing, the basic
+ * `window.location.search` cannot be used to obtain the ocrrect query string.
+ * For example: `http://dev.example.com/test/#/finish?params=xxx`.
  *
  * @param {Object} params
- *     待添加的参数对象，其每个属性名称和属性值都会被作为key-value添加到当前地址
- *     的query string。
+ *     Each attribute name and attribute value of this argument will be added
+ *     to the query string of the current address as a key-value pair.
  * @param {String|URL} url
- *     字符串或URL对象，可选参数。表示待解析的URL地址。若无此参数则使用`window.location`。
+ *     An optional argument, indicating the URL address to be parsed, as a
+ *     `String` or `URL` object. If this argument is missing, `window.location`
+ *     is used.
  * @returns {String}
- *     添加了指定参数的新的链接地址，并且被正确正则化。
- * @author 谷贤旺
+ *     A new link address with the specified parameters added and properly
+ *     regularized.
+ * @author Haixing Hu
  */
 function addSearchParams(params, url = window.location) {
   if (url === undefined) {

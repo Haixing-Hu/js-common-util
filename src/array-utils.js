@@ -8,24 +8,26 @@
  ******************************************************************************/
 
 /**
- * 提供 JavaScript 原生数组的辅助函数。
+ * Provides helper functions for JavaScript native arrays.
  *
- * @author 胡海星
+ * @author Haixing Hu
  */
 const ArrayUtils = {
 
   /**
-   * 从数组中删除指定的元素。
+   * Removes the specified element from the array.
    *
-   * 此函数通过'==='比较元素。
+   * This function compares elements via `===`.
    *
    * @param {Array} array
-   *     指定的数组。
+   *     the specified array.
    * @param {*} element
-   *     待删除的元素。
+   *     The element to be deleted.
    * @returns {boolean}
-   *     若数组中存在指定的元素，则删除第一个这样的元素并返回{@code true}；否则返回
-   *     {@code false}。
+   *     If the specified element exists in the array, delete the first such
+   *     element and return {@code true}; otherwise return {@code false}.
+   * @see {@link removeIf}
+   * @author Haixing Hu
    */
   remove(array, element) {
     for (let i = 0; i < array.length; ++i) {
@@ -38,15 +40,17 @@ const ArrayUtils = {
   },
 
   /**
-   * 从数组中删除满足条件的元素。
+   * Remove elements that meet the condition from the array.
    *
    * @param {Array} array
-   *     指定的数组。
+   *     the specified array.
    * @param {Function} predicate
-   *     待删除元素需要满足的条件。
+   *     Conditions that need to be met for the element to be deleted.
    * @returns {boolean}
-   *     若数组中存在满足条件的元素，则删除第一个这样的元素并返回{@code true}；否则返回
-   *     {@code false}。
+   *     If there is an element in the array that satisfies the specified
+   *     predicate, deletes the first such element and returns {@code true};
+   *     otherwise, returns {@code false}.
+   * @author Haixing Hu
    */
   removeIf(array, predicate) {
     for (let i = 0; i < array.length; ++i) {

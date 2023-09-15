@@ -9,13 +9,14 @@
 import isHtmlElementHasClass from './is-html-element-has-class';
 
 /**
- * 为指定的HTML元素添加指定的CSS类。
+ * Adds CSS classes to the specified HTML element.
  *
  * @param {HTMLElement} el
- *     指定的HTML元素对象。
+ *     The specified HTML element object.
  * @param {String} cls
- *     待添加的CSS类名；可以是多个类名，用空格隔开。
- * @author 胡海星
+ *     The name of the CSS class to be added; it can be multiple class names,
+ *     separated by spaces.
+ * @author Haixing Hu
  */
 function addClassToHmlElement(el, cls) {
   if (!el) {

@@ -12,35 +12,24 @@ const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const { merge } = require('webpack-merge');
 
 /**
- * 所有环境下的公共配置。
+ * Common configuration across all environments.
  */
 const commonConfig = {
   entry: resolve(__dirname, 'main.js'),
   output: {
-    filename: 'common-util.min.js',
+    filename: 'common-utils.js',
     library: {
-      name: 'common-util',
+      name: 'commonUtils',
       type: 'umd',
     },
     globalObject: 'this',
   },
   devtool: 'source-map',
-  mode: 'production',
+  mode: 'development',
   stats: 'summary',
   target: ['web', 'es5'],
-  optimization: {
-    minimize: true,
-    minimizer: [
-      new TerserPlugin({
-        terserOptions: {
-          compress: {
-            drop_debugger: true,
-            drop_console: true,
-            // pure_funcs: ['console.log'],
-          },
-        },
-      }),
-    ],
+  externals: {
+    '@haixing_hu/common-logging': 'es5 @haixing_hu/common-logging',
   },
   module: {
     rules: [{
@@ -60,7 +49,31 @@ const commonConfig = {
 };
 
 /**
- * 模块分析配置。
+ * Configuration for production environment.
+ */
+const productionConfig = {
+  output: {
+    filename: 'common-utils.min.js',
+  },
+  devtool: 'source-map',
+  mode: 'production',
+  optimization: {
+    minimize: true,
+    minimizer: [
+      new TerserPlugin({
+        terserOptions: {
+          compress: {
+            drop_debugger: true,
+            drop_console: false,
+          },
+        },
+      }),
+    ],
+  },
+};
+
+/**
+ * Module analysis configuration.
  */
 const analyzerConfig = {
   plugins: [
@@ -68,4 +81,11 @@ const analyzerConfig = {
   ],
 };
 
-module.exports = (process.env.USE_ANALYZER ? merge(commonConfig, analyzerConfig) : commonConfig);
+let config = commonConfig;
+if (process.env.NODE_ENV === 'production') {
+  config = merge(config, productionConfig);
+}
+if (process.env.USE_ANALYZER) {
+  config = merge(config, analyzerConfig);
+}
+module.exports = config;

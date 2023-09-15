@@ -6,25 +6,30 @@
  *    All rights reserved.
  *
  ******************************************************************************/
-import { logger } from './logger';
+import Logger from '@haixing_hu/common-logging/src/logger';
 
 const DEFAULT_TIMEOUT = 300;
 
 /**
- * 跳转至指定的URL
+ * Jumps to the specified URL.
  *
  * @param {String} url
- *     待跳转至的URL
+ *     The URL to be redirected to.
  * @param {Number} timeout
- *     可选参数，表示跳转延时，单位为毫秒。如未指定则使用配置中的默认延时。
+ *     Optional parameter, indicating jump delay, is milliseconds. If not
+ *     specified, the default delay in the configuration `DEFAULT_TIMEOUT`
+ *     (300ms) is used.
  * @return {Promise}
- *     一个{@link Promise}对象。
- * @author 胡海星
+ *     A {@link Promise} object, whose resolving value is the URL to be
+ *     redirected to.
+ * @author Haixing Hu
  */
 function redirect(url, timeout = DEFAULT_TIMEOUT) {
-  // 为了让页面上的 Toaster 消息正确显示出来，不能立即跳转，而应该等待一小段时间
+  // In order for the toaster message on the page to be displayed correctly,
+  // you cannot jump immediately, but should wait for a short period of time.
+  const logger = Logger.getLogger('redirect');
   return new Promise((resolve) => {
-    logger.info('Redirecting to {0}', url);
+    logger.info('Redirecting to', url);
     setTimeout(() => {
       window.location.href = url;
       resolve(url);
