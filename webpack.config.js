@@ -29,7 +29,7 @@ const commonConfig = {
   stats: 'summary',
   target: ['web', 'es5'],
   externals: {
-    '@haixing_hu/common-logging': 'es5 @haixing_hu/common-logging',
+    '@haixing_hu/common-logging/src/logger': '@haixing_hu/common-logging/src/logger',
   },
   module: {
     rules: [{

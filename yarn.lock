@@ -1055,10 +1055,10 @@
   resolved "https://registry.npmmirror.com/@eslint/js/-/js-8.43.0.tgz#559ca3d9ddbd6bf907ad524320a0d14b85586af0"
   integrity sha512-s2UHCoiXfxMvmfzqoN+vrQ84ahUSYde9qNO1MdxmoEhyHWsfmwOpFlwYV+ePJEVc7gFnATGUi376WowX1N7tFg==
 
-"@haixing_hu/common-logging@^0.3.1":
-  version "0.3.1"
-  resolved "https://registry.npmjs.org/@haixing_hu/common-logging/-/common-logging-0.3.1.tgz#728bd8f3fb31e9b76d00521749ffdd41cebdd91c"
-  integrity sha512-vYUeaac7w2D+mPcODc0x9Cj5AJRDfEZ4Z9/goGhuJjLmBVXCHPctyo4D7uAjB290mno1sJDZwz8PodMyisq4Zg==
+"@haixing_hu/common-logging@^0.3.3":
+  version "0.3.3"
+  resolved "https://registry.npmjs.org/@haixing_hu/common-logging/-/common-logging-0.3.3.tgz#2174d5dc0630c1f757313c094f83da187333734d"
+  integrity sha512-cY7fnhScJLPbZ2oXy572yjQvszrIGm2yEDfgX2gY41r6BJDiDAWlp/WBbSTTsz5U7yFBh/hFY2f3DXTq5DsTCQ==
 
 "@haixing_hu/eslint-config@^1.0.0":
   version "1.0.0"
