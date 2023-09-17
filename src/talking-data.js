@@ -46,34 +46,39 @@ class TalkingData {
    * @return {Promise}
    *     A {@link Promise} object.
    */
-  init(appId, appName, appVersion, defaultSource) {
+  init(appId, appName, appVersion, defaultSource = undefined) {
     return new Promise((resolve, reject) => {
       logger.info('Initializing the TalkingData SDK ...');
       const search = getSearch();
       const args = qs.parse(search);
       if (!args.source) {
-        const url = addSearchParams({
-          td_channelid: defaultSource,
-          source: defaultSource,
-        });
-        redirect(url, 0).then(() => resolve(null));
+        if (defaultSource) {
+          const url = addSearchParams({
+            td_channelid: defaultSource,
+            source: defaultSource,
+          });
+          redirect(url, 0).then(() => resolve(null));
+          return;
+        }
+        // if the `defaultSource` is `undefined`, pass through
       } else if (!args.td_channelid) {
         const url = addSearchParams({
           td_channelid: args.source,
         });
         redirect(url, 0).then(() => resolve(null));
-      } else {
-        this.source = args.source;  //  记录渠道代码
-        const url = `${SDK_URL}?appid=${appId}&vn=${appName}&vc=${appVersion}`;
-        logger.info('Loading Talking Data SDK script:', url);
-        loadScript(url).then((script) => {
-          logger.info('Successfully loading the Talking Data SDK script.');
-          resolve(script);
-        }).catch((error) => {
-          logger.error('Failed to load the Talking Data SDK script:', error);
-          reject(error);
-        });
+        return;
       }
+      // Remember the source. Note that the source maybe `undefined`
+      this.source = args.source || defaultSource;
+      const url = `${SDK_URL}?appid=${appId}&vn=${appName}&vc=${appVersion}`;
+      logger.info('Loading Talking Data SDK script:', url);
+      loadScript(url).then((script) => {
+        logger.info('Successfully loading the Talking Data SDK script.');
+        resolve(script);
+      }).catch((error) => {
+        logger.error('Failed to load the Talking Data SDK script:', error);
+        reject(error);
+      });
     });
   }
 

@@ -1,6 +1,6 @@
 {
   "name": "@haixing_hu/common-util",
-  "version": "2.11.2",
+  "version": "2.11.3",
   "description": "A JavaScript ES6 library of common utility functions",
   "main": "dist/common-util.min.js",
   "scripts": {
