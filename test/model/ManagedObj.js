@@ -9,7 +9,6 @@
 import Credential from './Credential';
 
 class ManagedObj {
-
   intField = 0;
 
   strField = 'hello';
@@ -18,11 +17,11 @@ class ManagedObj {
 
   objField = new Credential('IDENTITY_CARD', '123');
 
-  objArray = [ new Credential('IDENTITY_CARD', '123'), new Credential('PASSPORT', 'abc') ];
+  objArray = [new Credential('IDENTITY_CARD', '123'), new Credential('PASSPORT', 'abc')];
 
   arrayArray = [
-    [ new Credential('IDENTITY_CARD', '123'), new Credential('PASSPORT', 'abc') ],
-    [ new Credential('IDENTITY_CARD', '456'), new Credential('PASSPORT', 'def') ],
+    [new Credential('IDENTITY_CARD', '123'), new Credential('PASSPORT', 'abc')],
+    [new Credential('IDENTITY_CARD', '456'), new Credential('PASSPORT', 'def')],
   ];
 }
 

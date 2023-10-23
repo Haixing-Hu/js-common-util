@@ -14,7 +14,7 @@ import Person from './Person';
  * @author 胡海星
  */
 class Buyer extends Person {
- // empty
+  // empty
 }
 
 export default Buyer;

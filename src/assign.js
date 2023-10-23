@@ -48,7 +48,7 @@ function assign(target, source, changes = {}) {
   Object.keys(target).forEach((prop) => {
     const our = target[prop];
     const their = source[prop];
-    if ((their !== undefined)&& (their !== null) && !deepEqual(their, our)) {
+    if ((their !== undefined) && (their !== null) && !deepEqual(their, our)) {
       target[prop] = clone(their);  // Note that a deep clone is required here.
       changes[prop] = clone(their); // Note that a deep clone is required here.
     }

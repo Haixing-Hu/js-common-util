@@ -58,5 +58,4 @@ describe('stringToMoney', () => {
     const digits = 4;
     expect(stringToMoney(value, digits)).toBe(0.1250);
   });
-
 });

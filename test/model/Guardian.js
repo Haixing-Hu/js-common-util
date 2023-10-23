@@ -14,7 +14,7 @@ import Person from './Person';
  * @author 胡海星
  */
 class Guardian extends Person {
- // empty
+  // empty
 }
 
 export default Guardian;
