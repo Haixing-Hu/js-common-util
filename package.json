@@ -4,12 +4,12 @@
   "description": "A JavaScript ES6 library of common utility functions",
   "main": "dist/common-util.min.js",
   "scripts": {
+    "clean": "rm -rvf dist doc",
     "build": "cross-env NODE_ENV=production gulp build",
     "build:dev": "cross-env NODE_ENV=development gulp build",
-    "test": "gulp test",
+    "test": "jest",
     "lint": "eslint ./src ./test",
-    "doc": "gulp doc",
-    "doc:server": "gulp doc:server",
+    "doc": "jsdoc -c jsdoc.json",
     "analyze": "cross-env USE_ANALYZER=true NODE_ENV=production gulp build",
     "analyze:dev": "cross-env USE_ANALYZER=true NODE_ENV=development gulp build",
     "es5": "check-es-version -e 5 -s true",
@@ -31,7 +31,7 @@
     ]
   },
   "peerDependencies": {
-    "@haixing_hu/common-logging": "^0.3.3"
+    "@haixing_hu/common-logging": "^1.0.0"
   },
   "dependencies": {
     "deep-equal": "^2.0.5",
@@ -68,7 +68,7 @@
     "gulp-if": "^3.0.0",
     "gulp-jest": "^4.0.4",
     "gulp-jsdoc3": "^3.0.0",
-    "jest": "^27.3.1",
+    "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
     "jest-environment-jsdom-global": "^4.0.0",
     "jest-extended": "^1.1.0",

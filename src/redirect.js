@@ -6,7 +6,7 @@
  *    All rights reserved.
  *
  ******************************************************************************/
-import Logger from '@haixing_hu/common-logging/src/logger';
+import { Logger } from '@haixing_hu/common-logging';
 
 const DEFAULT_TIMEOUT = 300;
 
