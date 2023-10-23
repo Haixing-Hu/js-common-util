@@ -6,7 +6,7 @@
  *    All rights reserved.
  *
  ******************************************************************************/
-import { round } from '../main';
+import { round } from '../src';
 
 /**
  * 单元测试 'round' 函数

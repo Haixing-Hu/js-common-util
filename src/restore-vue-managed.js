@@ -79,8 +79,8 @@ const Impl = {
     const result = {};
     for (const key in obj) {
       if (Object.prototype.hasOwnProperty.call(obj, key)) {
-        const prop = this.restore(obj[key]);        // 递归还原对象每个可枚举属性
-        result[key] = prop;
+        // 递归还原对象每个可枚举属性
+        result[key] = this.restore(obj[key]);
       }
     }
     return result;

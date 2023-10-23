@@ -6,7 +6,7 @@
  *    All rights reserved.
  *
  ******************************************************************************/
-import { getDeclaringClass } from '../main';
+import { getDeclaringClass } from '../src';
 
 /**
   * 单元测试 'getDeclaringClass'

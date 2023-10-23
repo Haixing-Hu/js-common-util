@@ -6,7 +6,7 @@
  *    All rights reserved.
  *
  ******************************************************************************/
-import { ArrayUtils } from '../main';
+import { ArrayUtils } from '../src';
 
 /**
  * 单元测试 'ArrayUtils.remove()'

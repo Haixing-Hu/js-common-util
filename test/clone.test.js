@@ -9,7 +9,7 @@
 /* eslint-disable max-classes-per-file */
 import Vue from 'vue';
 import { mount } from '@vue/test-utils';
-import { clone } from '../main';
+import { clone } from '../src';
 import CredentialType from './model/CredentialType';
 import Credential from './model/Credential';
 import Gender from './model/Gender';

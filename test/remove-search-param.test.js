@@ -7,7 +7,7 @@
  *
  ******************************************************************************/
 import queryString from 'qs';
-import { getSearch, removeSearchParam } from '../main';
+import { getSearch, removeSearchParam } from '../src';
 
 /**
  * 单元测试 'removeSearchParam'

@@ -6,7 +6,7 @@
  *    All rights reserved.
  *
  ******************************************************************************/
-import { jsonStringify } from '../main';
+import { jsonStringify } from '../src';
 
 /**
  * 单元测试 'jsonStringify'

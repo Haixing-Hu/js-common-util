@@ -8,7 +8,7 @@
  ******************************************************************************/
 import Vue from 'vue';
 import { mount } from '@vue/test-utils';
-import { removeEmptyFields } from '../main';
+import { removeEmptyFields } from '../src';
 import ShallowObject from './model/ShallowObject';
 import DeepObject from './model/DeepObject';
 import Insurant from './model/Insurant';

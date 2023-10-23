@@ -6,7 +6,7 @@
  *    All rights reserved.
  *
  ******************************************************************************/
-import { isUndefinedOrNullOrEmptyArray } from '../main';
+import { isUndefinedOrNullOrEmptyArray } from '../src';
 
 /**
  * 单元测试 'isUndefinedOrNullOrEmptyArray'

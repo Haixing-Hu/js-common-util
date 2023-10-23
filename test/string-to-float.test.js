@@ -6,7 +6,7 @@
  *    All rights reserved.
  *
  ******************************************************************************/
-import { stringToFloat } from '../main';
+import { stringToFloat } from '../src';
 
 /**
  * 单元测试 'stringToFloat' 函数

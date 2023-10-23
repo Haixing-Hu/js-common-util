@@ -6,7 +6,7 @@
  *    All rights reserved.
  *
  ******************************************************************************/
-import { decycle } from '../main';
+import { decycle } from '../src';
 
 /**
  * 单元测试 'decycle'

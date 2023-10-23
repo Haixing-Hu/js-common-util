@@ -6,7 +6,7 @@
  *    All rights reserved.
  *
  ******************************************************************************/
-import { assign } from '../main';
+import { assign } from '../src';
 import CredentialType from './model/CredentialType';
 import Credential from './model/Credential';
 import Gender from './model/Gender';

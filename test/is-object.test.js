@@ -6,7 +6,7 @@
  *    All rights reserved.
  *
  ******************************************************************************/
-import { isObject } from '../main';
+import { isObject } from '../src';
 
 /**
  * 单元测试 'isObject'

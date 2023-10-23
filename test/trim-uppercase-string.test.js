@@ -6,7 +6,7 @@
  *    All rights reserved.
  *
  ******************************************************************************/
-import { trimUppercaseString } from '../main';
+import { trimUppercaseString } from '../src';
 
 /**
  * 单元测试 'trimUppercaseString' 函数

@@ -6,7 +6,7 @@
  *    All rights reserved.
  *
  ******************************************************************************/
-import { isUndefinedOrNullOrEmptyString } from '../main';
+import { isUndefinedOrNullOrEmptyString } from '../src';
 
 /**
  * 单元测试 'isUndefinedOrNullOrEmptyString'

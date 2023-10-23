@@ -6,7 +6,7 @@
  *    All rights reserved.
  *
  ******************************************************************************/
-import { emptyFieldsToNull } from '../main';
+import { emptyFieldsToNull } from '../src';
 import ShallowObject from './model/ShallowObject';
 import DeepObject from './model/DeepObject';
 

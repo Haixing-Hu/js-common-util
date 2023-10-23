@@ -6,7 +6,7 @@
  *    All rights reserved.
  *
  ******************************************************************************/
-import { isBuiltInClass } from '../main';
+import { isBuiltInClass } from '../src';
 
 /**
  * 单元测试 'isBuiltInClass'

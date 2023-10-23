@@ -6,7 +6,7 @@
  *    All rights reserved.
  *
  ******************************************************************************/
-import { stringToMoney } from '../main';
+import { stringToMoney } from '../src';
 
 /**
  * 单元测试 'stringToMoney' 函数

@@ -6,7 +6,7 @@
  *    All rights reserved.
  *
  ******************************************************************************/
-import { getParsedSearch } from '../main';
+import { getParsedSearch } from '../src';
 
 /**
  * 单元测试 'getParsedSearch'

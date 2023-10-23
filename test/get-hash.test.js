@@ -6,7 +6,7 @@
  *    All rights reserved.
  *
  ******************************************************************************/
-import { getHash } from '../main';
+import { getHash } from '../src';
 
 /**
  * 单元测试 'getHash'

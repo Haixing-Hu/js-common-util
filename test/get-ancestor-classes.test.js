@@ -6,7 +6,7 @@
  *    All rights reserved.
  *
  ******************************************************************************/
-import { getAncestorClasses } from '../main';
+import { getAncestorClasses } from '../src';
 
 /**
   * 单元测试 'getAncestorClasses'

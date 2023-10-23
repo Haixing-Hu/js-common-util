@@ -6,7 +6,7 @@
  *    All rights reserved.
  *
  ******************************************************************************/
-import { uriEncode } from '../main';
+import { uriEncode } from '../src';
 
 /**
  * 单元测试 'uriEncode'

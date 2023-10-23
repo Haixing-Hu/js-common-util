@@ -6,7 +6,7 @@
  *    All rights reserved.
  *
  ******************************************************************************/
-import { splitDigits } from '../main';
+import { splitDigits } from '../src';
 
 /**
  * 单元测试 'splitDigits'

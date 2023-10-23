@@ -6,7 +6,7 @@
  *    All rights reserved.
  *
  ******************************************************************************/
-import { isString } from '../main';
+import { isString } from '../src';
 
 /**
  * 单元测试 'isString'

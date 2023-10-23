@@ -6,7 +6,7 @@
  *    All rights reserved.
  *
  ******************************************************************************/
-import { uriDecode } from '../main';
+import { uriDecode } from '../src';
 
 /**
  * 单元测试 'uriDecode'

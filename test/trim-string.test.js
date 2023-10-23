@@ -6,7 +6,7 @@
  *    All rights reserved.
  *
  ******************************************************************************/
-import { trimString } from '../main';
+import { trimString } from '../src';
 
 /**
  * 单元测试 'trimString' 函数

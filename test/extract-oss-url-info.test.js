@@ -6,7 +6,7 @@
  *    All rights reserved.
  *
  ******************************************************************************/
-import { extractOssUrlInfo } from '../main';
+import { extractOssUrlInfo } from '../src';
 
 /**
  * 单元测试 'extractOssUrlInfo'

@@ -7,7 +7,7 @@
  *
  ******************************************************************************/
 import queryString from 'qs';
-import { getSearch, normalizeUrl } from '../main';
+import { getSearch, normalizeUrl } from '../src';
 
 /**
  * 单元测试 'normalizeUrl'
