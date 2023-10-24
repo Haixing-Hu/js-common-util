@@ -1,32 +1,9 @@
 {
   "name": "@haixing_hu/common-util",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "A JavaScript ES6 library of common utility functions",
-  "main": "dist/common-util.cjs.min.js",
-  "module": "dist/common-util.es.min.js",
-  "exports": {
-    ".": {
-      "require": "./dist/common-util.cjs.min.js",
-      "import": "./dist/common-util.es.min.js"
-    }
-  },
-  "files": [
-    "dist"
-  ],
-  "sideEffects": false,
-  "scripts": {
-    "clean": "rm -rvf dist doc",
-    "build": "cross-env NODE_ENV=production rollup -c rollup.config.mjs",
-    "build:dev": "cross-env NODE_ENV=development rollup -c rollup.config.mjs",
-    "build:all": "rm -rvf dist && yarn build && yarn build:dev",
-    "test": "jest --runInBand",
-    "lint": "eslint ./src ./test",
-    "doc": "jsdoc -c jsdoc.json",
-    "es5": "check-es-version -e 5 -s true",
-    "deploy": "yarn && yarn lint && yarn test && yarn build:all && npm publish --registry='https://registry.npmjs.com/' --access public"
-  },
   "author": "Haixing Hu",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Haixing-Hu/js-common-util.git"
@@ -35,6 +12,32 @@
     "url": "https://github.com/Haixing-Hu/js-common-util/issues"
   },
   "homepage": "https://github.com/Haixing-Hu/js-common-util",
+  "main": "dist/common-util.cjs.min.js",
+  "module": "dist/common-util.esm.min.js",
+  "exports": {
+    ".": {
+      "require": "./dist/common-util.cjs.min.js",
+      "import": "./dist/common-util.esm.min.js"
+    }
+  },
+  "files": [
+    "dist",
+    "doc",
+    "LICENSE",
+    "README.md"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "clean": "rm -rvf dist doc",
+    "build": "cross-env NODE_ENV=production rollup -c rollup.config.mjs",
+    "build:dev": "cross-env NODE_ENV=development rollup -c rollup.config.mjs",
+    "build:all": "yarn clean && yarn build && yarn build:dev && yarn doc",
+    "test": "jest --runInBand",
+    "lint": "eslint ./src ./test",
+    "doc": "jsdoc -c jsdoc.json",
+    "es5": "check-es-version -e 5 -s true",
+    "deploy": "yarn && yarn lint && yarn test && yarn build:all && npm publish --registry='https://registry.npmjs.com/' --access public"
+  },
   "browserify": {
     "transform": [
       "babelify"
