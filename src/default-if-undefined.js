@@ -8,15 +8,19 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 /**
- * 如果第一个参数是 undefined，则返回默认值，否则返回该参数的值。
+ * If the first parameter is `undefined`, the default value is returned,
+ * otherwise the value of the parameter is returned.
  *
  * @param {any} value
- *    待判定的值
+ *    The value to be determined.
  * @param {any} defaultValue
- *    默认值
+ *    The default value.
  * @return
- *    若 value 是 undefined，则返回 defaultValue；否则返回 value。
- * @author 胡海星
+ *    If value is `undefined`, `defaultValue` is returned; otherwise `value` is
+ *    returned.
+ * @author Haixing Hu
+ * @deprecated Use the nullish coalescing operator (??) instead.
+ * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Nullish_coalescing
  */
 function defaultIfUndefined(value, defaultValue) {
   return (value === undefined ? defaultValue : value);
