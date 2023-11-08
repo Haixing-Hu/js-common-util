@@ -8,22 +8,24 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 /**
- * 获取指定类的祖先树上所有的类。
+ * Get all classes in the ancestor tree of the specified class.
  *
- * @param {Function} Class
- *     指定的类。
- * @param {Array}
- *     指定的类祖先树上所有的类，按照从当前类向父类方向排序，当前指定的类是返回数组的第一个元素。
- *     若参数不是函数对象，则返回空数组。
+ * @param {function} Class
+ *     the constructor of the specified class.
+ * @return {array}
+ *     The array of the constructors of all classes in ancestor tree of the
+ *     specified class, sorted from the current class to the ancestor class.
+ *     The specified class is the first element of the returned array. If the
+ *     parameter `Class` is not a function, an empty array is returned.
+ * @author Haixing Hu
  */
 function getAncestorClasses(Class) {
   if (typeof Class !== 'function') {
     return [];
   }
-  const PrototypeOfObject = Object.getPrototypeOf(Object);
   const result = [];
   let Current = Class;
-  while (Current !== PrototypeOfObject) {
+  while (Current !== Function.prototype) {
     result.push(Current);
     Current = Object.getPrototypeOf(Current);
   }

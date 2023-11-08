@@ -9,32 +9,32 @@
 import { getAncestorClasses } from '../src';
 
 /**
-  * 单元测试 'getAncestorClasses'
+  * Unit test `getAncestorClasses()`
   *
-  * @author 胡海星
+  * @author Haixing Hu
   */
 describe('getAncestorClasses', () => {
-  test('undefined', () => {
+  test('getAncestorClasses(undefined)', () => {
     const obj = undefined;
     expect(getAncestorClasses(obj)).toEqual([]);
   });
-  test('null', () => {
+  test('getAncestorClasses(null)', () => {
     const obj = null;
     expect(getAncestorClasses(obj)).toEqual([]);
   });
-  test('"abc"', () => {
+  test('getAncestorClasses("abc")', () => {
     const obj = 'abc';
     expect(getAncestorClasses(obj)).toEqual([]);
   });
-  test('Object', () => {
+  test('getAncestorClasses(Object)', () => {
     const obj = Object;
     expect(getAncestorClasses(obj)).toEqual([Object]);
   });
-  test('Foo', () => {
+  test('getAncestorClasses(Foo)', () => {
     class Foo {x = 0;}
     expect(getAncestorClasses(Foo)).toEqual([Foo]);
   });
-  test('C extends B extends A', () => {
+  test('getAncestorClasses(C extends B extends A)', () => {
     class A {}
     class B extends A {}
     class C extends B {}
@@ -42,7 +42,7 @@ describe('getAncestorClasses', () => {
     console.log(ancestors);
     expect(ancestors).toEqual([C, B, A]);
   });
-  test('Foo extends Object', () => {
+  test('getAncestorClasses(Foo extends Object)', () => {
     class Foo extends Object {x = 0;}
     const ancestors = getAncestorClasses(Foo);
     console.log(ancestors);
