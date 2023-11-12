@@ -6,28 +6,7 @@
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
-import {
-  PromisePrototype,
-  MapPrototype,
-  SetPrototype,
-  WeakMapPrototype,
-  WeakSetPrototype,
-  ArrayBufferPrototype,
-  SharedArrayBufferPrototype,
-  DataViewPrototype,
-  BigIntPrototype,
-  BigInt64ArrayPrototype,
-  BigUint64ArrayPrototype,
-  Float32ArrayPrototype,
-  Float64ArrayPrototype,
-  Int8ArrayPrototype,
-  Int16ArrayPrototype,
-  Int32ArrayPrototype,
-  Uint8ArrayPrototype,
-  Uint8ClampedArrayPrototype,
-  Uint16ArrayPrototype,
-  Uint32ArrayPrototype,
-} from './impl/buildin-prototype';
+import kindOf from './kind-of';
 
 /**
  * Copies the properties of the source object to the target object.
@@ -51,9 +30,9 @@ import {
  *     The options of the cloning algorithm.
  * @param {WeakMap} cache
  *     The object cache used to prevent circular references.
- * @private
  * @see https://v2.vuejs.org/v2/guide/reactivity.html
  * @author Haixing Hu
+ * @private
  */
 function mirror(source, result, options, cache) {
   const keys = Reflect.ownKeys(source);
@@ -94,8 +73,8 @@ function mirror(source, result, options, cache) {
  *     The object cache used to prevent circular references.
  * @returns {Array}
  *     The target array.
- * @private
  * @author Haixing Hu
+ * @private
  */
 function cloneArrayImpl(source, options, cache) {
   // console.log('cloneArrayImpl: source = ', source, ', options = ', options);
@@ -136,8 +115,8 @@ function cloneArrayImpl(source, options, cache) {
  *     The object cache used to prevent circular references.
  * @returns {Object}
  *     The target object.
- * @private
  * @author Haixing Hu
+ * @private
  */
 function cloneObjectImpl(source, options, cache) {
   // console.log('cloneObjectImpl: source = ', source, ', options = ', options);
@@ -157,8 +136,8 @@ function cloneObjectImpl(source, options, cache) {
  *     The options of the cloning algorithm.
  * @param {WeakMap} cache
  *     The object cache used to prevent circular references.
- * @private
  * @author Haixing Hu
+ * @private
  */
 function cloneImpl(source, options, cache) {
   // Return primitive and Function values directly
@@ -171,16 +150,16 @@ function cloneImpl(source, options, cache) {
   }
   const prototype = Object.getPrototypeOf(source);
   // console.log('cloneImpl: prototype = ', prototype);
-  switch (prototype) {
+  switch (kindOf(source)) {
     // Some types must be handled specially
     // (For instance if they have any internal slots)
     // I've taken this list from the list of well-known intrinsic objects:
     //   https://tc39.es/ecma262/#sec-well-known-intrinsic-objects
     // This may be overkill, but it will probably most needed cases
-    case Array.prototype: {
+    case 'array': {
       return cloneArrayImpl(source, options, cache);
     }
-    case Boolean.prototype: {
+    case 'boolean': {
       // We must get the primitive value of a Boolean object, since if
       // it is monkey patched, directly conversion by new Boolean(source)
       // will always get a true value. For example,
@@ -194,7 +173,17 @@ function cloneImpl(source, options, cache) {
       mirror(source, result, options, cache);
       return result;
     }
-    case Date.prototype: {
+    case 'number': {
+      const result = new Number(source);
+      mirror(source, result, options, cache);
+      return result;
+    }
+    case 'string': {
+      const result = new String(source);
+      mirror(source, result, options, cache);
+      return result;
+    }
+    case 'date': {
       const result = new Date(
         source.getFullYear(),
         source.getMonth(),
@@ -207,7 +196,13 @@ function cloneImpl(source, options, cache) {
       mirror(source, result, options, cache);
       return result;
     }
-    case MapPrototype: {
+    case 'object': {
+      const result = {};
+      cache.set(source, result);
+      mirror(source, result, options, cache);
+      return result;
+    }
+    case 'map': {
       // eslint-disable-next-line no-undef
       const result = new Map();
       cache.set(source, result);
@@ -218,29 +213,7 @@ function cloneImpl(source, options, cache) {
       }
       return result;
     }
-    case Number.prototype: {
-      const result = new Number(source);
-      mirror(source, result, options, cache);
-      return result;
-    }
-    case Object.prototype: {
-      const result = {};
-      cache.set(source, result);
-      mirror(source, result, options, cache);
-      return result;
-    }
-    case PromisePrototype: {
-      // eslint-disable-next-line no-undef
-      const result = new Promise(source.then.bind(source));
-      mirror(source, result, options, cache);
-      return result;
-    }
-    case RegExp.prototype: {
-      const result = new RegExp(source);
-      mirror(source, result, options, cache);
-      return result;
-    }
-    case SetPrototype: {
+    case 'set': {
       // eslint-disable-next-line no-undef
       const result = new Set();
       cache.set(source, result);
@@ -250,21 +223,28 @@ function cloneImpl(source, options, cache) {
       }
       return result;
     }
-    case String.prototype: {
-      const result = new String(source);
+    case 'weakmap': {        // WeakMaps cannot be cloned :(
+      return source;
+    }
+    case 'weakset': {        // WeakSets cannot be cloned :(
+      return source;
+    }
+    case 'regexp': {
+      const result = new RegExp(source);
       mirror(source, result, options, cache);
       return result;
     }
-    case WeakMapPrototype: {        // WeakMaps cannot be cloned :(
+    case 'promise': {
+      // eslint-disable-next-line no-undef
+      const result = new Promise(source.then.bind(source));
+      mirror(source, result, options, cache);
+      return result;
+    }
+    case 'function':
+    case 'generatorfunction': {      // Functions cannot be cloned :(
       return source;
     }
-    case WeakSetPrototype: {        // WeakSets cannot be cloned :(
-      return source;
-    }
-    case Function.prototype: {      // Functions cannot be cloned :(
-      return source;
-    }
-    case BigIntPrototype: {
+    case 'bigint': {
       return new BigInt(source);    // eslint-disable-line no-undef
     }
     case ArrayBufferPrototype: {
