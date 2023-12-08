@@ -42,6 +42,7 @@ function removeEmptyFields(obj) {
     case 'function':
       return obj;
     case 'object':          // fall down
+    default:
       break;
   }
   switch (info.subtype) {

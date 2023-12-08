@@ -38,8 +38,9 @@ function replacer(key, value) {
         case 'WeakMap':
         case 'WeakSet':
           return [...value];
+        default:
+          return value;
       }
-      return value;
     default:
       return String(value);
   }
