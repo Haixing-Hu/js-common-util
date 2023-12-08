@@ -6,48 +6,61 @@
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
-import kindOf from 'kind-of';
+import typeInfo from '@haixing_hu/typeinfo';
 import jsonBeautify from 'json-beautify';
 import decycle from './decycle';
 
 /**
- * 用于JSON序列化 Set, Map, BigInt 对象的 replacer.
+ * Replacer for JSON serialization of Set, Map, BigInt objects.
  *
  * @param {String} key
- *     当前的主键。
+ *     The current primary key.
  * @param {any} value
- *     当前的值。
+ *     current value.
  * @return {any}
- *     被替换的值。
- * @author 胡海星
+ *     The value to be replaced.
+ * @author Haixing Hu
  * @private
  */
-const replacer = (key, value) => {
-  const type = kindOf(value);
-  switch (type) {
-    case 'bigint':
-      return String(value);
-    case 'map':
-    case 'set':
-      return [...value];
-    default:
+function replacer(key, value) {
+  const info = typeInfo(value);
+  switch (info.type) {
+    case 'null':
+    case 'undefined':
+    case 'string':
+    case 'boolean':
+    case 'number':
       return value;
+    case 'object':
+      switch (info.subtype) {
+        case 'Map':
+        case 'Set':
+        case 'WeakMap':
+        case 'WeakSet':
+          return [...value];
+      }
+      return value;
+    default:
+      return String(value);
   }
-};
+}
 
 /**
- * 将JSON对象序列化为字符串。
+ * Serialize a value to a JSON string.
  *
- * 此函数功能类似{@code JSON.stringify()}，但支持一些ES6以上的内置对象，并可以根据
- * 参数将打印出来的JSON序列化结果字符串格式化。
+ * This function functions similarly to `JSON.stringify()`, but supports some
+ * built-in objects above ES6 and can format the printed JSON serialization
+ * result string according to the arguments.
  *
- * @param {*} value
- *     JSON对象，或内建值。
- * @param {Boolean} beautify
- *     可选，表示是否美化输出的JSON字符串。默认值为{@code false}。
+ * @param {any} value
+ *     The value.
+ * @param {boolean} beautify
+ *     Optional, indicating whether to beautify the output JSON string. The
+ *     default value is `false`.
  * @return {String}
- *     将该对象序列化为字符串的结果，并将结果字符串格式化。
- * @author 胡海星
+ *     The JSON string of the serialization of the specified value, which will
+ *     be formatted if the `beautify` argument is `true`.
+ * @author Haixing Hu
  */
 function jsonStringify(value, beautify = false) {
   if (value === undefined) {
@@ -55,7 +68,7 @@ function jsonStringify(value, beautify = false) {
   } else if (value === null) {
     return 'null';
   }
-  value = decycle(value); // 对可能带有循环引用的对象进行转换
+  value = decycle(value);  // Convert objects that may have circular references
   if (beautify) {
     return jsonBeautify(value, replacer, 2, 80);
   } else {

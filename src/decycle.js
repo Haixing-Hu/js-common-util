@@ -6,57 +6,67 @@
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
-import kindOf from 'kind-of';
+import typeInfo from '@haixing_hu/typeinfo';
 
 /**
- * 递归地转换可能带有循环引用的对象。
+ * Recursively convert objects that may have circular references.
  *
- * 此函数将对象中循环引用的子对象替换为：{"$ref:" PATH} 的形式，其中 PATH 是该
- * 子对象在对象结构树中第一次出现的路径。例如，
- *
- * ```javascript
+ * This function replaces the circularly referenced sub-object in the object
+ * with the form: `{'$ref': PATH}`, where `PATH` is the path of the first
+ * occurrence of the sub-object in the object structure tree. For example,
+ * ```js
  * const a = [];
  * a.push(a);
- * console.dir(decycle(a));   // 输出 '[{"$ref": "$"}]'
+ * console.dir(decycle(a));   // output `[{ $ref: '$' }]`
  * ```
  *
  * @param {any} value
- *     待转换的值或对象。
+ *     The value or object to be converted.
  * @param {Function} replacer
- *     可选的替换函数，若不为undefined，此函数将被作用到每个待转换的值上，对其
- *     返回值进行转换。
+ *     Optional replacement function. If it is not `undefined`, the function
+ *     will be applied to each value to be converted and its return value will
+ *     be converted.
  * @param {String} path
- *     当前值或对象在其根对象树中的路径。
+ *     The current value or path of the object in its root object tree.
  * @param {WeakMap} pathMap
- *     用于存储对象到其路径的映射。
- * @private
+ *     Used to store a mapping of objects to their paths.
+ * @author Haixing Hu
  */
 function convert(value, replacer, path, pathMap) {
   if (replacer !== undefined) {
     value = replacer(value);
   }
-  const type = kindOf(value);
-  switch (type) {
-    case 'array':
-    case 'map':
-    case 'set':
-    case 'object': {
+  const info = typeInfo(value);
+  if (info.type !== 'object') {
+    return value;
+  }
+  switch (info.subtype) {
+    case 'Array':
+    case 'Map':
+    case 'Set':
+    case 'WeakMap':
+    case 'WeakSet':
+    case 'Object': {
       const oldPath = pathMap.get(value);
-      if (oldPath !== undefined) {        // 发现循环引用子对象
-        return { $ref: oldPath };         // 将其转换为特定格式的对象
+      if (oldPath !== undefined) {        // found a circular reference to sub-object
+        return { $ref: oldPath };         // Convert it to an object in a specific format
       }
       pathMap.set(value, path);
-      switch (type) {
-        case 'array':
+      switch (info.subtype) {
+        case 'Array':
           return value.map((e, i) => convert(e, replacer, `${path}[${i}]`, pathMap));
-        case 'map':
-          return Array.from(value).map((e, i) => [
-            convert(e[0], replacer, `${path}[${i}].key`, pathMap),
-            convert(e[1], replacer, `${path}[${i}].value`, pathMap),
-          ]);
-        case 'set':
-          return Array.from(value).map((e, i) => convert(e, replacer, `${path}[${i}]`, pathMap));
-        case 'object':
+        case 'Map':
+        case 'WeakMap':
+          return Array.from(value)
+                      .map((e, i) => [
+                        convert(e[0], replacer, `${path}[${i}].key`, pathMap),
+                        convert(e[1], replacer, `${path}[${i}].value`, pathMap),
+                      ]);
+        case 'Set':
+        case 'WeakSet':
+          return Array.from(value)
+                      .map((e, i) => convert(e, replacer, `${path}[${i}]`, pathMap));
+        case 'Object':
         default: {
           const result = {};
           Object.keys(value).forEach((name) => {
@@ -72,23 +82,25 @@ function convert(value, replacer, path, pathMap) {
 }
 
 /**
- * 将一个可能带有循环引用子对象的对象转换为非循环引用的简单对象。
+ * Converts an object that may have circular references to sub-objects into a
+ * simple object without circular references.
  *
- * 此函数将对象中循环引用的子对象替换为：{"$ref:" PATH} 的形式，其中 PATH 是该
- * 子对象在对象结构树中第一次出现的路径。例如，
- *
- * ```javascript
+ * This function replaces the circularly referenced sub-object in the object
+ * with the form: `{'$ref': PATH}`, where `PATH` is the path of the first
+ * occurrence of the sub-object in the object structure tree. For example,
+ * ```js
  * const a = [];
  * a.push(a);
- * console.dir(decycle(a));   // 输出 '[{"$ref": "$"}]'
+ * console.dir(decycle(a));   // output `[{ $ref: '$' }]`
  * ```
  *
- * @param {*} value
- *     待转换的值或对象。
- * @param {Function} replacer
- *     可选，此函数用于替换某些类型的对象。
+ * @param {any} value
+ *     The value or object to be converted.
+ * @param {function} replacer
+ *     Optionally, this function is used to replace certain types of objects.
  * @return
- *     转换后的简单对象，不再包含循环引用的子对象。
+ *     The converted simple object no longer contains cyclically referenced
+ *     sub-objects.
  */
 function decycle(value, replacer) {
   const pathMap = new WeakMap();

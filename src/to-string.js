@@ -6,67 +6,72 @@
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
-import kindOf from 'kind-of';
+import typeInfo from '@haixing_hu/typeinfo';
 import jsonStringify from './json-stringify';
 
 /**
- * 把一个值或对象转化为字符串表现形式。
+ * Convert a value or object to a string representation.
  *
- * 对于字符串、数字、布尔类型，直接给出该值的字符串形式；对于其他对象，给出其JSON编码。
+ * For string, number, and Boolean types, the string form of the value is
+ * directly given; for other objects, its JSON encoding is given.
  *
  * @param {any} value
- *     待转换的值或对象。
- * @param {Boolean} beautify
- *     可选，表示是否美化输出的JSON字符串。默认值为false。
- * @return {String}
- *     该值或对象的字符串表现形式。
- * @author 胡海星
+ *     The value or object to be converted.
+ * @param {boolean} beautify
+ *     Optional, indicating whether to beautify the output JSON string. The
+ *     default value is `false`.
+ * @return {string}
+ *     The string representation of this value or object.
+ * @author Haixing Hu
  */
 function toString(value, beautify = false) {
-  const type = kindOf(value);
-  switch (type) {
-    case 'undefined':
-      return 'undefined';
+  const info = typeInfo(value);
+  switch (info.type) {
+    case 'undefined':       // fall down
     case 'null':
-      return 'null';
+      return info.type;
     case 'string':
-      return value.toString(); // 把可能的String对象转换为primitive string
+      return value;
     case 'boolean':
     case 'number':
     case 'bigint':
     case 'symbol':
     case 'function':
-    case 'generatorfunction':
-    case 'generator':
-    case 'error':
-    case 'regexp':
-    case 'buffer':
-    case 'promise':
       return String(value);
-    case 'date':
-      return value.toISOString();
-    case 'int8array':
-    case 'uint8array':
-    case 'uint8clampedarray':
-    case 'int16array':
-    case 'uint16array':
-    case 'int32array':
-    case 'uint32array':
-    case 'float32array':
-    case 'float64array':
-      return `[${String(value)}]`;
-    case 'array':
-    case 'map':
-    case 'set':
-    case 'weakmap':
-    case 'weakset':
-    case 'mapiterator':
-    case 'setiterator':
-    case 'stringiterator':
-    case 'arrayiterator':
-    case 'object':
+    case 'object':          //  fall down
     default:
+      break;                //  fall down
+  }
+  switch (info.subtype) {
+    case 'Date':
+      return value.toISOString();
+    case 'Int8Array':                 // fall down
+    case 'Uint8Array':                // fall down
+    case 'Uint8ClampedArray':         // fall down
+    case 'Int16Array':                // fall down
+    case 'Uint16Array':               // fall down
+    case 'Int32Array':                // fall down
+    case 'Uint32Array':               // fall down
+    case 'BigInt64Array':             // fall down
+    case 'BigUint64Array':            // fall down
+    case 'Float32Array':              // fall down
+    case 'Float64Array':
+      return `[${String(value)}]`;
+    case 'Array':                     // fall down
+    case 'Map':                       // fall down
+    case 'Set':                       // fall down
+    case 'WeakMap':                   // fall down
+    case 'WeakSet':                   // fall down
+    case 'MapIterator':               // fall down
+    case 'SetIterator':               // fall down
+    case 'ArrayIterator':             // fall down
+    case 'StringIterator':            // fall down
+    case 'RegExpStringIterator':      // fall down
+    case 'SegmenterStringIterator':   // fall down
+    case 'Object':
       return jsonStringify(value, beautify);
+    default:
+      return info.isBuiltIn ? String(value) : jsonStringify(value, beautify);
   }
 }
 

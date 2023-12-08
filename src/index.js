@@ -10,13 +10,8 @@ import addClassToHmlElement from './add-class-to-html-element';
 import addSearchParams from './add-search-params';
 import assign from './assign';
 
-import clone from './clone';
-
 import decycle from './decycle';
 import deepEqual from './deep-equal';
-import defaultIfNull from './default-if-null';
-import defaultIfUndefinedOrNull from './default-if-undefined-or-null';
-import defaultIfUndefined from './default-if-undefined';
 
 import emptyToNull from './empty-to-null';
 import emptyFieldsToNull from './empty-fields-to-null';
@@ -78,8 +73,6 @@ import scrollTo from './scroll-to';
 import getAncestorClasses from './get-ancestor-classes';
 import getDeclaringClass from './get-declaring-class';
 
-import kindOf from './kind-of';
-
 import queryString from './query-string';
 
 export {
@@ -87,13 +80,8 @@ export {
   addSearchParams,
   assign,
 
-  clone,
-
   decycle,
   deepEqual,
-  defaultIfNull,
-  defaultIfUndefinedOrNull,
-  defaultIfUndefined,
 
   emptyToNull,
   emptyFieldsToNull,
@@ -154,6 +142,5 @@ export {
   getAncestorClasses,
   getDeclaringClass,
 
-  kindOf,
   queryString,
 };

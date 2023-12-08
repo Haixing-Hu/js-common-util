@@ -6,8 +6,8 @@
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
+import clone from '@haixing_hu/clone';
 import deepEqual from './deep-equal';
-import clone from './clone';
 
 /**
  * Copies all attribute values of the source object to the corresponding

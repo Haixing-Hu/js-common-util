@@ -7,7 +7,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 import qs from 'qs';
-import { Logger } from '@haixing_hu/common-logging';
+import { Logger } from '@haixing_hu/logging';
 import getSearch from './get-search';
 import addSearchParams from './add-search-params';
 import redirect from './redirect';
