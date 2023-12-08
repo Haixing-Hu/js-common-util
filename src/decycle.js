@@ -58,14 +58,14 @@ function convert(value, replacer, path, pathMap) {
         case 'Map':
         case 'WeakMap':
           return Array.from(value)
-                      .map((e, i) => [
-                        convert(e[0], replacer, `${path}[${i}].key`, pathMap),
-                        convert(e[1], replacer, `${path}[${i}].value`, pathMap),
-                      ]);
+            .map((e, i) => [
+              convert(e[0], replacer, `${path}[${i}].key`, pathMap),
+              convert(e[1], replacer, `${path}[${i}].value`, pathMap),
+            ]);
         case 'Set':
         case 'WeakSet':
           return Array.from(value)
-                      .map((e, i) => convert(e, replacer, `${path}[${i}]`, pathMap));
+            .map((e, i) => convert(e, replacer, `${path}[${i}]`, pathMap));
         case 'Object':
         default: {
           const result = {};
