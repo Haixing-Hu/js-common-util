@@ -56,9 +56,9 @@ function convert(value, replacer, path, pathMap) {
           return value.map((e, i) => convert(e, replacer, `${path}[${i}]`, pathMap));
         case 'map':
           return new Map(Array.from(value, ([k, v], i) => [
-              convert(k, replacer, `${path}[${i}].key`, pathMap),
-              convert(v, replacer, `${path}[${i}].value`, pathMap),
-            ]));
+            convert(k, replacer, `${path}[${i}].key`, pathMap),
+            convert(v, replacer, `${path}[${i}].value`, pathMap),
+          ]));
         case 'set':
           return new Set(Array.from(value,
             (e, i) => convert(e, replacer, `${path}[${i}]`, pathMap)));

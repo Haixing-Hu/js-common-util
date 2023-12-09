@@ -32,7 +32,7 @@ function replacer(key, value) {
     case 'number':
       return value;
     case 'bigint':
-      return String(value) + 'n';
+      return `${String(value)}n`;
     case 'object':
       switch (info.subtype) {
         case 'Map':

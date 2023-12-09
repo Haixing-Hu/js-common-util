@@ -51,7 +51,7 @@ function removeEmptyFields(obj) {
       return obj.map((v) => removeEmptyFields(v)).filter((v) => v !== undefined);
     case 'map':
       return new Map(Array.from(obj, ([k, v]) => [k, removeEmptyFields(v)])
-        .filter(([_, v]) => v !== undefined));
+        .filter((e) => e[1] !== undefined));
     case 'set':
       return new Set(Array.from(obj, (v) => removeEmptyFields(v))
         .filter((v) => v !== undefined));
