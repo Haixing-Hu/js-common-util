@@ -45,27 +45,14 @@ function emptyFieldsToNull(obj) {
   }
   switch (info.subtype) {
     case 'Array':
-      return obj.map((e) => emptyFieldsToNull(e));  // Process each element recursively
+      // Process each element recursively
+      return obj.map((e) => emptyFieldsToNull(e));
     case 'Map':
-    case 'WeakMap': {
-      const result = new Map();
-      for (const key of obj.keys()) {
-        const value = obj.get(key);
-        const newValue = emptyFieldsToNull(value);  // Process each element recursively
-        result.set(key, newValue);
-      }
-      return result;
-    }
+      // Process each element recursively
+      return new Map(Array.from(obj, ([k, v]) => [k, emptyFieldsToNull(v)]));
     case 'Set':
-    case 'WeakSet': {
-      const result = new Set();
-      for (const value of obj.values()) {
-        const newValue = emptyFieldsToNull(value);  // Process each element recursively
-        result.add(newValue);
-      }
-      return result;
-    }
-    case 'Object':
+      // Process each element recursively
+      return new Set(Array.from(obj, (v) => emptyFieldsToNull(v)));
     default: {
       if (info.isBuiltIn) {
         return obj;                                 // recursion end point

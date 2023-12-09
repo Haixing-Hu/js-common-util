@@ -31,12 +31,12 @@ function replacer(key, value) {
     case 'boolean':
     case 'number':
       return value;
+    case 'bigint':
+      return String(value) + 'n';
     case 'object':
       switch (info.subtype) {
         case 'Map':
         case 'Set':
-        case 'WeakMap':
-        case 'WeakSet':
           return [...value];
         default:
           return value;

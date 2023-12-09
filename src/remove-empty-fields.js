@@ -45,34 +45,16 @@ function removeEmptyFields(obj) {
     default:
       break;
   }
-  switch (info.subtype) {
-    case 'Array':
+  switch (info.category) {
+    case 'array':
       // Process each element recursively
       return obj.map((v) => removeEmptyFields(v)).filter((v) => v !== undefined);
-    case 'Map':
-    case 'WeakMap': {
-      const result = new Map();
-      for (const key of obj.keys()) {
-        const value = obj.get(key);
-        const newValue = removeEmptyFields(value);      // Process each element recursively
-        if (newValue !== undefined) {
-          result.set(key, newValue);
-        }
-      }
-      return result;
-    }
-    case 'Set':
-    case 'WeakSet': {
-      const result = new Set();
-      for (const value of obj.values()) {
-        const newValue = removeEmptyFields(value);      // Process each element recursively
-        if (newValue !== undefined) {
-          result.add(newValue);
-        }
-      }
-      return result;
-    }
-    case 'Object':
+    case 'map':
+      return new Map(Array.from(obj, ([k, v]) => [k, removeEmptyFields(v)])
+        .filter(([_, v]) => v !== undefined));
+    case 'set':
+      return new Set(Array.from(obj, (v) => removeEmptyFields(v))
+        .filter((v) => v !== undefined));
     default:
       if (info.isBuiltIn) {
         return obj;                                   // recursion end point

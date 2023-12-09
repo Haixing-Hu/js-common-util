@@ -26,49 +26,23 @@ import jsonStringify from './json-stringify';
  */
 function toString(value, beautify = false) {
   const info = typeInfo(value);
-  switch (info.type) {
+  switch (info.category) {
     case 'undefined':       // fall down
     case 'null':
-      return info.type;
-    case 'string':
-      return value;
-    case 'boolean':
-    case 'number':
-    case 'bigint':
-    case 'symbol':
+      return info.category;
+    case 'primitive':       //  fall down
     case 'function':
       return String(value);
-    case 'object':          //  fall down
-    default:
-      break;                //  fall down
-  }
-  switch (info.subtype) {
-    case 'Date':
+    case 'date':
       return value.toISOString();
-    case 'Int8Array':                 // fall down
-    case 'Uint8Array':                // fall down
-    case 'Uint8ClampedArray':         // fall down
-    case 'Int16Array':                // fall down
-    case 'Uint16Array':               // fall down
-    case 'Int32Array':                // fall down
-    case 'Uint32Array':               // fall down
-    case 'BigInt64Array':             // fall down
-    case 'BigUint64Array':            // fall down
-    case 'Float32Array':              // fall down
-    case 'Float64Array':
+    case 'typed-array':
       return `[${String(value)}]`;
-    case 'Array':                     // fall down
-    case 'Map':                       // fall down
-    case 'Set':                       // fall down
-    case 'WeakMap':                   // fall down
-    case 'WeakSet':                   // fall down
-    case 'MapIterator':               // fall down
-    case 'SetIterator':               // fall down
-    case 'ArrayIterator':             // fall down
-    case 'StringIterator':            // fall down
-    case 'RegExpStringIterator':      // fall down
-    case 'SegmenterStringIterator':   // fall down
-    case 'Object':
+    case 'array':                     // fall down
+    case 'map':                       // fall down
+    case 'set':                       // fall down
+    case 'iterator':                  // fall down
+    case 'object':                    // fall down
+    case 'class':
       return jsonStringify(value, beautify);
     default:
       return info.isBuiltIn ? String(value) : jsonStringify(value, beautify);

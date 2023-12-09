@@ -40,33 +40,28 @@ function convert(value, replacer, path, pathMap) {
   if (info.type !== 'object') {
     return value;
   }
-  switch (info.subtype) {
-    case 'Array':
-    case 'Map':
-    case 'Set':
-    case 'WeakMap':
-    case 'WeakSet':
-    case 'Object': {
+  switch (info.category) {
+    case 'array':
+    case 'map':
+    case 'set':
+    case 'object':
+    case 'class': {
       const oldPath = pathMap.get(value);
       if (oldPath !== undefined) {        // found a circular reference to sub-object
         return { $ref: oldPath };         // Convert it to an object in a specific format
       }
       pathMap.set(value, path);
-      switch (info.subtype) {
-        case 'Array':
+      switch (info.category) {
+        case 'array':
           return value.map((e, i) => convert(e, replacer, `${path}[${i}]`, pathMap));
-        case 'Map':
-        case 'WeakMap':
-          return Array.from(value)
-            .map((e, i) => [
-              convert(e[0], replacer, `${path}[${i}].key`, pathMap),
-              convert(e[1], replacer, `${path}[${i}].value`, pathMap),
-            ]);
-        case 'Set':
-        case 'WeakSet':
-          return Array.from(value)
-            .map((e, i) => convert(e, replacer, `${path}[${i}]`, pathMap));
-        case 'Object':
+        case 'map':
+          return new Map(Array.from(value, ([k, v], i) => [
+              convert(k, replacer, `${path}[${i}].key`, pathMap),
+              convert(v, replacer, `${path}[${i}].value`, pathMap),
+            ]));
+        case 'set':
+          return new Set(Array.from(value,
+            (e, i) => convert(e, replacer, `${path}[${i}]`, pathMap)));
         default: {
           const result = {};
           Object.keys(value).forEach((name) => {

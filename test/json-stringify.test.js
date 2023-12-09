@@ -41,16 +41,6 @@ describe('jsonStringify', () => {
     map.set('c', 3);
     expect(jsonStringify(map, true)).toBe('[ [ "a", 1 ], [ "b", 2 ], [ "c", 3 ] ]');
   });
-  // test('WeakMap', () => {
-  //   const map = new WeakMap();
-  //   const a = { a: 1 };
-  //   const b = { b: 2 };
-  //   const c = { c: 3 };
-  //   map.set(a, 1);
-  //   map.set(b, 2);
-  //   map.set(c, 3);
-  //   expect(jsonStringify(map)).toBe('[ [ {"a": 1}, 1 ], [ {"b": 2}, 2], [ {"c": 3}, 3] ]');
-  // });
   test('Set', () => {
     const map = new Set();
     map.add('a');
@@ -58,19 +48,9 @@ describe('jsonStringify', () => {
     map.add('c');
     expect(jsonStringify(map, true)).toBe('[ "a", "b", "c" ]');
   });
-  // test('WeakSet', () => {
-  //   const map = new WeakSet();
-  //   const a = { a: 1 };
-  //   const b = { b: 2 };
-  //   const c = { c: 3 };
-  //   map.add(a);
-  //   map.add(b);
-  //   map.add(c);
-  //   expect(jsonStringify(map)).toBe('[ {"a": 1}, {"b": 2}, {"c": 3} ]');
-  // });
   test('bigint', () => {
     const x = 12345n;
-    expect(jsonStringify(x, true)).toBe('"12345"');
+    expect(jsonStringify(x, true)).toBe('"12345n"');
   });
   test('stringify cycled object', () => {
     const obj = {
