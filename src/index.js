@@ -38,7 +38,6 @@ import isHtmlElement from './is-html-element';
 import isHtmlElementHasClass from './is-html-element-has-class';
 import isObject from './is-object';
 import isString from './is-string';
-import isBuiltInClass from './is-built-in-class';
 
 import jsonStringify from './json-stringify';
 import loadScript from './load-script';
@@ -108,7 +107,6 @@ export {
   isHtmlElementHasClass,
   isString,
   isObject,
-  isBuiltInClass,
 
   jsonStringify,
 
