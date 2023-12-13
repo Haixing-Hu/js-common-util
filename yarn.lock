@@ -1521,7 +1521,7 @@ __metadata:
     vue-template-compiler: "npm:^2.7.15"
   peerDependencies:
     "@babel/runtime": ^7.23.2
-    "@haixing_hu/clone": ^1.3.0
+    "@haixing_hu/clone": ^1.4.0
     "@haixing_hu/logging": ^1.2.1
     "@haixing_hu/typeinfo": ^2.3.0
   languageName: unknown
