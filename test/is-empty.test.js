@@ -156,7 +156,7 @@ describe('Unit test of isEmpty() function', () => {
     expect(isEmpty(-1n)).toBe(false);
   });
   test('Test with symbol', () => {
-    expect(isEmpty(Symbol())).toBe(false);
+    expect(isEmpty(Symbol('test'))).toBe(false);
   });
   test('Test with function', () => {
     expect(isEmpty(() => { })).toBe(false);
