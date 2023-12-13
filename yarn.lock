@@ -1464,13 +1464,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@haixing_hu/clone@npm:^1.3.0":
-  version: 1.3.0
-  resolution: "@haixing_hu/clone@npm:1.3.0"
+"@haixing_hu/clone@npm:^1.4.0":
+  version: 1.4.0
+  resolution: "@haixing_hu/clone@npm:1.4.0"
   peerDependencies:
     "@babel/runtime": ^7.23.0
     "@haixing_hu/typeinfo": ^1.3.0
-  checksum: fb438746c6640119222a7af0e571fc47bc7d951596689071e392c69ba47d78f2d1e8d34f6ef528a12ce658335b45455708084ead98091a4986dc936b992bc08b
+  checksum: b39d79ab2916fe4762313d4f070d3cb9b5b19f51eabafdeef5663acface2ef8dafc831f52f2e4f18aa44587ecf51da2821440c474b620c65a2041158457e3e3d
   languageName: node
   linkType: hard
 
@@ -1485,7 +1485,7 @@ __metadata:
     "@babel/plugin-transform-runtime": "npm:^7.23.2"
     "@babel/preset-env": "npm:^7.23.2"
     "@babel/runtime": "npm:^7.23.2"
-    "@haixing_hu/clone": "npm:^1.3.0"
+    "@haixing_hu/clone": "npm:^1.4.0"
     "@haixing_hu/eslint-config": "npm:^1.3.1"
     "@haixing_hu/jsdoc-minami": "npm:^1.5.1"
     "@haixing_hu/logging": "npm:^1.2.1"
@@ -1523,7 +1523,7 @@ __metadata:
     "@babel/runtime": ^7.23.2
     "@haixing_hu/clone": ^1.3.0
     "@haixing_hu/logging": ^1.2.1
-    "@haixing_hu/typeinfo": ^2.1.0
+    "@haixing_hu/typeinfo": ^2.3.0
   languageName: unknown
   linkType: soft
 
