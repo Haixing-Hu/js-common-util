@@ -27,12 +27,9 @@ import jsonStringify from './json-stringify';
 function toString(value, beautify = false) {
   const info = typeInfo(value);
   switch (info.category) {
-    case 'undefined':       // fall down
+    case 'undefined':                 // fall down
     case 'null':
       return info.category;
-    case 'primitive':       //  fall down
-    case 'function':
-      return String(value);
     case 'date':
       return value.toISOString();
     case 'typed-array':

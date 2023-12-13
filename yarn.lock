@@ -1490,7 +1490,7 @@ __metadata:
     "@haixing_hu/jsdoc-minami": "npm:^1.5.1"
     "@haixing_hu/logging": "npm:^1.2.1"
     "@haixing_hu/rollup-builder": "npm:^1.5.0"
-    "@haixing_hu/typeinfo": "npm:^2.1.0"
+    "@haixing_hu/typeinfo": "npm:^2.3.0"
     "@jest/core": "npm:^29.7.0"
     "@rollup/plugin-alias": "npm:^5.0.1"
     "@rollup/plugin-babel": "npm:^6.0.4"
@@ -1575,12 +1575,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@haixing_hu/typeinfo@npm:^2.1.0":
-  version: 2.1.0
-  resolution: "@haixing_hu/typeinfo@npm:2.1.0"
+"@haixing_hu/typeinfo@npm:^2.3.0":
+  version: 2.3.0
+  resolution: "@haixing_hu/typeinfo@npm:2.3.0"
   peerDependencies:
     "@babel/runtime": ^7.23.0
-  checksum: 08c0668ce5bb1df00904205a3550d3ad67e30bf486f1f09dceb2b49d903bde9c77c737ac848e0b5ab5c760d2d10959af53c49f3c68ab7473a25603f8d540e035
+  checksum: 69d925a30bb5e0e4ea2be33ef108296a9c8ce146ea5c2a0d8a165638a5a31e37bfab1b43d0b88236fca4fdb3316c5bfe1325a080932810ca3f34743c7a83410c
   languageName: node
   linkType: hard
 
