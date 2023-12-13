@@ -36,7 +36,6 @@ import isWechat from './is-wechat';
 import isFunction from './is-function';
 import isHtmlElement from './is-html-element';
 import isHtmlElementHasClass from './is-html-element-has-class';
-import isString from './is-string';
 
 import jsonStringify from './json-stringify';
 import loadScript from './load-script';
@@ -104,7 +103,6 @@ export {
   isFunction,
   isHtmlElement,
   isHtmlElementHasClass,
-  isString,
 
   jsonStringify,
 
