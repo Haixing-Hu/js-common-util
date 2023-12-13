@@ -32,6 +32,7 @@ import isUndefinedOrNull from './is-undefined-or-null';
 import isUndefinedOrNullOrEmptyString from './is-undefined-or-null-or-empty-string';
 import isUndefinedOrNullOrEmptyArray from './is-undefined-or-null-or-empty-array';
 import isWechat from './is-wechat';
+import isEmpty from './is-empty';
 
 import isHtmlElement from './is-html-element';
 import isHtmlElementHasClass from './is-html-element-has-class';
@@ -98,6 +99,7 @@ export {
   isUndefinedOrNullOrEmptyString,
   isUndefinedOrNullOrEmptyArray,
   isWechat,
+  isEmpty,
 
   isHtmlElement,
   isHtmlElementHasClass,
