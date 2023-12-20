@@ -15,6 +15,14 @@ describe('Unit test of emptyToNull() function', () => {
   test('non-empty string', () => {
     expect(emptyToNull('Hello, world!')).toBe('Hello, world!');
   });
+  test('empty String object', () => {
+    const str = new String('');
+    expect(emptyToNull(str)).toBeNull();
+  });
+  test('non-empty String object', () => {
+    const str = new String('Hello, world!');
+    expect(emptyToNull(str)).toBe(str);
+  });
   test('empty array', () => {
     expect(emptyToNull([])).toBeNull();
   });

@@ -9,8 +9,8 @@
 import typeInfo from '@haixing_hu/typeinfo';
 
 /**
- * Create a new object based on an existing object, but modify all its attribute
- * values that are empty strings to `null`.
+ * Creates a new object based on an existing object, but sets all its empty
+ * properties values to `null`.
  *
  * @param {any} obj
  *    The object or value to be converted.
@@ -28,42 +28,51 @@ import typeInfo from '@haixing_hu/typeinfo';
  */
 function emptyFieldsToNull(obj) {
   const info = typeInfo(obj);
-  switch (info.type) {
+  switch (info.category) {
     case 'string':
-      return (obj === '' ? null : obj);               // recursion end point
-    case 'undefined':   // fall down
-    case 'null':        // fall down
-    case 'boolean':     // fall down
-    case 'number':      // fall down
-    case 'bigint':      // fall down
-    case 'symbol':      // fall down
-    case 'function':
-      return obj;
-    case 'object':      // fall down
-    default:
-      break;            // fall down
-  }
-  switch (info.subtype) {
-    case 'Array':
-      // Process each element recursively
-      return obj.map((e) => emptyFieldsToNull(e));
-    case 'Map':
-      // Process each element recursively
-      return new Map(Array.from(obj, ([k, v]) => [k, emptyFieldsToNull(v)]));
-    case 'Set':
-      // Process each element recursively
-      return new Set(Array.from(obj, (v) => emptyFieldsToNull(v)));
-    default: {
-      if (info.isBuiltIn) {
-        return obj;                                 // recursion end point
+    case 'typed-array':
+      return (obj.length === 0 ? null : obj);         // recursion end point
+    case 'array':
+      if (obj.length === 0) {
+        return null;                                  // recursion end point
+      } else {
+        return obj.map((e) => emptyFieldsToNull(e));  // recursion
       }
-      // Create objects of the same type. Note that Object.create() cannot be used.
+    case 'map':
+      if (obj.size === 0) {
+        return null;
+      } else {
+        return new Map(Array.from(obj, ([k, v]) => [k, emptyFieldsToNull(v)])); // recursion
+      }
+    case 'set':
+      if (obj.size === 0) {
+        return null;
+      } else {
+        return new Set(Array.from(obj, (v) => emptyFieldsToNull(v))); // recursion
+      }
+    case 'object':
+    case 'class': {
+      let empty = false;
+      if (typeof obj.isEmpty === 'function') {
+        empty = obj.isEmpty();
+      } else if (typeof obj.length === 'number') {
+        empty = (obj.length === 0);
+      } else if (typeof obj.size === 'number') {
+        empty = (obj.size === 0);
+      }
+      if (empty) {
+        return null;
+      }
+      // Create objects of the same type.
+      // Note that Object.create() cannot be used.
       const result = new obj.constructor();
       Object.keys(obj).forEach((key) => {
-        result[key] = emptyFieldsToNull(obj[key]);  // Process each attribute recursively
+        result[key] = emptyFieldsToNull(obj[key]);  // recursion
       });
       return result;
     }
+    default:
+      return obj;
   }
 }
 
