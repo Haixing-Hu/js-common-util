@@ -15,7 +15,7 @@ import typeInfo from '@haixing_hu/typeinfo';
  * its length is zero. If the value is a map, or a set, then it is empty if its
  * size is zero. Otherwise, if the value has the numeric `length` or `size`
  * property, then it is empty if its `length` or `size` property is zero. If the
- * value has the `isEmpty` method, then it is empty if the `isEmpty` method
+ * value has the `isEmpty()` method, then it is empty if the `isEmpty()` method
  * returns `true`. Otherwise, the value is not empty.
  *
  * @param {any} value

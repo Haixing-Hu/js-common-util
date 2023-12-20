@@ -6,21 +6,30 @@
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
+import isEmpty from './is-empty';
 
 /**
- * 如果参数是空则返回null，否则返回该参数的值。
+ * Map an empty value to `null`.
+ *
+ * If the value is a string, or an array, or a typed array, then it is empty if
+ * its length is zero. If the value is a map, or a set, then it is empty if its
+ * size is zero. Otherwise, if the value has the numeric `length` or `size`
+ * property, then it is empty if its `length` or `size` property is zero. If the
+ * value has the `isEmpty()` method, then it is empty if the `isEmpty()` method
+ * returns `true`. Otherwise, the value is not empty.
  *
  * @param {any} value
- *    待判定的值
+ *    The value to be mapped.
  * @return
- *    若 value 是undefined, null, 或空字符串，则返回 null；否则返回 value。
- * @author 胡海星
+ *    If the value is `undefined` or `null`, or an "empty" value, returns `null`;
+ *    otherwise, returns the value itself.
+ * @author Haixing Hu
+ * @see isEmpty
  */
 function emptyToNull(value) {
-  if (value === undefined
-      || value === null
-      || value === ''
-      || (typeof value === 'string' && value.trim() === '')) {
+  if (value === undefined || value === null) {
+    return null;
+  } else if (isEmpty(value)) {
     return null;
   } else {
     return value;
