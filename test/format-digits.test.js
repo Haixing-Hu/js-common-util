@@ -96,11 +96,11 @@ describe('formatDigits()', () => {
   });
   it('formatDigits(undefined, 0) throws TypeError', () => {
     expect(() => formatDigits(undefined, 0))
-    .toThrowWithMessage(TypeError, 'The value must be an integer.');
+      .toThrowWithMessage(TypeError, 'The value must be an integer.');
   });
   it('formatDigits(null, 0) throws TypeError', () => {
     expect(() => formatDigits(null, 0))
-    .toThrowWithMessage(TypeError, 'The value must be an integer.');
+      .toThrowWithMessage(TypeError, 'The value must be an integer.');
   });
 
   it('formatDigits(123, "2") throw TypeError', () => {
@@ -109,11 +109,11 @@ describe('formatDigits()', () => {
   });
   it('formatDigits(123, 2.1) throw TypeError', () => {
     expect(() => formatDigits(123, 2.1))
-    .toThrowWithMessage(TypeError, 'The digits must be an integer.');
+      .toThrowWithMessage(TypeError, 'The digits must be an integer.');
   });
   it('formatDigits(123, true) throw TypeError', () => {
     expect(() => formatDigits(123, true))
-    .toThrowWithMessage(TypeError, 'The digits must be an integer.');
+      .toThrowWithMessage(TypeError, 'The digits must be an integer.');
   });
   it('formatDigits(123, new Date()) throw TypeError', () => {
     expect(() => formatDigits(123, new Date()))
@@ -121,15 +121,15 @@ describe('formatDigits()', () => {
   });
   it('formatDigits(123, undefined) throw TypeError', () => {
     expect(() => formatDigits(123, undefined))
-    .toThrowWithMessage(TypeError, 'The digits must be an integer.');
+      .toThrowWithMessage(TypeError, 'The digits must be an integer.');
   });
   it('formatDigits(123, null) throw TypeError', () => {
     expect(() => formatDigits(123, null))
-    .toThrowWithMessage(TypeError, 'The digits must be an integer.');
+      .toThrowWithMessage(TypeError, 'The digits must be an integer.');
   });
 
   it('formatDigits(123, -2) throw RangeError', () => {
     expect(() => formatDigits(123, -2))
-    .toThrowWithMessage(RangeError, 'The digits must be a non-negative integer.');
+      .toThrowWithMessage(RangeError, 'The digits must be a non-negative integer.');
   });
 });
