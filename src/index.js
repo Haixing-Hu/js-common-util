@@ -10,6 +10,8 @@ import addClassToHmlElement from './add-class-to-html-element';
 import addSearchParams from './add-search-params';
 import assign from './assign';
 
+import createDate from './create-date';
+
 import decycle from './decycle';
 import deepEqual from './deep-equal';
 
@@ -23,8 +25,10 @@ import format from './format';
 import formatDigits from './format-digits';
 
 import getHash from './get-hash';
-import getSearch from './get-search';
+import formatLocalDate from './format-local-date';
+import formatLocalTime from './format-local-time';
 import getParsedSearch from './get-parsed-search';
+import getSearch from './get-search';
 import getSearchParam from './get-search-param';
 
 import isIos from './is-ios';
@@ -78,6 +82,8 @@ export {
   addSearchParams,
   assign,
 
+  createDate,
+
   decycle,
   deepEqual,
 
@@ -91,8 +97,10 @@ export {
   formatDigits,
 
   getHash,
-  getSearch,
+  formatLocalDate,
+  formatLocalTime,
   getParsedSearch,
+  getSearch,
   getSearchParam,
 
   isIos,
