@@ -23,10 +23,11 @@ import fixScroll from './fix-scroll';
 import floatEqual from './float-equal';
 import format from './format';
 import formatDigits from './format-digits';
-
-import getHash from './get-hash';
 import formatLocalDate from './format-local-date';
 import formatLocalTime from './format-local-time';
+import formatLocalDatetime from './format-local-datetime';
+
+import getHash from './get-hash';
 import getParsedSearch from './get-parsed-search';
 import getSearch from './get-search';
 import getSearchParam from './get-search-param';
@@ -95,10 +96,11 @@ export {
   floatEqual,
   format,
   formatDigits,
-
-  getHash,
   formatLocalDate,
   formatLocalTime,
+  formatLocalDatetime,
+
+  getHash,
   getParsedSearch,
   getSearch,
   getSearchParam,
