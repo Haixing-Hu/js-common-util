@@ -20,6 +20,7 @@ import extractOssUrlInfo from './extract-oss-url-info';
 import fixScroll from './fix-scroll';
 import floatEqual from './float-equal';
 import format from './format';
+import formatDigits from './format-digits';
 
 import getHash from './get-hash';
 import getSearch from './get-search';
@@ -87,6 +88,7 @@ export {
   fixScroll,
   floatEqual,
   format,
+  formatDigits,
 
   getHash,
   getSearch,
