@@ -6,8 +6,8 @@
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
-import qs from 'qs';
 import { Logger } from '@haixing_hu/logging';
+import queryString from './query-string';
 import getSearch from './get-search';
 import addSearchParams from './add-search-params';
 import redirect from './redirect';
@@ -50,7 +50,7 @@ class TalkingData {
     return new Promise((resolve, reject) => {
       logger.info('Initializing the TalkingData SDK ...');
       const search = getSearch();
-      const args = qs.parse(search);
+      const args = queryString.parse(search);
       if (!args.source) {
         if (defaultSource) {
           const url = addSearchParams({

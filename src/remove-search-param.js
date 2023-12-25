@@ -6,7 +6,7 @@
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
-import qs from 'qs';
+import queryString from './query-string';
 import getSearch from './get-search';
 import getHash from './get-hash';
 
@@ -35,10 +35,10 @@ function removeSearchParam(name, url) {
   const hash = getHash(url);
   let search = getSearch(url);
   if (search !== null && search.length > 0) {
-    const args = qs.parse(search);
+    const args = queryString.parse(search);
     if (args[name] !== undefined) {
       delete args[name];
-      search = qs.stringify(args);
+      search = queryString.stringify(args);
     }
   }
   return base

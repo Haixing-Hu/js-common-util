@@ -6,7 +6,7 @@
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
-import qs from 'qs';
+import queryString from './query-string';
 import getSearch from './get-search';
 
 /**
@@ -26,7 +26,7 @@ function getParsedSearch(url) {
   if (search === null) {
     return null;
   }
-  return qs.parse(search);
+  return queryString.parse(search);
 }
 
 export default getParsedSearch;

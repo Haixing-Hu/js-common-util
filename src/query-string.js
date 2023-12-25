@@ -6,7 +6,7 @@
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
-import queryString from 'qs';
+import queryString from 'query-string';
 
 /**
  * Exports the `queryString` function from the `qs` library.

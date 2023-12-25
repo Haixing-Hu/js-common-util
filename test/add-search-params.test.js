@@ -6,8 +6,7 @@
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
-import queryString from 'qs';
-import { getSearch, addSearchParams } from '../src';
+import { getSearch, addSearchParams, queryString } from '../src';
 
 /**
  * 单元测试 'addSearchParam'

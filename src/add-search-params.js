@@ -6,7 +6,7 @@
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
-import qs from 'qs';
+import queryString from './query-string';
 import getSearch from './get-search';
 import getHash from './get-hash';
 
@@ -43,7 +43,7 @@ function addSearchParams(params, url = window.location) {
   } else {
     hash = `#${hash}`;
   }
-  const kv = qs.stringify(params);
+  const kv = queryString.stringify(params);
   let search = getSearch(url);
   if (search !== null && search.length > 0) {
     search = `${search}&${kv}`;

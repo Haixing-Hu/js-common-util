@@ -6,8 +6,7 @@
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
-import queryString from 'qs';
-import { getSearch, normalizeUrl } from '../src';
+import { getSearch, normalizeUrl, queryString } from '../src';
 
 /**
  * 单元测试 'normalizeUrl'
