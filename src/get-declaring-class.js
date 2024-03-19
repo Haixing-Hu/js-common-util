@@ -39,7 +39,8 @@ function getDeclaringClass(Class, property) {
   let Last = null;
   while (Current !== Function.prototype) {
     // Tests whether property is defined in the prototype of Current
-    if (Object.hasOwn(Current.prototype, property)) {
+    // DO NOT use Object.hasOwn() because it has a lot of compatibility problems
+    if (Object.prototype.hasOwnProperty.call(Current.prototype, property)) {
       return Current;
     }
     // Tests whether property is defined in the instance of Current
@@ -51,9 +52,9 @@ function getDeclaringClass(Class, property) {
     // Go backward in the ancestor tree
     Current = Object.getPrototypeOf(Current);
   }
-  if (Object.hasOwn(Last.prototype, property)) {
+  if (Object.prototype.hasOwnProperty.call(Last.prototype, property)) {
     return Last;
-  } else if (Object.hasOwn(Object.prototype, property)) {
+  } else if (Object.prototype.hasOwnProperty.call(Object.prototype, property)) {
     // deal with the special cases that the property is declared in Object
     return Object;
   } else {
