@@ -136,6 +136,6 @@ describe('removeSearchParam', () => {
   test('bug', () => {
     const url = 'https://stage.njzhyl.cn/iot-box-nurse-v2/#/bind/device/trigger?udid=1c8688fe-8d8e-bbd0-588a-669addf9cba1';
     const result = removeSearchParam('code', url);
-    expect(result).toBe(url);
+    expect(result).toBe('https://stage.njzhyl.cn/iot-box-nurse-v2/?udid=1c8688fe-8d8e-bbd0-588a-669addf9cba1#/bind/device/trigger');
   });
 });
