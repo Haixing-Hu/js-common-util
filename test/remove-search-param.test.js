@@ -133,4 +133,9 @@ describe('removeSearchParam', () => {
     expect(args.source).toBeUndefined();
     expect(args.value).toBeUndefined();
   });
+  test('bug', () => {
+    const url = 'https://stage.njzhyl.cn/iot-box-nurse-v2/#/bind/device/trigger?udid=1c8688fe-8d8e-bbd0-588a-669addf9cba1';
+    const result = removeSearchParam('code', url);
+    expect(result).toBe(url);
+  });
 });
