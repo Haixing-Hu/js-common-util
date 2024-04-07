@@ -11,9 +11,9 @@ import dequote from './dequote';
 /**
  * Gets the value at the specified path of an object.
  *
- * @param obj
+ * @param {object} obj
  *     The object to query.
- * @param path
+ * @param {string} path
  *     The path of the property to get. It should be a string of the property
  *     names separated by dots. For example, if the object is
  *     `{a: {b: {c: 1}}}`, then the path `'a.b.c'` will return `1`.
@@ -22,7 +22,7 @@ import dequote from './dequote';
  *     If the object is `{a: {b: [{c: 1}, {c: 2}]}}`, then the path `'a.b[1].c'`
  *     will return `2`.
  *     If the path is empty, then the object itself is returned.
- * @param defaultValue
+ * @param {any} defaultValue
  *     The default value. If it is not specified, then `undefined` is used as
  *     the default value.
  * @return {any}

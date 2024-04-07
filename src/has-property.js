@@ -11,9 +11,9 @@ import dequote from './dequote';
 /**
  * Tests whether an object has a property at the specified path.
  *
- * @param obj
+ * @param {object} obj
  *     The object to query.
- * @param path
+ * @param {string} path
  *     The path of the property to get. It should be a string of the property
  *     names separated by dots. For example, if the object is
  *     `{a: {b: {c: 1}}}`, then the path `'a.b.c'` has the property value of `1`.
