@@ -14,6 +14,7 @@ import createDate from './create-date';
 
 import decycle from './decycle';
 import deepEqual from './deep-equal';
+import dequote from './dequote';
 
 import emptyToNull from './empty-to-null';
 import emptyFieldsToNull from './empty-fields-to-null';
@@ -29,8 +30,11 @@ import formatLocalDatetime from './format-local-datetime';
 
 import getHash from './get-hash';
 import getParsedSearch from './get-parsed-search';
+import getProperty from './get-property';
 import getSearch from './get-search';
 import getSearchParam from './get-search-param';
+
+import hasProperty from './has-property';
 
 import isIos from './is-ios';
 import isMyNanjingApp from './is-my-nanjing-app';
@@ -55,6 +59,7 @@ import removeSearchParam from './remove-search-param';
 import restoreVueManaged from './restore-vue-managed';
 import round from './round';
 
+import setProperty from './set-property';
 import sleep from './sleep';
 import splitDigits from './split-digits';
 import stringToFloat from './string-to-float';
@@ -87,6 +92,7 @@ export {
 
   decycle,
   deepEqual,
+  dequote,
 
   emptyToNull,
   emptyFieldsToNull,
@@ -102,8 +108,11 @@ export {
 
   getHash,
   getParsedSearch,
+  getProperty,
   getSearch,
   getSearchParam,
+
+  hasProperty,
 
   isIos,
   isMyNanjingApp,
@@ -129,6 +138,7 @@ export {
   restoreVueManaged,
   round,
 
+  setProperty,
   sleep,
   splitDigits,
   stringToFloat,
