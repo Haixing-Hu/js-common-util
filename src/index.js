@@ -10,6 +10,7 @@ import addClassToHmlElement from './add-class-to-html-element';
 import addSearchParams from './add-search-params';
 import assign from './assign';
 
+import checkArgumentType from './check-argument-type';
 import createDate from './create-date';
 
 import decycle from './decycle';
@@ -88,6 +89,7 @@ export {
   addSearchParams,
   assign,
 
+  checkArgumentType,
   createDate,
 
   decycle,
