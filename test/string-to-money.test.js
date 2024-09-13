@@ -6,7 +6,7 @@
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
-import { stringToMoney } from '../src';
+import { stringToFloat, stringToMoney } from '../src';
 
 /**
  * 单元测试 'stringToMoney' 函数
@@ -57,5 +57,13 @@ describe('stringToMoney', () => {
     const value = '.12501';
     const digits = 4;
     expect(stringToMoney(value, digits)).toBe(0.1250);
+  });
+  test('stringToMoney(new Number(12.323))', () => {
+    const value = new Number(12.323);
+    expect(stringToMoney(value)).toBe(12.32);
+  });
+  test('stringToMoney(new String("12.323"))', () => {
+    const value = new String('12.323');
+    expect(stringToMoney(value)).toBe(12.32);
   });
 });

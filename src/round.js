@@ -12,7 +12,7 @@
  *
  * @private
  */
-const MAX_ALOWED_DIGITS = 20;
+const MAX_ALLOWED_DIGITS = 20;
 
 /**
  * 将一个浮点数四舍五入到小数点后面指定的位数。
@@ -39,8 +39,8 @@ function round(number, digits = 0) {
   if (!Number.isInteger(digits)) {
     throw new Error('The digits must be integer.');
   }
-  if (digits < 0 || digits > MAX_ALOWED_DIGITS) {
-    throw new Error(`The digits must between [0, ${MAX_ALOWED_DIGITS}]`);
+  if (digits < 0 || digits > MAX_ALLOWED_DIGITS) {
+    throw new Error(`The digits must between [0, ${MAX_ALLOWED_DIGITS}]`);
   }
   const multiplier = 10 ** digits;
   return Math.round(number * multiplier) / multiplier;

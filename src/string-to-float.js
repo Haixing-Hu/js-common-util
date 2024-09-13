@@ -23,6 +23,14 @@ function stringToFloat(value) {
       return value;
     case 'string':
       return parseFloat(value);
+    case 'object':
+      if (value instanceof Number) {
+        return value.valueOf();
+      } else if (value instanceof String) {
+        return parseFloat(value.valueOf());
+      } else {
+        return NaN;
+      }
     default:
       return NaN;
   }

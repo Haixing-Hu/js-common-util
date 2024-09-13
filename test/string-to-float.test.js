@@ -38,4 +38,12 @@ describe('stringToFloat', () => {
     const value = '  -.123e2  ';
     expect(stringToFloat(value)).toBe(-12.3);
   });
+  test('stringToFloat(new Number(12.323))', () => {
+    const value = new Number(12.323);
+    expect(stringToFloat(value)).toBe(12.323);
+  });
+  test('stringToFloat(new String("12.323"))', () => {
+    const value = new String('12.323');
+    expect(stringToFloat(value)).toBe(12.323);
+  });
 });
