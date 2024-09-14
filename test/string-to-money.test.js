@@ -6,7 +6,7 @@
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
-import { stringToFloat, stringToMoney } from '../src';
+import { stringToMoney } from '../src';
 
 /**
  * 单元测试 'stringToMoney' 函数
