@@ -19,7 +19,11 @@ module.exports = {
     '\\.js$': 'babel-jest',
   },
   transformIgnorePatterns: [
-    '/node_modules/(?!@haixing_hu)',
+    '/node_modules/@haixing_hu/clone',
+    '/node_modules/@haixing_hu/logging',
+    '/node_modules/@haixing_hu/naming-style',
+    '/node_modules/@haixing_hu/typeinfo',
+    '/node_modules/@haixing_hu/type-detect',
     '/node_modules/deep-equal',
     '/node_modules/json-beautify',
     // DO NOT ignore /node_modules/query-string. It should be transpiled.
