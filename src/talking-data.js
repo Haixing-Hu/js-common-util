@@ -6,7 +6,6 @@
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
-import { Logger } from '@haixing_hu/logging';
 import queryString from './query-string';
 import getSearch from './get-search';
 import addSearchParams from './add-search-params';
@@ -19,8 +18,6 @@ import loadScript from './load-script';
  * @private
  */
 const SDK_URL = 'https://jic.talkingdata.com/app/h5/v1';
-
-const logger = Logger.getLogger('TalkingData');
 
 /**
  * Encapsulates the API function of TalkingData application tracking.
@@ -48,7 +45,7 @@ class TalkingData {
    */
   init(appId, appName, appVersion, defaultSource = undefined) {
     return new Promise((resolve, reject) => {
-      logger.info('Initializing the TalkingData SDK ...');
+      console.info('Initializing the TalkingData SDK ...');
       const search = getSearch();
       const args = queryString.parse(search);
       if (!args.source) {
@@ -71,12 +68,12 @@ class TalkingData {
       // Remember the source. Note that the source maybe `undefined`
       this.source = args.source || defaultSource;
       const url = `${SDK_URL}?appid=${appId}&vn=${appName}&vc=${appVersion}`;
-      logger.info('Loading Talking Data SDK script:', url);
+      console.info('Loading Talking Data SDK script:', url);
       loadScript(url).then((script) => {
-        logger.info('Successfully loading the Talking Data SDK script.');
+        console.info('Successfully loading the Talking Data SDK script.');
         resolve(script);
       }).catch((error) => {
-        logger.error('Failed to load the Talking Data SDK script:', error);
+        console.error('Failed to load the Talking Data SDK script:', error);
         reject(error);
       });
     });
@@ -97,17 +94,17 @@ class TalkingData {
   trace(event, label = undefined) {
     if (window.TDAPP) {
       if (label) {
-        logger.info('Fire the event: %s (%s)', event, label);
+        console.info('Fire the event: %s (%s)', event, label);
         window.TDAPP.onEvent(event, label);
       } else {
-        logger.info('Fire the event:', event);
+        console.info('Fire the event:', event);
         window.TDAPP.onEvent(event);
       }
     } else if (label) {
-      logger.error('Fire the event: %s (%s), but the TalkingData SKD was not '
+      console.error('Fire the event: %s (%s), but the TalkingData SKD was not '
         + 'loaded.', event, label);
     } else {
-      logger.error('Fire the event: %s, but the TalkingData SKD was not loaded.', event);
+      console.error('Fire the event: %s, but the TalkingData SKD was not loaded.', event);
     }
   }
 
