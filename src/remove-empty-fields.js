@@ -26,6 +26,7 @@ import typeInfo from '@haixing_hu/typeinfo';
  *    - Otherwise, returns a copy of `obj`, but change all its attribute values
  *      that are empty strings to `undefined`.
  * @author Haixing Hu
+ * @deprecated
  */
 function removeEmptyFields(obj) {
   const info = typeInfo(obj);

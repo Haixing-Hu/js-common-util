@@ -25,6 +25,7 @@ import typeInfo from '@haixing_hu/typeinfo';
  *      Otherwise, return a copy of `obj`, but modify all its attribute values
  *      that are empty strings to `null`.
  * @author Haixing Hu
+ * @deprecated
  */
 function emptyFieldsToNull(obj) {
   const info = typeInfo(obj);
