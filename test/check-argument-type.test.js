@@ -196,7 +196,7 @@ describe('checkArgumentType with single type', () => {
 describe('checkArgumentType with multiple types', () => {
   test('Undefined value and not allowed to be null', () => {
     expect(() => checkArgumentType('test', undefined, [String, Boolean, Number], false))
-    .toThrow(/cannot be undefined/);
+      .toThrow(/cannot be undefined/);
   });
 
   test('Undefined value but allowed to be null', () => {
@@ -205,7 +205,7 @@ describe('checkArgumentType with multiple types', () => {
 
   test('Null value and not allowed to be null', () => {
     expect(() => checkArgumentType('test', null, [String, Boolean, Number], false))
-    .toThrow(/cannot be null/);
+      .toThrow(/cannot be null/);
   });
 
   test('Null value but allowed to be null', () => {
