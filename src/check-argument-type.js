@@ -45,8 +45,10 @@ function isTypeOf(value, type, nullable) {
  * @param {any} value
  *     The value of the parameter to check.
  * @param {BooleanConstructor|NumberConstructor|FunctionConstructor|Function|Array} type
- *     The constructor of the specified type. If it is a primitive type value,
- *     use the corresponding object constructor.
+ *     The constructor of the specified type. If the value is a primitive type
+ *     value, use the constructor of the corresponding wrapping object. If this
+ *     argument is an array, the value must be one of the specified types in
+ *     the array.
  * @param {boolean} nullable
  *     If `true`, the parameter value is allowed to be `null` or `undefined`;
  *     otherwise, it is not allowed.

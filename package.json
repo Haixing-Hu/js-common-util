@@ -20,6 +20,12 @@
       "import": "./dist/common-util.esm.min.mjs"
     }
   },
+  "files": [
+    "dist/**/*",
+    "doc/**/*",
+    "LICENSE",
+    "README.md"
+  ],
   "sideEffects": false,
   "scripts": {
     "clean": "rm -rvf dist doc",
