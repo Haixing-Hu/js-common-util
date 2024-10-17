@@ -11,4 +11,10 @@ module.exports = {
   extends: [
     '@haixing_hu/eslint-config',
   ],
+  globals: {
+    BigInt: true,
+  },
+  rules: {
+    'max-classes-per-file': 'off',
+  },
 };

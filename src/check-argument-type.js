@@ -7,6 +7,36 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
+function isTypeOf(value, type, nullable) {
+  switch (typeof value) {
+    case 'undefined':
+      return nullable;
+    case 'boolean':
+      return type === Boolean;
+    case 'number':
+      return type === Number;
+    case 'string':
+      return type === String;
+    case 'bigint':
+      return type === BigInt;
+    case 'function':
+      return type === Function;
+    case 'symbol':
+      return type === Symbol;
+    case 'object':
+      if (value === null) {
+        if (!nullable) {
+          return false;
+        }
+      } else if (!(value instanceof type)) {
+        return false;
+      }
+      return true;
+    default:
+      return true;
+  }
+}
+
 /**
  * Checks if a value is of a given type.
  *
@@ -14,7 +44,7 @@
  *     The name of the parameter to check.
  * @param {any} value
  *     The value of the parameter to check.
- * @param {BooleanConstructor|NumberConstructor|FunctionConstructor|Function} type
+ * @param {BooleanConstructor|NumberConstructor|FunctionConstructor|Function|Array} type
  *     The constructor of the specified type. If it is a primitive type value,
  *     use the corresponding object constructor.
  * @param {boolean} nullable
@@ -25,53 +55,20 @@
  *     specified type.
  */
 function checkArgumentType(name, value, type, nullable = false) {
-  switch (typeof value) {
-    case 'undefined':
-      if (!nullable) {
-        throw new Error(`The value of the argument '${name}' cannot be undefined.`);
-      }
-      return;
-    case 'boolean':
-      if (type !== Boolean) {
-        throw new Error(`The value of the argument '${name}' must be a ${type.name}.`);
-      }
-      return;
-    case 'number':
-      if (type !== Number) {
-        throw new Error(`The value of the argument '${name}' must be a ${type.name}.`);
-      }
-      return;
-    case 'string':
-      if (type !== String) {
-        throw new Error(`The value of the argument '${name}' must be a ${type.name}.`);
-      }
-      return;
-    case 'bigint':
-      // eslint-disable-next-line no-undef
-      if (type !== BigInt) {
-        throw new Error(`The value of the argument '${name}' must be a ${type.name}.`);
-      }
-      return;
-    case 'function':
-      if (type !== Function) {
-        throw new Error(`The value of the argument '${name}' must be a ${type.name}.`);
-      }
-      return;
-    case 'symbol':
-      if (type !== Symbol) {
-        throw new Error(`The value of the argument '${name}' must be a ${type.name}.`);
-      }
-      return;
-    case 'object':
-      if (value === null) {
-        if (!nullable) {
-          throw new Error(`The value of the argument '${name}' cannot be null.`);
-        }
-      } else if (!(value instanceof type)) {
-        throw new Error(`The value of the argument '${name}' must be an instance of ${type.name}.`);
-      }
-    // eslint-disable-next-line no-fallthrough
-    default:
+  if (value === null) {
+    if (!nullable) {
+      throw new TypeError(`The value of the argument '${name}' cannot be null.`);
+    }
+  } else if (value === undefined) {
+    if (!nullable) {
+      throw new TypeError(`The value of the argument '${name}' cannot be undefined.`);
+    }
+  } else if (Array.isArray(type)) {
+    if (!type.some((t) => isTypeOf(value, t, nullable))) {
+      throw new TypeError(`The value of the argument '${name}' must be of one of the specified types: ${type.map((t) => t.name).join(', ')}.`);
+    }
+  } else if (!isTypeOf(value, type, nullable)) {
+    throw new TypeError(`The value of the argument '${name}' must be a ${type.name}.`);
   }
 }
 

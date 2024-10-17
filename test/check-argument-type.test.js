@@ -8,7 +8,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 import { checkArgumentType } from '../src';
 
-describe('checkArgumentType function tests', () => {
+describe('checkArgumentType with single type', () => {
   test('Undefined value and not allowed to be null', () => {
     expect(() => checkArgumentType('test', undefined, String, false))
       .toThrow(/cannot be undefined/);
@@ -102,7 +102,7 @@ describe('checkArgumentType function tests', () => {
   });
 
   test('Check object type - incorrect', () => {
-    expect(() => checkArgumentType('test', {}, Date, false)).toThrow(/'test' must be an instance of Date/);
+    expect(() => checkArgumentType('test', {}, Date, false)).toThrow(/'test' must be a Date/);
   });
 
   test('Check symbol type - correct', () => {
@@ -176,7 +176,6 @@ describe('checkArgumentType function tests', () => {
   });
 
   test('Check primitive symbol value, correct required type', () => {
-    // eslint-disable-next-line no-undef
     expect(() => checkArgumentType('test', Symbol('symbol'), Symbol, true)).not.toThrow();
   });
 
@@ -184,12 +183,72 @@ describe('checkArgumentType function tests', () => {
     class MyObject {}
     const foo = new MyObject();
     class Foo {}
-    expect(() => checkArgumentType('test', foo, Foo, false)).toThrow(/'test' must be an instance of Foo/);
+    expect(() => checkArgumentType('test', foo, Foo, false)).toThrow(/'test' must be a Foo/);
   });
 
   test('Check object value, correct required type', () => {
     class MyObject {}
     const foo = new MyObject();
     expect(() => checkArgumentType('test', foo, MyObject)).not.toThrow();
+  });
+});
+
+describe('checkArgumentType with multiple types', () => {
+  test('Undefined value and not allowed to be null', () => {
+    expect(() => checkArgumentType('test', undefined, [String, Boolean, Number], false))
+    .toThrow(/cannot be undefined/);
+  });
+
+  test('Undefined value but allowed to be null', () => {
+    expect(() => checkArgumentType('test', undefined, [String, Boolean, Number], true)).not.toThrow();
+  });
+
+  test('Null value and not allowed to be null', () => {
+    expect(() => checkArgumentType('test', null, [String, Boolean, Number], false))
+    .toThrow(/cannot be null/);
+  });
+
+  test('Null value but allowed to be null', () => {
+    expect(() => checkArgumentType('test', null, [String, Boolean, Number], true)).not.toThrow();
+  });
+
+  test('Check primitive boolean type - correct', () => {
+    expect(() => checkArgumentType('test', true, [String, Boolean, Number], false)).not.toThrow();
+  });
+
+  test('Check wrap Boolean object - correct', () => {
+    expect(() => checkArgumentType('test', new Boolean(false), [String, Boolean, Number], false)).not.toThrow();
+  });
+
+  test('Check primitive string type - correct', () => {
+    expect(() => checkArgumentType('test', 'value', [String, Boolean, Number], false)).not.toThrow();
+  });
+
+  test('Check wrap String object - correct', () => {
+    expect(() => checkArgumentType('test', new String('value'), [String, Boolean, Number], false)).not.toThrow();
+  });
+
+  test('Check primitive number type - correct', () => {
+    expect(() => checkArgumentType('test', 123, [String, Boolean, Number], false)).not.toThrow();
+  });
+
+  test('Check wrap Number object - correct', () => {
+    expect(() => checkArgumentType('test', new Number(123), [String, Boolean, Number], false)).not.toThrow();
+  });
+
+  test('Check primitive bigint type - correct', () => {
+    expect(() => checkArgumentType('test', 123n, [String, Number, BigInt], false)).not.toThrow();
+  });
+
+  test('Check function type - correct', () => {
+    expect(() => checkArgumentType('test', () => {}, [String, Boolean, Number, Function], false)).not.toThrow();
+  });
+
+  test('Check symbol type - correct', () => {
+    expect(() => checkArgumentType('test', Symbol('symbol'), [String, Boolean, Number, Symbol], false)).not.toThrow();
+  });
+
+  test('Check with empty type array', () => {
+    expect(() => checkArgumentType('test', 'value', [], false)).toThrow(/must be of one of the specified types/);
   });
 });
