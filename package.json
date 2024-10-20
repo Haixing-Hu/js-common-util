@@ -24,7 +24,8 @@
     "dist/**/*",
     "doc/**/*",
     "LICENSE",
-    "README.md"
+    "README.md",
+    "README.zh_CN.md"
   ],
   "sideEffects": false,
   "scripts": {
