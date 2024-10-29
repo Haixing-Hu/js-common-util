@@ -1,6 +1,6 @@
 {
   "name": "@haixing_hu/common-util",
-  "version": "5.1.0",
+  "version": "5.2.0",
   "description": "A JavaScript ES6 library of common utility functions",
   "author": "Haixing Hu",
   "license": "Apache-2.0",
@@ -12,12 +12,12 @@
     "url": "https://github.com/Haixing-Hu/js-common-util/issues"
   },
   "homepage": "https://github.com/Haixing-Hu/js-common-util",
-  "main": "dist/common-util.cjs.min.js",
-  "module": "dist/common-util.esm.min.mjs",
+  "main": "dist/common-util.min.cjs",
+  "module": "dist/common-util.min.mjs",
   "exports": {
     ".": {
-      "require": "./dist/common-util.cjs.min.js",
-      "import": "./dist/common-util.esm.min.mjs"
+      "require": "./dist/common-util.min.cjs",
+      "import": "./dist/common-util.min.mjs"
     }
   },
   "files": [
@@ -46,7 +46,7 @@
   },
   "peerDependencies": {
     "@babel/runtime": "^7.23.2",
-    "@haixing_hu/typeinfo": "^3.0.0"
+    "@haixing_hu/typeinfo": "^3.1.0"
   },
   "dependencies": {
     "deep-equal": "^2.0.5",
@@ -62,10 +62,10 @@
     "@babel/runtime": "^7.23.2",
     "@haixing_hu/eslint-config": "^1.3.3",
     "@haixing_hu/jsdoc-minami": "^1.5.1",
-    "@haixing_hu/naming-style": "^1.3.0",
-    "@haixing_hu/rollup-builder": "^1.6.5",
-    "@haixing_hu/type-detect": "^1.1.0",
-    "@haixing_hu/typeinfo": "^3.0.0",
+    "@haixing_hu/naming-style": "^1.3.1",
+    "@haixing_hu/rollup-builder": "^1.8.2",
+    "@haixing_hu/type-detect": "^1.2.0",
+    "@haixing_hu/typeinfo": "^3.1.0",
     "@jest/core": "^29.7.0",
     "@rollup/plugin-alias": "^5.0.1",
     "@rollup/plugin-babel": "^6.0.4",
@@ -93,5 +93,5 @@
     "vue": "^2.7.15",
     "vue-template-compiler": "^2.7.15"
   },
-  "packageManager": "yarn@4.0.0"
+  "packageManager": "yarn@4.5.0"
 }
