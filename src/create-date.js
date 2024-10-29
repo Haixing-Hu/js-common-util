@@ -86,15 +86,7 @@ function createDate(year,
   if (millisecond < 0 || millisecond > 999) {
     throw new RangeError('The millisecond must be between 0 and 999');
   }
-  const result = new Date();
-  result.setFullYear(year);
-  result.setMonth(month - 1);
-  result.setDate(day);
-  result.setHours(hour);
-  result.setMinutes(minute);
-  result.setSeconds(second);
-  result.setMilliseconds(millisecond);
-  return result;
+  return new Date(year, month - 1, day, hour, minute, second, millisecond);
 }
 
 export default createDate;
