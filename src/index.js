@@ -83,6 +83,14 @@ import getDeclaringClass from './get-declaring-class';
 
 import queryString from './query-string';
 
+import isAndroid from './is-android';
+import isChrome from './is-chrome';
+import isEdge from './is-edge';
+import isFirefox from './is-firefox';
+import isIE from './is-ie';
+import isOpera from './is-opera';
+import isSafari from './is-safari';
+
 export {
   addClassToHmlElement,
   addSearchParams,
@@ -159,4 +167,12 @@ export {
   getDeclaringClass,
 
   queryString,
+
+  isAndroid,
+  isChrome,
+  isEdge,
+  isFirefox,
+  isIE,
+  isOpera,
+  isSafari,
 };
