@@ -91,6 +91,8 @@ import isIE from './is-ie';
 import isOpera from './is-opera';
 import isSafari from './is-safari';
 
+import rafThrottle from './raf-throttle';
+
 export {
   addClassToHmlElement,
   addSearchParams,
@@ -175,4 +177,6 @@ export {
   isIE,
   isOpera,
   isSafari,
+
+  rafThrottle,
 };
