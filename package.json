@@ -1,6 +1,6 @@
 {
   "name": "@haixing_hu/common-util",
-  "version": "5.3.2",
+  "version": "5.3.3",
   "description": "A JavaScript ES6 library of common utility functions",
   "author": "Haixing Hu",
   "license": "Apache-2.0",
@@ -45,8 +45,8 @@
     ]
   },
   "peerDependencies": {
-    "@babel/runtime": "^7.23.2",
-    "@haixing_hu/typeinfo": "^3.1.0"
+    "@babel/runtime": "^7.26.0",
+    "@haixing_hu/typeinfo": "^3.1.2"
   },
   "dependencies": {
     "deep-equal": "^2.2.3",
