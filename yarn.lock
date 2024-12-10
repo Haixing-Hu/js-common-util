@@ -1691,8 +1691,8 @@ __metadata:
     vue: "npm:^2.7.16"
     vue-template-compiler: "npm:^2.7.16"
   peerDependencies:
-    "@babel/runtime": ^7.23.2
-    "@haixing_hu/typeinfo": ^3.1.0
+    "@babel/runtime": ^7.26.0
+    "@haixing_hu/typeinfo": ^3.1.2
   languageName: unknown
   linkType: soft
 
