@@ -6,7 +6,7 @@
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
-import typeInfo from '@haixing_hu/typeinfo';
+import typeInfo from '@qubit-ltd/typeinfo';
 
 /**
  * Creates a new object based on an existing object, but sets all its empty

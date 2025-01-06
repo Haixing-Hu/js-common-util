@@ -6,7 +6,7 @@
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
-import rollupBuilder from '@haixing_hu/rollup-builder';
+import rollupBuilder from '@qubit-ltd/rollup-builder';
 
 export default rollupBuilder('CommonUtil', import.meta.url, {
   debug: true,

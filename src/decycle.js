@@ -6,7 +6,7 @@
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
-import typeInfo from '@haixing_hu/typeinfo';
+import typeInfo from '@qubit-ltd/typeinfo';
 
 /**
  * Recursively convert objects that may have circular references.
