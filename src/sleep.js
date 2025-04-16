@@ -19,9 +19,11 @@
  * @return {Promise}
  *     一个{@link Promise}对象，用于异步等待。
  */
-async function sleep(milliseconds) {
+function sleep(milliseconds) {
+  // 确保参数是一个数字并且非负
+  const ms = Math.max(0, Number(milliseconds) || 0);
   return new Promise((resolve) => {
-    setTimeout(resolve, milliseconds);
+    setTimeout(resolve, ms);
   });
 }
 

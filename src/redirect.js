@@ -30,7 +30,7 @@ function redirect(url, timeout = DEFAULT_TIMEOUT) {
     setTimeout(() => {
       window.location.href = url;
       resolve(url);
-    }, (timeout ? DEFAULT_TIMEOUT : timeout));
+    }, (timeout > 0 ? timeout : DEFAULT_TIMEOUT));
   });
 }
 
