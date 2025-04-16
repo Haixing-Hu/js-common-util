@@ -22,9 +22,10 @@
  * @author Haixing Hu
  */
 function isTypeOf(value, type, nullable) {
+  if ((value === undefined) || (value === null)) {
+    return nullable;
+  }
   switch (typeof value) {
-    case 'undefined':
-      return nullable;
     case 'boolean':
       return type === Boolean;
     case 'number':
@@ -37,17 +38,8 @@ function isTypeOf(value, type, nullable) {
       return type === Function;
     case 'symbol':
       return type === Symbol;
-    case 'object':
-      if (value === null) {
-        if (!nullable) {
-          return false;
-        }
-      } else if (!(value instanceof type)) {
-        return false;
-      }
-      return true;
     default:
-      return true;
+      return value instanceof type;
   }
 }
 

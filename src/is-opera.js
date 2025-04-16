@@ -16,8 +16,11 @@
  */
 function isOpera() {
   const globalOpera = window.opera || window.opr;
-  const matchAgent = window.navigator.userAgent.match(/Opera|OPR\//);
-  return globalOpera && matchAgent;
+  if (!globalOpera) {
+    return false;
+  }
+  const { userAgent } = window.navigator;
+  return userAgent.indexOf('Opera') > -1 || userAgent.indexOf('OPR/') > -1;
 }
 
 export default isOpera;

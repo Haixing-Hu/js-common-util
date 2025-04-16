@@ -30,14 +30,14 @@ import getHash from './get-hash';
  *     regularized.
  * @author Haixing Hu
  */
-function addSearchParams(params, url = window.location) {
+function addSearchParams(params, url) {
   if (url === undefined) {
     url = window.location;
   } else if (!(url instanceof URL)) {
     try {
       url = new URL(url);
     } catch (e) {
-      // 如果URL无效，回退到window.location
+      // if the URL is invalid, fall back to window.location
       url = window.location;
     }
   }

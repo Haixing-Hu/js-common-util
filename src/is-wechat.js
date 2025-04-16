@@ -20,8 +20,7 @@ function isWechat() {
     return false;
   }
   const agent = window.navigator.userAgent.toLowerCase();
-  const result = agent.match(/MicroMessenger\/([^\s]+)/i);
-  return (result && (result[0].toLowerCase() === 'micromessenger'));
+  return agent.indexOf('micromessenger') !== -1;
 }
 
 export default isWechat;

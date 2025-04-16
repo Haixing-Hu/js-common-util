@@ -26,7 +26,8 @@ function isChrome() {
   }
   const { vendor, userAgent } = navigator;
   const isOpera = (typeof opr !== 'undefined');
-  const isEdge = userAgent && userAgent.indexOf('Edge') > -1;
+  // check if the browser is Edge (including old and new versions)
+  const isEdge = userAgent && (userAgent.indexOf('Edge') > -1 || userAgent.indexOf('Edg/') > -1);
   const isIOSChrome = userAgent && !!userAgent.match(/CriOS/i);
   const isChromium = userAgent && !!userAgent.match(/Chromium/i);
   const isDesktopChrome = (chrome !== null)
