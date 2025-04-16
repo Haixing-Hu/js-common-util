@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
-//    Copyright (c) 2022 - 2023.
+//    Copyright (c) 2022 - 2024.
 //    Haixing Hu, Qubit Co. Ltd.
 //
 //    All rights reserved.
@@ -202,5 +202,103 @@ describe('Test emptyFieldsToNull()', () => {
     expect(result).not.toBe(obj);
     expect(result).not.toEqual(obj);
     expect(result).toEqual([new DeepObject('a', 1, 'b', 2), new DeepObject(null, 3, null, 4)]);
+  });
+  test('empty Map should return null', () => {
+    const map = new Map();
+    expect(emptyFieldsToNull(map)).toBeNull();
+  });
+  test('non-empty Map should be transformed correctly', () => {
+    const map = new Map([
+      ['key1', 'value1'],
+      ['key2', ''],
+      ['key3', new ShallowObject('', 123)],
+    ]);
+    const result = emptyFieldsToNull(map);
+    expect(result).toBeInstanceOf(Map);
+    expect(result.get('key1')).toBe('value1');
+    expect(result.get('key2')).toBeNull();
+    expect(result.get('key3').name).toBeNull();
+    expect(result.get('key3').value).toBe(123);
+  });
+  test('empty Set should return null', () => {
+    const set = new Set();
+    expect(emptyFieldsToNull(set)).toBeNull();
+  });
+  test('non-empty Set should be transformed correctly', () => {
+    const set = new Set([
+      'value1',
+      '',
+      new ShallowObject('', 123),
+    ]);
+    const result = emptyFieldsToNull(set);
+    expect(result).toBeInstanceOf(Set);
+    expect(result.has('value1')).toBe(true);
+    expect(result.has(null)).toBe(true);
+    // 检查Set中的对象已经被转换（isEmpty方法无法直接检查，需要转换为数组）
+    const resultArr = Array.from(result);
+    const objResult = resultArr.find(item => typeof item === 'object' && item !== null);
+    expect(objResult.name).toBeNull();
+    expect(objResult.value).toBe(123);
+  });
+  test('empty array should return null', () => {
+    const arr = [];
+    expect(emptyFieldsToNull(arr)).toBeNull();
+  });
+  test('object with isEmpty method that returns true should return null', () => {
+    const obj = {
+      isEmpty: () => true,
+    };
+    expect(emptyFieldsToNull(obj)).toBeNull();
+  });
+  test('object with isEmpty method that returns false should be processed normally', () => {
+    const obj = {
+      isEmpty: () => false,
+      prop1: '',
+      prop2: 'value',
+    };
+    const result = emptyFieldsToNull(obj);
+    expect(result.prop1).toBeNull();
+    expect(result.prop2).toBe('value');
+  });
+  test('object with length=0 should return null', () => {
+    const obj = {
+      length: 0,
+    };
+    expect(emptyFieldsToNull(obj)).toBeNull();
+  });
+  test('object with length>0 should be processed normally', () => {
+    const obj = {
+      length: 1,
+      prop1: '',
+      prop2: 'value',
+    };
+    const result = emptyFieldsToNull(obj);
+    expect(result.length).toBe(1);
+    expect(result.prop1).toBeNull();
+    expect(result.prop2).toBe('value');
+  });
+  test('object with size=0 should return null', () => {
+    const obj = {
+      size: 0,
+    };
+    expect(emptyFieldsToNull(obj)).toBeNull();
+  });
+  test('object with size>0 should be processed normally', () => {
+    const obj = {
+      size: 1,
+      prop1: '',
+      prop2: 'value',
+    };
+    const result = emptyFieldsToNull(obj);
+    expect(result.size).toBe(1);
+    expect(result.prop1).toBeNull();
+    expect(result.prop2).toBe('value');
+  });
+  test('typed array (Uint8Array) should be handled correctly', () => {
+    const emptyTypedArray = new Uint8Array(0);
+    expect(emptyFieldsToNull(emptyTypedArray)).toBeNull();
+    
+    const nonEmptyTypedArray = new Uint8Array([1, 2, 3]);
+    expect(emptyFieldsToNull(nonEmptyTypedArray)).toEqual(nonEmptyTypedArray);
   });
 });
