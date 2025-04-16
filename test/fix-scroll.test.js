@@ -86,4 +86,26 @@ describe('fixScroll', () => {
     // 验证没有调用window.scrollTo
     expect(window.scrollTo).not.toHaveBeenCalled();
   });
+
+  test('在iOS设备上当scrollTop >= 1时应该调用两次window.scrollTo', () => {
+    // 模拟iOS环境
+    isIos.mockImplementation(() => true);
+    
+    // 模拟scrollTop >= 1
+    Object.defineProperty(document.body, 'scrollTop', {
+      get: jest.fn().mockReturnValue(10),
+      set: jest.fn(),
+      configurable: true
+    });
+    
+    fixScroll(true);
+    
+    // 验证是否调用了setTimeout
+    expect(setTimeout).toHaveBeenCalledWith(expect.any(Function), 50);
+    
+    // 验证是否调用了window.scrollTo两次
+    expect(window.scrollTo).toHaveBeenCalledTimes(2);
+    expect(window.scrollTo).toHaveBeenNthCalledWith(1, 0, 11);
+    expect(window.scrollTo).toHaveBeenNthCalledWith(2, 0, 9);
+  });
 }); 

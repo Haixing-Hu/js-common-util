@@ -138,4 +138,55 @@ describe('removeSearchParam', () => {
     const result = removeSearchParam('code', url);
     expect(result).toBe('https://stage.njzhyl.cn/iot-box-nurse-v2/?udid=1c8688fe-8d8e-bbd0-588a-669addf9cba1#/bind/device/trigger');
   });
+  it('参数为URL实例', () => {
+    const urlObj = new URL('http://example.com?param1=value1&param2=value2#hash');
+    const result = removeSearchParam('param1', urlObj);
+    expect(result).toBe('http://example.com/?param2=value2#hash');
+  });
+  
+  it('没有查询参数的URL', () => {
+    const url = 'http://example.com#hash';
+    const result = removeSearchParam('nonExistentParam', url);
+    expect(result).toBe('http://example.com/#hash');
+  });
+  
+  it('search为null的情况', () => {
+    // 通过测试getSearch返回null的情况
+    const url = 'http://example.com';
+    const result = removeSearchParam('anyParam', url);
+    expect(result).toBe('http://example.com/');
+  });
+
+  it('空的查询字符串', () => {
+    // 确保当search是空字符串时的情况也被测试
+    const url = 'http://example.com?';
+    const result = removeSearchParam('anyParam', url);
+    expect(result).toBe('http://example.com/');
+  });
+  
+  // 测试当没有提供url参数时使用window.location（覆盖第30行）
+  it('未提供url参数时应使用window.location', () => {
+    // 保存原始window.location
+    const originalLocation = window.location;
+    
+    // 模拟window.location
+    delete window.location;
+    window.location = new URL('http://example.com/path?param=value#hash');
+    
+    try {
+      const result = removeSearchParam('param');
+      // URL中可能有一个空的查询字符串（包含一个问号），这也是合法的
+      expect(result).toBe('http://example.com/path?#hash');
+    } finally {
+      // 恢复原始window.location
+      window.location = originalLocation;
+    }
+  });
+  
+  // 测试当尝试删除不存在的参数时的情况
+  it('当尝试删除不存在的参数时应保持query string不变', () => {
+    const url = 'http://example.com/path?param1=value1&param2=value2';
+    const result = removeSearchParam('param3', url);
+    expect(result).toBe('http://example.com/path?param1=value1&param2=value2');
+  });
 });

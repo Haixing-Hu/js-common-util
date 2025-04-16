@@ -73,4 +73,22 @@ describe('round', () => {
     const digits = 2;
     expect(round(value, digits)).not.toBeFinite();
   });
+
+  test('round(123, 2.1) throw TypeError', () => {
+    const value = 123;
+    const digits = 2.1;
+    expect(() => round(value, digits)).toThrow('The digits must be integer.');
+  });
+
+  test('round(123, -2) throw RangeError', () => {
+    const value = 123;
+    const digits = -2;
+    expect(() => round(value, digits)).toThrow('The digits must between [0, 20]');
+  });
+
+  test('round(123, 21) throw RangeError', () => {
+    const value = 123;
+    const digits = 21;
+    expect(() => round(value, digits)).toThrow('The digits must between [0, 20]');
+  });
 });

@@ -173,6 +173,76 @@ describe('removeClassFromHtmlElement', () => {
     });
   });
   
+  // 测试第45行的情况：元素的className为空且使用传统方式
+  test('在fallback模式下，当元素的className为空字符串时应返回', () => {
+    // 创建一个空类名的元素
+    const element = document.createElement('div');
+    element.className = '   '; // 只包含空格的类名
+    
+    // 禁用classList
+    const originalClassList = element.classList;
+    Object.defineProperty(element, 'classList', {
+      value: undefined,
+      configurable: true
+    });
+    
+    // 应该正确处理空字符串情况
+    removeClassFromHtmlElement(element, 'someClass');
+    expect(element.className).toBe('   '); // 保持原样
+    
+    // 恢复classList
+    Object.defineProperty(element, 'classList', {
+      value: originalClassList,
+      configurable: true
+    });
+  });
+  
+  // 专门测试第35-57行的覆盖范围
+  test('测试fallback模式下的类名为空字符串不同情况', () => {
+    // 创建一个空类名的元素
+    const element = document.createElement('div');
+    element.className = ''; // 完全空的类名
+    
+    // 禁用classList
+    const originalClassList = element.classList;
+    Object.defineProperty(element, 'classList', {
+      value: undefined,
+      configurable: true
+    });
+    
+    // 尝试删除一个类，应该直接返回
+    removeClassFromHtmlElement(element, 'someClass');
+    expect(element.className).toBe(''); // 保持为空
+    
+    // 恢复classList
+    Object.defineProperty(element, 'classList', {
+      value: originalClassList,
+      configurable: true
+    });
+  });
+  
+  // 测试在fallback模式下，当元素的类名包含要删除的类，但不在列表开头或结尾
+  test('在fallback模式下，删除中间位置的类名', () => {
+    const element = document.createElement('div');
+    element.className = 'class1 class2 class3';
+    
+    // 禁用classList
+    const originalClassList = element.classList;
+    Object.defineProperty(element, 'classList', {
+      value: undefined,
+      configurable: true
+    });
+    
+    removeClassFromHtmlElement(element, 'class2');
+    expect(element.className).toBe('class1 class3');
+    
+    // 恢复classList
+    Object.defineProperty(element, 'classList', {
+      value: originalClassList,
+      configurable: true
+    });
+  });
+  
   // 直接从源码复制修改条件表达式来覆盖所有分支
   test('测试所有分支覆盖', () => {
     // 创建新元素，确保每次测试使用单独的元素

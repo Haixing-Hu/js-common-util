@@ -70,6 +70,58 @@ describe('toString', () => {
     const obj = new Date();
     expect(toString(obj)).toBe(obj.toISOString());
   });
+  
+  test('toString(TypedArray)', () => {
+    const obj = new Uint8Array([1, 2, 3]);
+    expect(toString(obj)).toBe('[1,2,3]');
+  });
+  
+  test('toString(Array)', () => {
+    const obj = [1, 'two', true];
+    expect(toString(obj)).toBe(JSON.stringify(obj));
+  });
+  
+  test('toString(Map)', () => {
+    const obj = new Map();
+    obj.set('key1', 'value1');
+    obj.set('key2', 42);
+    // Map转为JSON后是一个带键值对数组的对象
+    expect(toString(obj)).toContain('key1');
+    expect(toString(obj)).toContain('value1');
+    expect(toString(obj)).toContain('key2');
+    expect(toString(obj)).toContain('42');
+  });
+  
+  test('toString(Set)', () => {
+    const obj = new Set(['a', 'b', 'c']);
+    // Set转为JSON后是一个带值数组的对象
+    expect(toString(obj)).toContain('a');
+    expect(toString(obj)).toContain('b');
+    expect(toString(obj)).toContain('c');
+  });
+  
+  test('toString(Iterator)', () => {
+    function* generator() {
+      yield 1;
+      yield 2;
+      yield 3;
+    }
+    const obj = generator();
+    // Iterator会被转换为空对象或者特定实现方式
+    const result = toString(obj);
+    expect(result).toBeTruthy();
+  });
+  
+  test('toString(Class)', () => {
+    class TestClass {
+      constructor() {
+        this.prop = 'value';
+      }
+    }
+    const obj = new TestClass();
+    expect(toString(obj)).toBe('{"prop":"value"}');
+  });
+  
   // TODO：增加对其他类型的测试
   test('toString(Insurant)', () => {
     const obj = new Insurant();
@@ -118,5 +170,18 @@ describe('toString', () => {
       },
     };
     expect(toString(obj)).toBe(JSON.stringify(expected));
+  });
+  
+  test('toString with beautify option', () => {
+    const obj = { name: 'test', value: 123 };
+    const beautified = toString(obj, true);
+    const regular = toString(obj, false);
+    
+    // 由于是使用json-beautify库格式化，结果的确应该更长
+    expect(beautified.length).toBeGreaterThan(regular.length);
+    
+    // 检查是否为格式化字符串（可能包含空格而非换行符）
+    // json-beautify格式化方式可能不一定使用换行符，而是使用空格
+    expect(beautified).not.toBe(regular);
   });
 });

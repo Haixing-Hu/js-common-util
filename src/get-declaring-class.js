@@ -54,11 +54,9 @@ function getDeclaringClass(Class, property) {
   }
   if (Object.prototype.hasOwnProperty.call(Last.prototype, property)) {
     return Last;
-  } else if (Object.prototype.hasOwnProperty.call(Object.prototype, property)) {
-    // deal with the special cases that the property is declared in Object
-    return Object;
   } else {
-    return Last;
+    // 处理Object.prototype上的属性，或者返回Last
+    return Object.prototype.hasOwnProperty.call(Object.prototype, property) ? Object : Last;
   }
 }
 

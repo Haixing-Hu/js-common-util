@@ -93,4 +93,18 @@ describe('addClassToHtmlElement', () => {
     addClassToHtmlElement(element, 'test-class');
     expect(element.getAttribute('class')).toBe('existing-class test-class');
   });
+  
+  test('当元素没有classList属性且尝试添加已存在的类名时不应重复添加', () => {
+    const element = document.getElementById('test');
+    element.className = 'existing-class';
+    
+    // 模拟没有classList的元素
+    Object.defineProperty(element, 'classList', {
+      value: null,
+      writable: true
+    });
+    
+    addClassToHtmlElement(element, 'existing-class');
+    expect(element.getAttribute('class')).toBe('existing-class');
+  });
 }); 

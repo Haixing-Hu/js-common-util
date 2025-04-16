@@ -135,4 +135,43 @@ describe('getHash', () => {
     expect(getHash(url))
       .toBe(null);
   });
+  
+  // 测试无效URL的情况（覆盖第26行）
+  test('参数为无效URL', () => {
+    // 在jsdom环境中模拟window.location
+    const originalWindowLocation = window.location;
+    delete window.location;
+    window.location = new URL('http://example.com/#test');
+    
+    try {
+      // 传入一个无效的URL
+      const result = getHash('invalid-url');
+      expect(result).toBe('test');
+    } finally {
+      // 恢复原始的window.location
+      window.location = originalWindowLocation;
+    }
+  });
+  
+  // 测试URL为null的情况（覆盖第38行）
+  test('URL为null时返回null', () => {
+    // 在jsdom环境中模拟window.location
+    const originalWindowLocation = window.location;
+    delete window.location;
+    window.location = null;
+    
+    try {
+      const result = getHash();
+      expect(result).toBe(null);
+    } finally {
+      // 恢复原始的window.location
+      window.location = originalWindowLocation;
+    }
+  });
+  
+  // 特殊情况：URL以#结尾（覆盖第38行另一个分支）
+  test('URL以#结尾但没有hash内容时返回空字符串', () => {
+    const url = 'http://www.baidu.com/?source=xxx#';
+    expect(getHash(url)).toBe('');
+  });
 });
