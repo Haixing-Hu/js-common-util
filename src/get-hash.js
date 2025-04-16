@@ -25,13 +25,24 @@ function getHash(url) {
   if (url === undefined) {
     url = window.location;
   } else if (!(url instanceof URL)) {
-    url = new URL(url);
+    try {
+      url = new URL(url);
+    } catch (e) {
+      // 如果URL无效，回退到window.location
+      url = window.location;
+    }
   }
+  
+  // 确保url不为undefined
+  if (!url) {
+    return null;
+  }
+  
   let hash = url.hash;
   if (hash.length === 0) {
     // work around for a special case: http://www.baidu.com/?source=xxx#
     const href = url.href;
-    if (href.length > 0 && href.charAt(href.length - 1) === '#') {
+    if (href && href.length > 0 && href.charAt(href.length - 1) === '#') {
       return '';
     }
     return null;

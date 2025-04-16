@@ -191,6 +191,12 @@ describe('checkArgumentType with single type', () => {
     const foo = new MyObject();
     expect(() => checkArgumentType('test', foo, MyObject)).not.toThrow();
   });
+  
+  test('Check object with undefined constructor', () => {
+    const obj = {};
+    Object.defineProperty(obj, 'constructor', { value: undefined });
+    expect(() => checkArgumentType('test', obj, String, false)).toThrow(/'test' must be a String/);
+  });
 });
 
 describe('checkArgumentType with multiple types', () => {
@@ -250,5 +256,17 @@ describe('checkArgumentType with multiple types', () => {
 
   test('Check with empty type array', () => {
     expect(() => checkArgumentType('test', 'value', [], false)).toThrow(/must be of one of the specified types/);
+  });
+  
+  test('Check object with undefined constructor against multiple types', () => {
+    const obj = {};
+    Object.defineProperty(obj, 'constructor', { value: undefined });
+    expect(() => checkArgumentType('test', obj, [String, Number, Boolean], false))
+      .toThrow(/must be of one of the specified types/);
+  });
+  
+  test('Check value with multiple types when none matches', () => {
+    expect(() => checkArgumentType('test', {}, [String, Number, Boolean], false))
+      .toThrow(/must be of one of the specified types: String, Number, Boolean/);
   });
 });

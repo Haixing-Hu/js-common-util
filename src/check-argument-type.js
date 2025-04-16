@@ -38,13 +38,17 @@ function checkArgumentType(name, value, type, nullable = false) {
     }
   } else if (Array.isArray(type)) {
     if (!type.some((t) => isTypeOf(value, t, nullable))) {
+      const typeNames = type.map((t) => t.name).join(', ');
+      const valueTypeName = value.constructor ? value.constructor.name : 'Unknown';
       throw new TypeError(`The value of the argument '${name}' must be of one `
-        + `of the specified types: ${type.map((t) => t.name).join(', ')}, `
-        + `but it is a ${value.constructor.name}.`);
+        + `of the specified types: ${typeNames}, `
+        + `but it is a ${valueTypeName}.`);
     }
   } else if (!isTypeOf(value, type, nullable)) {
-    throw new TypeError(`The value of the argument '${name}' must be a ${type.name}, `
-      + `but it is a ${value.constructor.name}.`);
+    const typeName = type.name;
+    const valueTypeName = value.constructor ? value.constructor.name : 'Unknown';
+    throw new TypeError(`The value of the argument '${name}' must be a ${typeName}, `
+      + `but it is a ${valueTypeName}.`);
   }
 }
 

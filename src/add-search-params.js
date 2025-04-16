@@ -34,7 +34,12 @@ function addSearchParams(params, url = window.location) {
   if (url === undefined) {
     url = window.location;
   } else if (!(url instanceof URL)) {
-    url = new URL(url);
+    try {
+      url = new URL(url);
+    } catch (e) {
+      // 如果URL无效，回退到window.location
+      url = window.location;
+    }
   }
   const base = url.origin + url.pathname;
   let hash = getHash(url);

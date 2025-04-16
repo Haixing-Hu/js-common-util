@@ -6,6 +6,7 @@
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
+import { isString } from '@qubit-ltd/type-detect';
 
 /**
  * 将指定的字符串转化为大写。
@@ -18,7 +19,7 @@
  * @author 胡海星
  */
 function uppercaseString(str) {
-  if ((str === undefined) || (str === null) || (typeof str !== 'string')) {
+  if ((str === undefined) || (str === null) || (!isString(str))) {
     return '';
   } else {
     return str.toUpperCase();

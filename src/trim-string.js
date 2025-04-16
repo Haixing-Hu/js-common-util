@@ -6,7 +6,7 @@
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
-import isString from './is-string';
+import { isString } from '@qubit-ltd/type-detect';
 
 /**
  * 删除指定的字符串前后空格。

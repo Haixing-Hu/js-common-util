@@ -30,7 +30,12 @@ function getSearch(url = undefined) {
   } else if (url instanceof URL) {
     theUrl = url;
   } else {
-    theUrl = new URL(url);
+    try {
+      theUrl = new URL(url);
+    } catch (e) {
+      // 如果URL无效，回退到window.location
+      theUrl = window.location;
+    }
   }
   const search = theUrl.search;
   let result = null;

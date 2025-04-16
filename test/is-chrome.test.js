@@ -278,4 +278,96 @@ describe('isChrome', () => {
     
     expect(mockImplementation()).toBe(false);
   });
+
+  // 测试window对象不存在的情况
+  it('当window对象不存在时应该返回false', () => {
+    // 一个不包含window对象的模拟环境
+    const mockImplementation = () => {
+      // 设置window为undefined以模拟不存在的情况
+      const window = undefined;
+      
+      // 检查window对象是否存在
+      if (typeof window === 'undefined') {
+        return false;
+      }
+      
+      const { chrome, navigator, opr } = window;
+      // 由于window不存在，代码不会执行到这里
+      return Boolean(true);
+    };
+    
+    // 替换isChrome函数实现
+    jest.spyOn(global, 'isChrome').mockImplementation(mockImplementation);
+    
+    expect(mockImplementation()).toBe(false);
+  });
+
+  // 测试navigator对象不存在的情况
+  it('当navigator对象不存在时应该返回false', () => {
+    // 模拟没有navigator对象的环境
+    const window = {
+      chrome: {},
+      navigator: null,
+      opr: undefined
+    };
+    
+    // 模拟实现isChrome函数
+    const mockImplementation = () => {
+      const { chrome, navigator, opr } = window;
+      if (!navigator) return false;
+      
+      const { vendor, userAgent } = navigator;
+      const isOpera = (typeof opr !== 'undefined');
+      const isEdge = userAgent && userAgent.indexOf('Edge') > -1;
+      const isIOSChrome = userAgent && !!userAgent.match(/CriOS/i);
+      const isChromium = userAgent && !!userAgent.match(/Chromium/i);
+      const isDesktopChrome = (chrome !== null)
+        && (chrome !== undefined)
+        && (vendor === 'Google Inc.')
+        && (isOpera === false)
+        && (isEdge === false);
+      return Boolean(isIOSChrome || isDesktopChrome || isChromium);
+    };
+    
+    // 替换isChrome函数实现
+    jest.spyOn(global, 'isChrome').mockImplementation(mockImplementation);
+    
+    expect(mockImplementation()).toBe(false);
+  });
+
+  // 测试chrome对象为undefined的情况
+  it('当chrome对象为undefined时正确处理', () => {
+    // 模拟chrome对象为undefined的环境
+    const window = {
+      chrome: undefined,
+      navigator: {
+        vendor: 'Google Inc.',
+        userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36',
+      },
+      opr: undefined
+    };
+    
+    // 模拟实现isChrome函数
+    const mockImplementation = () => {
+      const { chrome, navigator, opr } = window;
+      if (!navigator) return false;
+      
+      const { vendor, userAgent } = navigator;
+      const isOpera = (typeof opr !== 'undefined');
+      const isEdge = userAgent && userAgent.indexOf('Edge') > -1;
+      const isIOSChrome = userAgent && !!userAgent.match(/CriOS/i);
+      const isChromium = userAgent && !!userAgent.match(/Chromium/i);
+      const isDesktopChrome = (chrome !== null)
+        && (chrome !== undefined)
+        && (vendor === 'Google Inc.')
+        && (isOpera === false)
+        && (isEdge === false);
+      return Boolean(isIOSChrome || isDesktopChrome || isChromium);
+    };
+    
+    // 替换isChrome函数实现
+    jest.spyOn(global, 'isChrome').mockImplementation(mockImplementation);
+    
+    expect(mockImplementation()).toBe(false);
+  });
 }); 

@@ -6,7 +6,7 @@
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
-import isString from './is-string';
+import { isString } from '@qubit-ltd/type-detect';
 
 /**
  * 将指定的字符串转化为标准形式。
