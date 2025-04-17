@@ -58,4 +58,4 @@ describe('isFirefox 函数测试', () => {
     expect(isFirefox()).toBe(false);
     restore();
   });
-}); 
+});

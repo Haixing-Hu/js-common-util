@@ -63,4 +63,4 @@ describe('isWechat', () => {
     });
     expect(isWechat()).toBe(false);
   });
-}); 
+});

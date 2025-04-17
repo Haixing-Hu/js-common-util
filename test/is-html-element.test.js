@@ -64,4 +64,4 @@ describe('isHtmlElement', () => {
   test('对于函数返回false', () => {
     expect(isHtmlElement(() => {})).toBe(false);
   });
-}); 
+});

@@ -180,7 +180,7 @@ describe('addSearchParam', () => {
     const args = queryString.parse(search);
     expect(args.$value).toBe('');
   });
-  
+
   test('参数为URL对象', () => {
     const urlObj = new URL('http://192.168.199.2:8081/?source=nanjing-bank&params=xxxx');
     const result = addSearchParams({ value: 'zzz' }, urlObj);
@@ -191,7 +191,7 @@ describe('addSearchParam', () => {
     expect(args.params).toBe('xxxx');
     expect(args.value).toBe('zzz');
   });
-  
+
   test('参数为URL对象，有hash值', () => {
     const urlObj = new URL('http://192.168.199.2:8081/?source=nanjing-bank&params=xxxx#finish');
     const result = addSearchParams({ value: 'zzz' }, urlObj);
@@ -202,7 +202,7 @@ describe('addSearchParam', () => {
     expect(args.params).toBe('xxxx');
     expect(args.value).toBe('zzz');
   });
-  
+
   test('url参数为undefined', () => {
     // 备份并模拟window.location
     const originalLocation = window.location;
@@ -211,21 +211,21 @@ describe('addSearchParam', () => {
       origin: 'http://192.168.199.2:8081',
       pathname: '/',
       hash: '',
-      search: '?source=nanjing-bank'
+      search: '?source=nanjing-bank',
     };
-    
+
     const result = addSearchParams({ value: 'zzz' }, undefined);
     expect(result).toBe('http://192.168.199.2:8081/?source=nanjing-bank&value=zzz');
-    
+
     // 恢复window.location
     window.location = originalLocation;
   });
-  
+
   test('创建URL对象失败时回退到window.location', () => {
     // 备份原始的URL构造函数和window.location
     const OriginalURL = global.URL;
     const originalLocation = window.location;
-    
+
     try {
       // 模拟window.location
       delete window.location;
@@ -233,17 +233,17 @@ describe('addSearchParam', () => {
         origin: 'http://192.168.199.2:8081',
         pathname: '/',
         hash: '',
-        search: '?source=nanjing-bank'
+        search: '?source=nanjing-bank',
       };
-      
+
       // 模拟URL构造函数抛出错误
-      global.URL = function() {
+      global.URL = function () {
         throw new Error('Invalid URL');
       };
-      
+
       // 使用一个会导致URL构造失败的字符串
       const result = addSearchParams({ value: 'zzz' }, 'invalid://url');
-      
+
       // 应该回退到使用window.location
       expect(result).toBe('http://192.168.199.2:8081/?source=nanjing-bank&value=zzz');
     } finally {
@@ -252,22 +252,20 @@ describe('addSearchParam', () => {
       window.location = originalLocation;
     }
   });
-  
+
   test('hash为null的情况', () => {
     const url = 'http://192.168.199.2:8081/';
     // 模拟getHash返回null
     const originalGetHash = require('../src/get-hash').default;
-    jest.mock('../src/get-hash', () => {
-      return jest.fn().mockReturnValue(null);
-    });
-    
+    jest.mock('../src/get-hash', () => jest.fn().mockReturnValue(null));
+
     const result = addSearchParams({ value: 'zzz' }, url);
     expect(result).toBe('http://192.168.199.2:8081/?value=zzz');
-    
+
     // 恢复getHash
     jest.unmock('../src/get-hash');
   });
-  
+
   test('没有search参数的情况', () => {
     const url = 'http://192.168.199.2:8081/#finish';
     const result = addSearchParams({ value: 'zzz' }, url);
@@ -281,7 +279,7 @@ describe('addSearchParam', () => {
     // 备份原始的URL构造函数和window.location
     const OriginalURL = global.URL;
     const originalLocation = window.location;
-    
+
     try {
       // 模拟window.location
       delete window.location;
@@ -289,20 +287,20 @@ describe('addSearchParam', () => {
         origin: 'http://test.example.com',
         pathname: '/path',
         hash: '#somehash',
-        search: '?existing=param'
+        search: '?existing=param',
       };
-      
+
       // 模拟URL构造函数抛出错误
-      global.URL = function(url) {
+      global.URL = function (url) {
         if (url === 'invalid://url') {
           throw new Error('Invalid URL');
         }
         return new OriginalURL(url);
       };
-      
+
       // 使用一个会导致URL构造失败的字符串
       const result = addSearchParams({ newparam: 'value' }, 'invalid://url');
-      
+
       // 应该回退到使用window.location
       expect(result).toBe('http://test.example.com/path?existing=param&newparam=value#somehash');
     } finally {
@@ -315,7 +313,7 @@ describe('addSearchParam', () => {
   test('明确测试url === undefined的情况', () => {
     // 备份原始window.location
     const originalLocation = window.location;
-    
+
     try {
       // 模拟window.location
       delete window.location;
@@ -324,14 +322,14 @@ describe('addSearchParam', () => {
         pathname: '/path',
         hash: '',
         search: '?param=value',
-        toString: function() { return this.origin + this.pathname + this.search; },
-        href: 'http://explicit-test.example.com/path?param=value'
+        toString() { return this.origin + this.pathname + this.search; },
+        href: 'http://explicit-test.example.com/path?param=value',
       };
-      
+
       // 显式传入undefined
       const params = { newParam: 'newValue' };
       const result = addSearchParams(params, undefined);
-      
+
       // 验证结果
       expect(result).toBe('http://explicit-test.example.com/path?param=value&newParam=newValue');
     } finally {
@@ -344,7 +342,7 @@ describe('addSearchParam', () => {
     // 备份原始window.location和addSearchParams函数
     const originalLocation = window.location;
     const originalAddSearchParams = addSearchParams;
-    
+
     try {
       // 模拟window.location
       delete window.location;
@@ -353,14 +351,14 @@ describe('addSearchParam', () => {
         pathname: '/path',
         hash: '',
         search: '?param=value',
-        toString: function() { return this.origin + this.pathname + this.search; },
-        href: 'http://direct-test.example.com/path?param=value'
+        toString() { return this.origin + this.pathname + this.search; },
+        href: 'http://direct-test.example.com/path?param=value',
       };
-      
+
       // 使用call方法直接调用函数，并强制第二个参数为undefined
       const params = { testParam: 'testValue' };
       const result = originalAddSearchParams.call(null, params, undefined);
-      
+
       // 验证结果
       expect(result).toBe('http://direct-test.example.com/path?param=value&testParam=testValue');
     } finally {
@@ -374,7 +372,7 @@ describe('addSearchParam', () => {
     // 备份原始模块和对象
     const originalModule = require('../src/add-search-params');
     const originalLocation = window.location;
-    
+
     try {
       // 模拟window.location
       delete window.location;
@@ -383,10 +381,10 @@ describe('addSearchParam', () => {
         pathname: '/path',
         hash: '',
         search: '?param=value',
-        toString: function() { return this.origin + this.pathname + this.search; },
-        href: 'http://test.example.com/path?param=value'
+        toString() { return this.origin + this.pathname + this.search; },
+        href: 'http://test.example.com/path?param=value',
       };
-      
+
       // 创建一个模拟版本的addSearchParams函数
       // 这个版本将显式跟踪第35行的执行
       const mockAddSearchParams = jest.fn((params, url) => {
@@ -399,17 +397,17 @@ describe('addSearchParam', () => {
         // 返回一个有效结果，以便测试能够继续
         return 'http://mocked.url/?param=value';
       });
-      
+
       // 替换原模块的实现
       jest.mock('../src/add-search-params', () => mockAddSearchParams);
-      
+
       // 调用函数，不传递url参数
       const params = { testParam: 'testValue' };
       mockAddSearchParams(params);
-      
+
       // 验证函数被调用
       expect(mockAddSearchParams).toHaveBeenCalledWith(params);
-      
+
       // 进一步调用一次有url参数的版本，以确保覆盖两种情况
       mockAddSearchParams(params, 'http://some.url');
       expect(mockAddSearchParams).toHaveBeenCalledWith(params, 'http://some.url');
@@ -424,7 +422,7 @@ describe('addSearchParam', () => {
   test('当不传入url参数时应使用window.location', () => {
     // 备份原始window.location
     const originalLocation = window.location;
-    
+
     try {
       // 模拟window.location
       delete window.location;
@@ -433,13 +431,13 @@ describe('addSearchParam', () => {
         pathname: '/path',
         hash: '',
         search: '?existing=value',
-        toString: function() { return this.origin + this.pathname + this.search; },
-        href: 'http://simple-test.example.com/path?existing=value'
+        toString() { return this.origin + this.pathname + this.search; },
+        href: 'http://simple-test.example.com/path?existing=value',
       };
-      
+
       // 不传入url参数
       const result = addSearchParams({ newParam: 'newValue' });
-      
+
       // 验证结果
       expect(result).toBe('http://simple-test.example.com/path?existing=value&newParam=newValue');
     } finally {

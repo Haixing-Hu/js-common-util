@@ -159,4 +159,4 @@ describe('isChrome', () => {
     });
     expect(isChrome()).toBe(false);
   });
-}); 
+});

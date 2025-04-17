@@ -143,13 +143,13 @@ describe('removeSearchParam', () => {
     const result = removeSearchParam('param1', urlObj);
     expect(result).toBe('http://example.com/?param2=value2#hash');
   });
-  
+
   it('没有查询参数的URL', () => {
     const url = 'http://example.com#hash';
     const result = removeSearchParam('nonExistentParam', url);
     expect(result).toBe('http://example.com/#hash');
   });
-  
+
   it('search为null的情况', () => {
     // 通过测试getSearch返回null的情况
     const url = 'http://example.com';
@@ -163,16 +163,16 @@ describe('removeSearchParam', () => {
     const result = removeSearchParam('anyParam', url);
     expect(result).toBe('http://example.com/');
   });
-  
+
   // 测试当没有提供url参数时使用window.location（覆盖第30行）
   it('未提供url参数时应使用window.location', () => {
     // 保存原始window.location
     const originalLocation = window.location;
-    
+
     // 模拟window.location
     delete window.location;
     window.location = new URL('http://example.com/path?param=value#hash');
-    
+
     try {
       const result = removeSearchParam('param');
       // URL中可能有一个空的查询字符串（包含一个问号），这也是合法的
@@ -182,7 +182,7 @@ describe('removeSearchParam', () => {
       window.location = originalLocation;
     }
   });
-  
+
   // 测试当尝试删除不存在的参数时的情况
   it('当尝试删除不存在的参数时应保持query string不变', () => {
     const url = 'http://example.com/path?param1=value1&param2=value2';

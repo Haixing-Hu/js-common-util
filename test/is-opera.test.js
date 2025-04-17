@@ -77,4 +77,4 @@ describe('isOpera 函数测试', () => {
     });
     expect(isOpera()).toBe(false);
   });
-}); 
+});

@@ -46,33 +46,33 @@ describe('uriEncode', () => {
     const actual = uriEncode('测试一下 拒绝%原?因');
     expect(actual).toBe('%E6%B5%8B%E8%AF%95%E4%B8%80%E4%B8%8B%20%E6%8B%92%E7%BB%9D%25%E5%8E%9F%3F%E5%9B%A0');
   });
-  
+
   // 特殊字符测试 - RFC 3986严格编码
   test('string contains ! character', () => {
     const actual = uriEncode('hello!world');
     expect(actual).toBe('hello%21world');
   });
-  
+
   test('string contains \' character', () => {
     const actual = uriEncode('hello\'world');
     expect(actual).toBe('hello%27world');
   });
-  
+
   test('string contains ( character', () => {
     const actual = uriEncode('hello(world');
     expect(actual).toBe('hello%28world');
   });
-  
+
   test('string contains ) character', () => {
     const actual = uriEncode('hello)world');
     expect(actual).toBe('hello%29world');
   });
-  
+
   test('string contains * character', () => {
     const actual = uriEncode('hello*world');
     expect(actual).toBe('hello%2Aworld');
   });
-  
+
   test('string contains all special characters', () => {
     const actual = uriEncode('hello!\'()*world');
     expect(actual).toBe('hello%21%27%28%29%2Aworld');

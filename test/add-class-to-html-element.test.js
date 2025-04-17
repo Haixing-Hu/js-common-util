@@ -55,56 +55,56 @@ describe('addClassToHtmlElement', () => {
     addClassToHtmlElement(element, 'test-class');
     expect(element.className).toBe('existing-class test-class');
   });
-  
+
   test('应该能处理多个类名字符串', () => {
     const element = document.getElementById('test');
     addClassToHtmlElement(element, 'class1 class2 class3');
     expect(element.className).toBe('class1 class2 class3');
   });
-  
+
   test('应该能处理包含空类名的多类名字符串', () => {
     const element = document.getElementById('test');
     addClassToHtmlElement(element, 'class1  class2');
     expect(element.className).toBe('class1 class2');
   });
-  
+
   test('当元素没有classList属性时应正确添加类', () => {
     const element = document.getElementById('test');
     // 模拟没有classList的元素
     Object.defineProperty(element, 'classList', {
       value: null,
-      writable: true
+      writable: true,
     });
-    
+
     addClassToHtmlElement(element, 'test-class');
     expect(element.getAttribute('class')).toBe(' test-class');
   });
-  
+
   test('当元素没有classList属性且已有类名时应正确添加新类', () => {
     const element = document.getElementById('test');
     element.className = 'existing-class';
-    
+
     // 模拟没有classList的元素
     Object.defineProperty(element, 'classList', {
       value: null,
-      writable: true
+      writable: true,
     });
-    
+
     addClassToHtmlElement(element, 'test-class');
     expect(element.getAttribute('class')).toBe('existing-class test-class');
   });
-  
+
   test('当元素没有classList属性且尝试添加已存在的类名时不应重复添加', () => {
     const element = document.getElementById('test');
     element.className = 'existing-class';
-    
+
     // 模拟没有classList的元素
     Object.defineProperty(element, 'classList', {
       value: null,
-      writable: true
+      writable: true,
     });
-    
+
     addClassToHtmlElement(element, 'existing-class');
     expect(element.getAttribute('class')).toBe('existing-class');
   });
-}); 
+});

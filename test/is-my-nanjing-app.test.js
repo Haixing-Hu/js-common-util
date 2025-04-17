@@ -32,4 +32,4 @@ describe('isMyNanjingApp 函数测试', () => {
     delete window.auth;
     expect(isMyNanjingApp()).toBe(false);
   });
-}); 
+});

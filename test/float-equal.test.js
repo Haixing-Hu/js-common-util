@@ -59,4 +59,4 @@ describe('floatEqual', () => {
     expect(floatEqual(1.05, 1.06, 0.011)).toBe(true); // 增大epsilon
     expect(floatEqual(1.05, 1.06, 0.001)).toBe(false); // 精度更小
   });
-}); 
+});

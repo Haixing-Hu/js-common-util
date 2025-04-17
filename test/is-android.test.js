@@ -59,4 +59,4 @@ describe('isAndroid', () => {
     });
     expect(isAndroid()).toBe(false);
   });
-}); 
+});

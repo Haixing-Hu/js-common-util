@@ -58,59 +58,59 @@ describe('stringToFloat', () => {
     const value = true;
     expect(stringToFloat(value)).toBeNaN();
   });
-  
+
   // 添加更多测试用例覆盖第23行和后续代码
   test('stringToFloat(function)', () => {
-    const value = function() {};
+    const value = function () {};
     expect(stringToFloat(value)).toBeNaN();
   });
-  
+
   test('stringToFloat(Symbol)', () => {
     const value = Symbol('test');
     expect(stringToFloat(value)).toBeNaN();
   });
-  
+
   test('stringToFloat(Date)', () => {
     const value = new Date();
     expect(stringToFloat(value)).toBeNaN();
   });
-  
+
   test('stringToFloat(RegExp)', () => {
     const value = /test/;
     expect(stringToFloat(value)).toBeNaN();
   });
-  
+
   test('stringToFloat(Map)', () => {
     const value = new Map();
     expect(stringToFloat(value)).toBeNaN();
   });
-  
+
   test('stringToFloat(Set)', () => {
     const value = new Set();
     expect(stringToFloat(value)).toBeNaN();
   });
-  
+
   test('stringToFloat(custom class)', () => {
     class TestClass {}
     const value = new TestClass();
     expect(stringToFloat(value)).toBeNaN();
   });
-  
+
   test('stringToFloat(123)', () => {
     const value = 123;
     expect(stringToFloat(value)).toBe(123);
   });
-  
+
   test('stringToFloat(NaN)', () => {
     const value = NaN;
     expect(stringToFloat(value)).toBeNaN();
   });
-  
+
   test('stringToFloat(Infinity)', () => {
     const value = Infinity;
     expect(stringToFloat(value)).toBe(Infinity);
   });
-  
+
   test('stringToFloat(-Infinity)', () => {
     const value = -Infinity;
     expect(stringToFloat(value)).toBe(-Infinity);

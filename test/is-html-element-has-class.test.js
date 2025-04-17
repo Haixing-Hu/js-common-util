@@ -70,24 +70,24 @@ describe('isHtmlElementHasClass', () => {
     element.className = 'test-class-extra';
     expect(isHtmlElementHasClass(element, 'test-class')).toBe(false);
   });
-  
+
   // 测试类名包含空格时抛出错误（覆盖第23行）
   test('当类名包含空格时应抛出错误', () => {
     const element = document.createElement('div');
     element.className = 'test-class';
     expect(() => isHtmlElementHasClass(element, 'test class')).toThrow('className should not contain space.');
   });
-  
+
   // 测试元素没有classList属性时的情况（覆盖第26行）
   test('当元素没有classList属性时应使用className查找', () => {
     const element = document.createElement('div');
     element.className = 'test-class';
-    
+
     // 备份原始classList
     const originalClassList = element.classList;
     // 删除classList属性以模拟旧浏览器
     delete element.classList;
-    
+
     try {
       expect(isHtmlElementHasClass(element, 'test-class')).toBe(true);
       expect(isHtmlElementHasClass(element, 'non-existent')).toBe(false);
@@ -102,4 +102,4 @@ describe('isHtmlElementHasClass', () => {
     expect(typeof isHtmlElementHasClass).toBe('function');
     expect(isHtmlElementHasClass.name).toBe('isHtmlElementHasClass');
   });
-}); 
+});

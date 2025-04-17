@@ -10,16 +10,14 @@ import format from '../src/format';
 import toString from '../src/to-string';
 
 // Mock toString模块
-jest.mock('../src/to-string', () => {
-  return jest.fn(obj => {
-    if (obj && typeof obj === 'object' && typeof obj.toString === 'function') {
-      return obj.toString();
-    }
-    if (obj === null) return 'null';
-    if (obj === undefined) return 'undefined';
-    return String(obj);
-  });
-});
+jest.mock('../src/to-string', () => jest.fn((obj) => {
+  if (obj && typeof obj === 'object' && typeof obj.toString === 'function') {
+    return obj.toString();
+  }
+  if (obj === null) return 'null';
+  if (obj === undefined) return 'undefined';
+  return String(obj);
+}));
 
 /**
  * 测试 format() 函数
@@ -64,7 +62,7 @@ describe('format', () => {
     const obj = {
       toString() {
         return 'object';
-      }
+      },
     };
     expect(format('The object is {0}.', [obj])).toBe('The object is object.');
   });
@@ -82,4 +80,4 @@ describe('format', () => {
     expect(format(null)).toBe(null);
     expect(format(undefined)).toBe(undefined);
   });
-}); 
+});

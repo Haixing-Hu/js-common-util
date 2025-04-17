@@ -63,4 +63,4 @@ describe('isSafari 函数测试', () => {
     });
     expect(isSafari()).toBe(false);
   });
-}); 
+});

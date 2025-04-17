@@ -16,7 +16,7 @@ import isIos from '../src/is-ios';
 describe('isIos', () => {
   // 保存原始的navigator对象
   const originalNavigator = global.navigator;
-  
+
   // 在每个测试后恢复原始navigator
   afterEach(() => {
     global.navigator = originalNavigator;
@@ -30,7 +30,7 @@ describe('isIos', () => {
       },
       writable: true,
     });
-    
+
     expect(isIos()).toBe(true);
   });
 
@@ -42,7 +42,7 @@ describe('isIos', () => {
       },
       writable: true,
     });
-    
+
     expect(isIos()).toBe(true);
   });
 
@@ -54,7 +54,7 @@ describe('isIos', () => {
       },
       writable: true,
     });
-    
+
     expect(isIos()).toBe(false);
   });
 
@@ -66,7 +66,7 @@ describe('isIos', () => {
       },
       writable: true,
     });
-    
+
     expect(isIos()).toBe(false);
   });
-}); 
+});

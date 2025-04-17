@@ -56,35 +56,35 @@ describe('restoreVueManaged', () => {
   test('测试restoreVueManaged(null)', () => {
     expect(restoreVueManaged(null)).toBeNull();
   });
-  
+
   // 测试各种不同类型的值的情况
   test('测试各种不同类型的值的恢复', () => {
     // 测试字符串类型
     expect(restoreVueManaged('hello')).toBe('hello');
-    
+
     // 测试数字类型
     expect(restoreVueManaged(123)).toBe(123);
-    
+
     // 测试布尔类型
     expect(restoreVueManaged(true)).toBe(true);
-    
+
     // 测试日期类型
     const date = new Date();
     expect(restoreVueManaged(date)).toBe(date);
-    
+
     // 测试函数类型
     const fn = () => {};
     expect(restoreVueManaged(fn)).toBe(fn);
-    
+
     // 测试Symbol类型
     const sym = Symbol('test');
     expect(restoreVueManaged(sym)).toBe(sym);
-    
+
     // 测试正则表达式类型
     const regex = /test/;
     expect(restoreVueManaged(regex)).toBe(regex);
   });
-  
+
   // 测试嵌套复杂对象的恢复
   test('测试嵌套复杂对象的恢复', () => {
     const complexNestedObj = {
@@ -96,79 +96,79 @@ describe('restoreVueManaged', () => {
       f: null,
       g: undefined,
     };
-    
+
     const wrapper = mount(Vue.extend({
       data() {
         return { obj: complexNestedObj };
       },
       template: '<div></div>',
     }));
-    
+
     const result = restoreVueManaged(wrapper.vm.obj);
-    
+
     // 验证恢复后的对象结构与原始对象相同
     expect(result).toEqual(complexNestedObj);
     // 但不是同一个对象引用
     expect(result).not.toBe(wrapper.vm.obj);
   });
-  
+
   // 测试空数组的情况
   test('测试空数组的恢复', () => {
     const emptyArray = [];
-    
+
     const wrapper = mount(Vue.extend({
       data() {
         return { arr: emptyArray };
       },
       template: '<div></div>',
     }));
-    
+
     const result = restoreVueManaged(wrapper.vm.arr);
-    
+
     // 验证恢复后的数组是空数组
     expect(Array.isArray(result)).toBe(true);
     expect(result.length).toBe(0);
     // 但不是同一个数组引用
     expect(result).not.toBe(wrapper.vm.arr);
   });
-  
+
   // 测试空对象的情况
   test('测试空对象的恢复', () => {
     const emptyObject = {};
-    
+
     const wrapper = mount(Vue.extend({
       data() {
         return { obj: emptyObject };
       },
       template: '<div></div>',
     }));
-    
+
     const result = restoreVueManaged(wrapper.vm.obj);
-    
+
     // 验证恢复后的对象是空对象
     expect(typeof result).toBe('object');
     expect(Object.keys(result).length).toBe(0);
     // 但不是同一个对象引用
     expect(result).not.toBe(wrapper.vm.obj);
   });
-  
+
   // 测试数组包含Vue管理的对象的情况
   test('测试数组包含Vue管理的对象的情况', () => {
     const arrayWithVueObjects = [
       { name: 'item1', value: 1 },
       { name: 'item2', value: 2 },
-      [{ name: 'nested', value: 3 }]
+      [{ name: 'nested', value: 3 }],
     ];
-    
+
     const wrapper = mount(Vue.extend({
       data() {
         return { arr: arrayWithVueObjects };
       },
       template: '<div></div>',
     }));
-    
+
     const result = restoreVueManaged(wrapper.vm.arr);
-    
+
     // 验证恢复后的数组结构与原始数组相同
     expect(Array.isArray(result)).toBe(true);
     expect(result.length).toBe(3);
@@ -182,26 +182,26 @@ describe('restoreVueManaged', () => {
     // 但不是同一个数组引用
     expect(result).not.toBe(wrapper.vm.arr);
   });
-  
+
   // 测试对象包含Vue管理的数组的情况
   test('测试对象包含Vue管理的数组的情况', () => {
     const objectWithVueArrays = {
       arr1: [1, 2, 3],
       arr2: ['a', 'b', 'c'],
       nested: {
-        arr3: [{ x: 1 }, { y: 2 }]
-      }
+        arr3: [{ x: 1 }, { y: 2 }],
+      },
     };
-    
+
     const wrapper = mount(Vue.extend({
       data() {
         return { obj: objectWithVueArrays };
       },
       template: '<div></div>',
     }));
-    
+
     const result = restoreVueManaged(wrapper.vm.obj);
-    
+
     // 验证恢复后的对象结构与原始对象相同
     expect(typeof result).toBe('object');
     expect(Array.isArray(result.arr1)).toBe(true);

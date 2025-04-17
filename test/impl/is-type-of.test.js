@@ -93,7 +93,7 @@ describe('isTypeOf', () => {
   test('object with correct type', () => {
     class TestClass { }
     const obj = new TestClass();
-    
+
     expect(isTypeOf(obj, TestClass, false)).toBe(true);
     expect(isTypeOf(obj, Object, false)).toBe(true);
   });
@@ -102,7 +102,7 @@ describe('isTypeOf', () => {
     class TestClass1 { }
     class TestClass2 { }
     const obj = new TestClass1();
-    
+
     expect(isTypeOf(obj, TestClass2, false)).toBe(false);
   });
 
@@ -124,41 +124,41 @@ describe('isTypeOf', () => {
       typeof 123,        // 'number'
       typeof 'abc',      // 'string'
       typeof 123n,       // 'bigint'
-      typeof function() {}, // 'function'
+      typeof function () {}, // 'function'
       typeof Symbol('test'), // 'symbol'
       typeof {},         // 'object'
       typeof null,       // 'object'
     ];
-    
+
     // JavaScript标准定义的typeof返回值集合
     const standardTypeofValues = [
-      'undefined', 'boolean', 'number', 'string', 
-      'bigint', 'function', 'symbol', 'object'
+      'undefined', 'boolean', 'number', 'string',
+      'bigint', 'function', 'symbol', 'object',
     ];
-    
+
     // 确认我们的测试覆盖了所有可能的typeof返回值
     const uniqueValues = [...new Set(typeofValues)];
     expect(uniqueValues.sort()).toEqual(standardTypeofValues.sort());
-    
+
     // 无法直接测试默认的return true语句
     // 因为在JavaScript中，typeof操作符只会返回上述8种值之一
     // 函数末尾的return true从技术上讲是不可达的，
     // 但我们通过模拟测试来确保源代码能返回正确的值
-    
+
     // 创建一个假对象，用来进行最终的return测试
     const mockObject = { customType: true };
-    
+
     // 使用一个hack模拟一个未知类型，这在真实场景中不会发生
     // 但对测试覆盖率有帮助
     const originalValueOf = Object.prototype.valueOf;
-    Object.defineProperty(mockObject, 'valueOf', { 
-      value: function() { return {}; }
+    Object.defineProperty(mockObject, 'valueOf', {
+      value() { return {}; },
     });
-    
+
     // 尝试"测试"最后的return语句，虽然实际上无法执行到它
     expect(isTypeOf(mockObject, Object, false)).toBe(true);
-    
+
     // 恢复原始值
     Object.prototype.valueOf = originalValueOf;
   });
-}); 
+});

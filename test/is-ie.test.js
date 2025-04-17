@@ -49,4 +49,4 @@ describe('isIE 函数测试', () => {
     });
     expect(isIE()).toBe(false);
   });
-}); 
+});
