@@ -63,7 +63,7 @@ const json = jsonStringify(obj);  // 处理循环引用
 - `uppercaseString`: 将字符串转换为大写
 - `trimUppercaseString`: 去除空白并转为大写
 - `dequote`: 移除字符串中的引号
-- `toString`: 将值转换为字符串表示形式
+- `toString`: 将值转换为字符串表示形式，可自动处理对象的循环引用
 - `format`: 简单的字符串格式化工具
 
 ### <span id="对象和属性处理">对象和属性处理</span>
@@ -120,7 +120,6 @@ const json = jsonStringify(obj);  // 处理循环引用
 
 - `sleep`: 创建在指定时间后解析的 Promise
 - `loadScript`: 动态加载脚本
-- `jsonStringify`: 安全地将 JSON 对象转为字符串，处理循环引用
 - `rafThrottle`: 使用 requestAnimationFrame 节流函数
 - `stringToFloat`: 将字符串转换为浮点数
 - `round`: 将数字舍入到指定精度

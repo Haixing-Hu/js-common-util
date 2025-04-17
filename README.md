@@ -63,7 +63,7 @@ const json = jsonStringify(obj);  // Handles circular references
 - `uppercaseString`: Converts a string to uppercase
 - `trimUppercaseString`: Trims and uppercases a string
 - `dequote`: Removes quotes from a string
-- `toString`: Converts a value to its string representation
+- `toString`: Converts a value to its string representation, handling circular references in objects
 - `format`: Simple string formatting utility
 
 ### <span id="object-and-property-handling">Object and Property Handling</span>
@@ -120,7 +120,6 @@ const json = jsonStringify(obj);  // Handles circular references
 
 - `sleep`: Creates a promise that resolves after a specified time
 - `loadScript`: Dynamically loads a script
-- `jsonStringify`: Safely stringifies a JSON object, handling circular references
 - `rafThrottle`: Throttles a function using requestAnimationFrame
 - `stringToFloat`: Converts a string to a float
 - `round`: Rounds a number to a specified precision
