@@ -46,7 +46,6 @@ import isEmpty from './is-empty';
 import isHtmlElement from './is-html-element';
 import isHtmlElementHasClass from './is-html-element-has-class';
 
-import jsonStringify from './json-stringify';
 import loadScript from './load-script';
 
 import normalizeUrl from './normalize-url';
@@ -130,8 +129,6 @@ export {
 
   isHtmlElement,
   isHtmlElementHasClass,
-
-  jsonStringify,
 
   loadScript,
 
