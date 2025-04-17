@@ -7,7 +7,8 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 import typeInfo from '@qubit-ltd/typeinfo';
-import jsonStringify from './json-stringify';
+import Json from '@qubit-ltd/json';
+import decycle from './decycle';
 
 /**
  * Convert a value or object to a string representation.
@@ -40,9 +41,19 @@ function toString(value, beautify = false) {
     case 'iterator':                  // fall down
     case 'object':                    // fall down
     case 'class':
-      return jsonStringify(value, beautify);
+      if (beautify) {
+        return Json.stringify(decycle(value), null, 2);
+      } else {
+        return Json.stringify(decycle(value));
+      }
     default:
-      return info.isBuiltIn ? String(value) : jsonStringify(value, beautify);
+      if (info.isBuiltIn) {
+        return String(value);
+      } else if (beautify) {
+        return Json.stringify(decycle(value), null, 2);
+      } else {
+        return Json.stringify(decycle(value));
+      }
   }
 }
 
