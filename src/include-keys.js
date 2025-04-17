@@ -6,7 +6,7 @@
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
-import isSet from './impl/is-set';
+import { isSet } from '@qubit-ltd/type-detect';
 
 /**
  * Filter object keys and values into a new object.

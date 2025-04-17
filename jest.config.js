@@ -36,7 +36,6 @@ module.exports = {
   collectCoverageFrom: [
     '**/src/**/*.js',
     '!**/src/deep-equal.js',
-    '!**/src/query-string.js',
     '!**/src/index.js',
   ],
 };

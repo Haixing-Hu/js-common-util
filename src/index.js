@@ -13,11 +13,11 @@ import checkArgumentType from './check-argument-type';
 import createDate from './create-date';
 
 import decycle from './decycle';
-import deepEqual from './deep-equal';
 import dequote from './dequote';
 
 import emptyToNull from './empty-to-null';
 import extractOssUrlInfo from './extract-oss-url-info';
+import excludeKeys from './exclude-keys';
 
 import fixScroll from './fix-scroll';
 import floatEqual from './float-equal';
@@ -34,6 +34,8 @@ import getSearch from './get-search';
 import getSearchParam from './get-search-param';
 
 import hasProperty from './has-property';
+
+import includeKeys from './include-keys';
 
 import isIos from './is-ios';
 import isMyNanjingApp from './is-my-nanjing-app';
@@ -59,6 +61,7 @@ import round from './round';
 import setProperty from './set-property';
 import sleep from './sleep';
 import splitDigits from './split-digits';
+import splitOnFirst from './split-on-first';
 import stringToFloat from './string-to-float';
 import stringToMoney from './string-to-money';
 
@@ -97,11 +100,11 @@ export {
   createDate,
 
   decycle,
-  deepEqual,
   dequote,
 
   emptyToNull,
   extractOssUrlInfo,
+  excludeKeys,
 
   fixScroll,
   floatEqual,
@@ -118,6 +121,7 @@ export {
   getSearchParam,
 
   hasProperty,
+  includeKeys,
 
   isIos,
   isMyNanjingApp,
@@ -143,6 +147,7 @@ export {
   setProperty,
   sleep,
   splitDigits,
+  splitOnFirst,
   stringToFloat,
   stringToMoney,
 

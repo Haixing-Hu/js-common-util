@@ -6,7 +6,7 @@
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
-import isSet from './impl/is-set';
+import { isSet } from '@qubit-ltd/type-detect';
 import includeKeys from './include-keys';
 
 /**

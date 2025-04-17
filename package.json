@@ -49,10 +49,8 @@
   "peerDependencies": {
     "@babel/runtime": "^7.26.0",
     "@qubit-ltd/json": "^1.2.0",
-    "@qubit-ltd/typeinfo": "^3.1.6"
-  },
-  "dependencies": {
-    "deep-equal": "^2.2.3"
+    "@qubit-ltd/type-detect": "^2.2.0",
+    "@qubit-ltd/typeinfo": "^3.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.26.10",
@@ -66,8 +64,8 @@
     "@qubit-ltd/jsdoc-minami": "^1.5.2",
     "@qubit-ltd/json": "^1.2.0",
     "@qubit-ltd/rollup-builder": "^1.8.9",
-    "@qubit-ltd/type-detect": "^1.2.5",
-    "@qubit-ltd/typeinfo": "^3.1.6",
+    "@qubit-ltd/type-detect": "^2.2.0",
+    "@qubit-ltd/typeinfo": "^3.3.0",
     "@rollup/plugin-alias": "^5.1.1",
     "@rollup/plugin-babel": "^6.0.4",
     "@rollup/plugin-commonjs": "^28.0.3",

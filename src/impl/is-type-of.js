@@ -10,6 +10,9 @@
 /**
  * Checks if a value is of a given type.
  *
+ * FIXME：This implementation is not correct, because it does not support the
+ *   cross realms.
+ *
  * @param {any} value
  *     The value to check.
  * @param {any} type

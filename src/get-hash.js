@@ -32,12 +32,12 @@ function getHash(url) {
       url = window.location;
     }
   }
-  
+
   // 确保url不为undefined
   if (!url) {
     return null;
   }
-  
+
   let hash = url.hash;
   if (hash.length === 0) {
     // work around for a special case: http://www.baidu.com/?source=xxx#

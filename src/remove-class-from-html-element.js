@@ -22,12 +22,12 @@ function removeClassFromHtmlElement(el, cls) {
   if (!el || !cls) {
     return;
   }
-  
-  const classes = cls.split(/\s+/).filter(c => c.length > 0);
+
+  const classes = cls.split(/\s+/).filter((c) => c.length > 0);
   if (classes.length === 0) {
     return;
   }
-  
+
   if (el.classList) {
     // 如果元素支持classList API，直接使用它
     for (let i = 0; i < classes.length; ++i) {
@@ -38,16 +38,16 @@ function removeClassFromHtmlElement(el, cls) {
     }
   } else {
     // 对于不支持classList的元素，模拟classList.remove行为
-    
+
     // 获取当前元素的类名字符串，去掉首尾空格
     const currentClassStr = el.className.trim();
     if (!currentClassStr) {
       return; // 如果没有类名，不需要任何操作
     }
-    
+
     // 将类名字符串分割成数组
     const currentClasses = currentClassStr.split(/\s+/);
-    
+
     // 处理每个要删除的类名
     for (let i = 0; i < classes.length; ++i) {
       const classToRemove = classes[i];
@@ -58,7 +58,7 @@ function removeClassFromHtmlElement(el, cls) {
         currentClasses.splice(index, 1);
       }
     }
-    
+
     // 将剩余的类名重新组合成字符串，赋值给className
     el.className = currentClasses.join(' ');
   }
