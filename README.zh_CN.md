@@ -71,8 +71,6 @@ const json = jsonStringify(obj);  // 处理循环引用
 - `getProperty`: 使用点号表示法安全地获取对象属性
 - `setProperty`: 使用点号表示法设置对象属性
 - `hasProperty`: 使用点号表示法检查对象是否有特定属性
-- `removeEmptyFields`: 从对象中移除空字段
-- `emptyFieldsToNull`: 将对象中的空字段转换为 null
 - `decycle`: 移除对象中的循环引用
 - `deepEqual`: 执行两个值的深度相等检查
 

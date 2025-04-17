@@ -71,8 +71,6 @@ const json = jsonStringify(obj);  // Handles circular references
 - `getProperty`: Safely gets a property from an object using dot notation
 - `setProperty`: Sets a property on an object using dot notation
 - `hasProperty`: Checks if an object has a property using dot notation
-- `removeEmptyFields`: Removes empty fields from an object
-- `emptyFieldsToNull`: Converts empty fields in an object to null
 - `decycle`: Removes circular references from an object
 - `deepEqual`: Performs a deep equality check between two values
 

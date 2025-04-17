@@ -17,7 +17,6 @@ import deepEqual from './deep-equal';
 import dequote from './dequote';
 
 import emptyToNull from './empty-to-null';
-import emptyFieldsToNull from './empty-fields-to-null';
 import extractOssUrlInfo from './extract-oss-url-info';
 
 import fixScroll from './fix-scroll';
@@ -53,7 +52,6 @@ import loadScript from './load-script';
 import normalizeUrl from './normalize-url';
 
 import redirect from './redirect';
-import removeEmptyFields from './remove-empty-fields';
 import removeClassFromHmlElement from './remove-class-from-html-element';
 import removeSearchParam from './remove-search-param';
 import restoreVueManaged from './restore-vue-managed';
@@ -79,7 +77,6 @@ import ArrayUtils from './array-utils';
 import scrollTo from './scroll-to';
 
 import getAncestorClasses from './get-ancestor-classes';
-import getDeclaringClass from './get-declaring-class';
 
 import queryString from './query-string';
 
@@ -105,7 +102,6 @@ export {
   dequote,
 
   emptyToNull,
-  emptyFieldsToNull,
   extractOssUrlInfo,
 
   fixScroll,
@@ -142,7 +138,6 @@ export {
   normalizeUrl,
 
   redirect,
-  removeEmptyFields,
   removeClassFromHmlElement,
   removeSearchParam,
   restoreVueManaged,
@@ -166,7 +161,6 @@ export {
   ArrayUtils,
   scrollTo,
   getAncestorClasses,
-  getDeclaringClass,
 
   queryString,
 
