@@ -9,7 +9,7 @@
 
 /**
  * Fallback for requestAnimationFrame
- * 
+ *
  * @param {Function} callback
  *    The callback function to execute
  */
@@ -19,7 +19,7 @@ const fallbackAnimationFrame = (callback) => {
 
 /**
  * Request animation frame
- * 
+ *
  * @param {Function} callback
  *    The callback function to execute
  */
@@ -33,7 +33,7 @@ const requestAnimFrame = (callback) => {
 
 /**
  * Ease in and out quadratic function
- * 
+ *
  * @param {number} t
  *    The current time
  * @param {number} b
@@ -52,11 +52,11 @@ function easeInOutQuad(time, start, change, duration) {
   }
   time--;
   return (-change / 2) * (time * (time - 2) - 1) + start;
-};
+}
 
 /**
  * Because it's so difficult to detect the scrolling element, just move them all.
- * 
+ *
  * @param {number} amount
  *    The amount to scroll
  */
@@ -68,7 +68,7 @@ function move(amount) {
 
 /**
  * Get the current scroll position of the document
- * 
+ *
  * @returns {number}
  *    The current scroll position
  */
@@ -79,13 +79,13 @@ function position() {
 }
 
 /**
- * Scroll to a specific position with an optional callback function   
- * 
- * @param {number} to 
+ * Scroll to a specific position with an optional callback function
+ *
+ * @param {number} to
  *    The target position to scroll to
- * @param {number} duration 
+ * @param {number} duration
  *    The duration of the scroll animation
- * @param {Function} callback 
+ * @param {Function} callback
  *    An optional callback function to execute after the animation completes
  */
 function scrollTo(to, duration, callback) {
