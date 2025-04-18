@@ -228,9 +228,12 @@ function parserForArrayFormat(options) {
         const isEncodedArray = !isArray && decode(value, options).includes(options.arrayFormatSeparator);
         const valueToProcess = isEncodedArray ? decode(value, options) : value;
 
-        const newValue = isArray || isEncodedArray
-          ? valueToProcess.split(options.arrayFormatSeparator).map((item) => decode(item, options))
-          : (value === null ? value : decode(value, options));
+        let newValue;
+        if (isArray || isEncodedArray) {
+          newValue = valueToProcess.split(options.arrayFormatSeparator).map((item) => decode(item, options));
+        } else {
+          newValue = value === null ? value : decode(value, options);
+        }
 
         accumulator[key] = newValue;
       };
@@ -445,23 +448,27 @@ function parse(query, options = {}) {
     const parameter_ = options.decode ? parameter.replaceAll('+', ' ') : parameter;
 
     // 分割键值对
-    let [key, value] = splitOnFirst(parameter_, '=');
+    const [keyPart, value] = splitOnFirst(parameter_, '=');
 
     // 如果没有键，使用整个参数作为键
+    let key = keyPart;
     if (key === undefined) {
       key = parameter_;
     }
 
     // 缺少 `=` 应该是 `null`:
     // http://w3.org/TR/2012/WD-url-20120524/#collect-url-parameters
-    value = value === undefined
-      ? null
-      : (['comma', 'separator', 'bracket-separator'].includes(options.arrayFormat)
-        ? value
-        : decode(value, options));
+    let finalValue;
+    if (value === undefined) {
+      finalValue = null;
+    } else if (['comma', 'separator', 'bracket-separator'].includes(options.arrayFormat)) {
+      finalValue = value;
+    } else {
+      finalValue = decode(value, options);
+    }
 
     // 使用格式化器处理键值对
-    formatter(decode(key, options), value, returnValue);
+    formatter(decode(key, options), finalValue, returnValue);
   }
 
   // 对值进行类型转换
@@ -596,9 +603,10 @@ function parseUrl(url, options = {}) {
   };
 
   // 分割URL和哈希部分
-  let [urlPart, hash] = splitOnFirst(url, '#');
+  const [urlPartOriginal, hash] = splitOnFirst(url, '#');
 
   // 如果URL部分未定义，使用整个URL
+  let urlPart = urlPartOriginal;
   if (urlPart === undefined) {
     urlPart = url;
   }
