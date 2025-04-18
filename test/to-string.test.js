@@ -108,8 +108,10 @@ describe('toString', () => {
     }
     const obj = generator();
     // Iterator会被转换为空对象或者特定实现方式
-    const result = toString(obj);
-    expect(result).toBeTruthy();
+    const result1 = toString(obj);
+    expect(result1).toBeTruthy();
+    const result2 = toString(obj, true);
+    expect(result2).toBeTruthy();
   });
 
   test('toString(Class)', () => {
