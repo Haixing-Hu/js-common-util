@@ -15,7 +15,7 @@ import { isString } from '@qubit-ltd/type-detect';
  *     the string to be split.
  * @param {string} separator
  *     the separator string.
- * @return {[string]}
+ * @return {string[]}
  *     the array containing the two parts of the string.
  * @author Haixing Hu
  * @see <a href="https://github.com/sindresorhus/split-on-first">Split on First</a>
