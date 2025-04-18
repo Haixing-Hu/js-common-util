@@ -17,15 +17,15 @@ describe('queryString 覆盖率提升测试', () => {
       // 测试 index 格式下的null值处理
       expect(queryString.stringify({ arr: [null] }, { arrayFormat: 'index' }))
         .toBe('arr[0]');
-      
+
       // 测试 bracket 格式下的null值处理
       expect(queryString.stringify({ arr: [null] }, { arrayFormat: 'bracket' }))
         .toBe('arr[]');
-      
+
       // 测试 colon-list-separator 格式下的null值处理
       expect(queryString.stringify({ arr: [null] }, { arrayFormat: 'colon-list-separator' }))
         .toBe('arr:list=');
-      
+
       // 测试默认格式下的null值处理
       expect(queryString.stringify({ arr: [null] }))
         .toBe('arr');
@@ -72,9 +72,9 @@ describe('queryString 覆盖率提升测试', () => {
       const url = queryString.stringifyUrl({
         url: 'https://example.com',
         query: { foo: 'bar' },
-        fragmentIdentifier: 'hash'
+        fragmentIdentifier: 'hash',
       });
-      
+
       expect(url).toBe('https://example.com?foo=bar#hash');
     });
 
@@ -82,9 +82,9 @@ describe('queryString 覆盖率提升测试', () => {
       const result = queryString.stringifyUrl({
         url: 'invalid://url:with:colon',
         query: { foo: 'bar' },
-        fragmentIdentifier: 'hash'
+        fragmentIdentifier: 'hash',
       });
-      
+
       // 检查是否包含原始URL和查询参数
       expect(result).toContain('invalid://url:with:colon');
       expect(result).toContain('foo=bar');
@@ -120,7 +120,7 @@ describe('queryString 覆盖率提升测试', () => {
       expect(() => {
         queryString.stringify({ arr: [1, 2] }, {
           arrayFormat: 'separator',
-          arrayFormatSeparator: '&&'
+          arrayFormatSeparator: '&&',
         });
       }).toThrow('arrayFormatSeparator must be single character string');
     });
@@ -133,10 +133,10 @@ describe('queryString 覆盖率提升测试', () => {
         types: {
           key1: 'number',
           key2: 'boolean',
-          nonExistentKey: 'string'
-        }
+          nonExistentKey: 'string',
+        },
       });
-      
+
       expect(result.key1).toBe(1);
       expect(result.key2).toBe('true');
       expect(result.nonExistentKey).toBeUndefined();
@@ -144,9 +144,9 @@ describe('queryString 覆盖率提升测试', () => {
 
     test('处理更多特殊数字转换情况', () => {
       const result = queryString.parse('inf=Infinity&neginf=-Infinity&nan=NaN', {
-        parseNumbers: true
+        parseNumbers: true,
       });
-      
+
       expect(result.inf).toBe(Infinity);
       expect(result.neginf).toBe(-Infinity);
       expect(result.nan).toBe('NaN');
@@ -177,4 +177,4 @@ describe('queryString 覆盖率提升测试', () => {
       expect(queryString.extract(undefined)).toBe('');
     });
   });
-}); 
+});

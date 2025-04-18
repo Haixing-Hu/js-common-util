@@ -14,6 +14,7 @@ describe('queryString 增强测试', () => {
   // 测试 keysSorter 函数
   describe('keysSorter 扩展测试', () => {
     test('对数字键的对象进行排序', () => {
+      // eslint-disable-next-line no-unused-vars
       const obj = { 10: 'value10', 1: 'value1', 5: 'value5' };
       const result = queryString.parse('1=value1&5=value5&10=value10', { sort: true });
       // 确保按照数字顺序而不是字典顺序排序
@@ -21,12 +22,13 @@ describe('queryString 增强测试', () => {
     });
 
     test('对嵌套对象中的数字键进行排序', () => {
-      const nestedObj = { 
-        arr: { 10: 'ten', 1: 'one', 5: 'five' }
+      // eslint-disable-next-line no-unused-vars
+      const nestedObj = {
+        arr: { 10: 'ten', 1: 'one', 5: 'five' },
       };
       const query = 'arr[1]=one&arr[5]=five&arr[10]=ten';
       const result = queryString.parse(query, { arrayFormat: 'index', sort: true });
-      
+
       // 应该按照数字顺序排序嵌套对象的键
       expect(Object.values(result.arr)).toEqual(['one', 'five', 'ten']);
     });
@@ -46,8 +48,8 @@ describe('queryString 增强测试', () => {
       // 测试有效转换
       const parsed1 = queryString.parse('key=valid', {
         types: {
-          key: customTypeConverter
-        }
+          key: customTypeConverter,
+        },
       });
       // 修正：预期结果应该是数组
       expect(parsed1.key).toEqual([true]);
@@ -55,17 +57,17 @@ describe('queryString 增强测试', () => {
       // 测试无效转换 - 应该返回原始值
       const parsed2 = queryString.parse('key=invalid', {
         types: {
-          key: customTypeConverter
-        }
+          key: customTypeConverter,
+        },
       });
       expect(parsed2.key).toBe('invalid');
     });
 
     test('数字类型转换处理各种数字格式', () => {
       const parsed = queryString.parse('int=42&float=3.14&zero=0&negative=-10&exp=1e3&nan=NaN&empty=', {
-        parseNumbers: true
+        parseNumbers: true,
       });
-      
+
       expect(parsed.int).toBe(42);
       expect(parsed.float).toBe(3.14);
       expect(parsed.zero).toBe(0);
@@ -77,9 +79,9 @@ describe('queryString 增强测试', () => {
 
     test('布尔值类型转换处理非布尔字符串', () => {
       const parsed = queryString.parse('t=true&f=false&tf=truefalse&ft=falsetrue&empty=&null=null', {
-        parseBooleans: true
+        parseBooleans: true,
       });
-      
+
       expect(parsed.t).toBe(true);
       expect(parsed.f).toBe(false);
       expect(parsed.tf).toBe('truefalse'); // 不是有效的布尔值
@@ -110,8 +112,8 @@ describe('queryString 增强测试', () => {
       const parsed = queryString.parse('nested[0]=1&nested[1]=2&nested[2]=3', {
         arrayFormat: 'index',
         types: {
-          nested: 'string'
-        }
+          nested: 'string',
+        },
       });
       expect(parsed.nested).toBe('1,2,3');
     });
@@ -122,19 +124,19 @@ describe('queryString 增强测试', () => {
     test('不同数组格式对空数组的处理', () => {
       // 默认格式
       expect(queryString.stringify({ arr: [] })).toBe('');
-      
+
       // bracket 格式
       expect(queryString.stringify({ arr: [] }, { arrayFormat: 'bracket' })).toBe('');
-      
+
       // index 格式
       expect(queryString.stringify({ arr: [] }, { arrayFormat: 'index' })).toBe('');
-      
+
       // comma 格式
       expect(queryString.stringify({ arr: [] }, { arrayFormat: 'comma' })).toBe('');
-      
+
       // separator 格式
       expect(queryString.stringify({ arr: [] }, { arrayFormat: 'separator' })).toBe('');
-      
+
       // colon-list-separator 格式
       expect(queryString.stringify({ arr: [] }, { arrayFormat: 'colon-list-separator' })).toBe('');
 
@@ -150,9 +152,9 @@ describe('queryString 增强测试', () => {
       const result = queryString.stringifyUrl({
         url: ':invalid-url', // 无效URL
         query: { foo: 'bar' },
-        fragmentIdentifier: 'hash with space'
+        fragmentIdentifier: 'hash with space',
       });
-      
+
       // 即使URL无效，也应该能返回结果
       expect(result).toContain(':invalid-url');
       expect(result).toContain('foo=bar');
@@ -161,16 +163,16 @@ describe('queryString 增强测试', () => {
 
     test('处理无效的URL构造但不编码片段标识符', () => {
       // 创建一个包含无效URL和片段标识符的测试情况，并禁用片段编码
-      const options = { 
-        encodeFragmentIdentifier: false 
+      const options = {
+        encodeFragmentIdentifier: false,
       };
-      
+
       const result = queryString.stringifyUrl({
         url: ':invalid-url', // 无效URL
         query: { foo: 'bar' },
-        fragmentIdentifier: 'hash with space'
+        fragmentIdentifier: 'hash with space',
       }, options);
-      
+
       // 修正：即使片段不编码选项设置为false，由于URL构造失败，它可能仍然使用encodeURIComponent作为回退
       // 所以我们只检查基本URL和查询字符串部分
       expect(result).toContain(':invalid-url');
@@ -181,16 +183,16 @@ describe('queryString 增强测试', () => {
     test('处理极端的URL对象', () => {
       // 空对象
       expect(queryString.stringifyUrl({})).toBe('');
-      
+
       // 只有URL
       expect(queryString.stringifyUrl({ url: 'https://example.com' })).toBe('https://example.com');
-      
+
       // 只有查询参数
       expect(queryString.stringifyUrl({ query: { foo: 'bar' } })).toBe('?foo=bar');
-      
+
       // 只有片段标识符
       expect(queryString.stringifyUrl({ fragmentIdentifier: 'hash' })).toBe('#hash');
-      
+
       // 非对象
       expect(queryString.stringifyUrl(null)).toBe('');
       expect(queryString.stringifyUrl(undefined)).toBe('');
@@ -206,11 +208,11 @@ describe('queryString 增强测试', () => {
       expect(queryString.pick(null, ['key'])).toBe('');
       expect(queryString.pick(undefined, ['key'])).toBe('');
       expect(queryString.pick(123, ['key'])).toBe('');
-      
+
       // 无效过滤器
       expect(queryString.pick('https://example.com?foo=bar', null)).toBe('');
       expect(queryString.pick('https://example.com?foo=bar', undefined)).toBe('');
-      
+
       // 空URL但有效过滤器
       expect(queryString.pick('', ['key'])).toBe('');
     });
@@ -220,13 +222,13 @@ describe('queryString 增强测试', () => {
       expect(queryString.exclude(null, ['key'])).toBe('');
       expect(queryString.exclude(undefined, ['key'])).toBe('');
       expect(queryString.exclude(123, ['key'])).toBe('');
-      
+
       // 无效过滤器
       expect(queryString.exclude('https://example.com?foo=bar', null)).toBe('');
       expect(queryString.exclude('https://example.com?foo=bar', undefined)).toBe('');
-      
+
       // 空URL但有效过滤器
       expect(queryString.exclude('', ['key'])).toBe('');
     });
   });
-}); 
+});

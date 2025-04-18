@@ -15,29 +15,29 @@ describe('queryString 覆盖率提升测试 - 第四部分', () => {
   describe('encoderForArrayFormat 特殊情况测试', () => {
     test('null值在不同数组格式下的编码', () => {
       // 测试第69行 - index格式下的null处理
-      const indexResult = queryString.stringify({ arr: [null] }, { 
-        arrayFormat: 'index', 
-        skipNull: false
+      const indexResult = queryString.stringify({ arr: [null] }, {
+        arrayFormat: 'index',
+        skipNull: false,
       });
       expect(indexResult).toBe('arr[0]');
 
       // 测试第85行 - bracket格式下的null处理
-      const bracketResult = queryString.stringify({ arr: [null] }, { 
-        arrayFormat: 'bracket', 
-        skipNull: false 
+      const bracketResult = queryString.stringify({ arr: [null] }, {
+        arrayFormat: 'bracket',
+        skipNull: false,
       });
       expect(bracketResult).toBe('arr[]');
 
       // 测试第102行 - colon-list-separator格式下的null处理
-      const colonResult = queryString.stringify({ arr: [null] }, { 
-        arrayFormat: 'colon-list-separator', 
-        skipNull: false 
+      const colonResult = queryString.stringify({ arr: [null] }, {
+        arrayFormat: 'colon-list-separator',
+        skipNull: false,
       });
       expect(colonResult).toBe('arr:list=');
 
       // 测试第123行 - 默认格式下的null处理
-      const defaultResult = queryString.stringify({ arr: [null] }, { 
-        skipNull: false 
+      const defaultResult = queryString.stringify({ arr: [null] }, {
+        skipNull: false,
       });
       expect(defaultResult).toBe('arr');
     });
@@ -50,14 +50,14 @@ describe('queryString 覆盖率提升测试 - 第四部分', () => {
       expect(() => {
         queryString.stringify({ arr: [1, 2] }, {
           arrayFormat: 'separator',
-          arrayFormatSeparator: '' // 空字符串
+          arrayFormatSeparator: '', // 空字符串
         });
       }).toThrow('arrayFormatSeparator must be single character string');
 
       expect(() => {
         queryString.stringify({ arr: [1, 2] }, {
           arrayFormat: 'separator',
-          arrayFormatSeparator: 'ab' // 多个字符
+          arrayFormatSeparator: 'ab', // 多个字符
         });
       }).toThrow('arrayFormatSeparator must be single character string');
     });
@@ -67,6 +67,7 @@ describe('queryString 覆盖率提升测试 - 第四部分', () => {
   describe('keysSorter 函数边缘情况测试', () => {
     test('排序非数字字符串键', () => {
       // 测试第258行 - 非数字字符串情况
+      // eslint-disable-next-line no-unused-vars
       const obj = { 'a10': 'value', 'a2': 'value', 'a1': 'value' };
       const result = queryString.parse('a10=value&a2=value&a1=value', { sort: true });
       // 按照字典顺序，不是数字顺序
@@ -101,11 +102,11 @@ describe('queryString 覆盖率提升测试 - 第四部分', () => {
       // 测试第317行 - URL包含多个#
       // parseUrl 只处理第一个 # 后面的内容作为 fragmentIdentifier
       const result = queryString.parseUrl('https://example.com#first', {
-        parseFragmentIdentifier: true
+        parseFragmentIdentifier: true,
       });
       expect(result.url).toBe('https://example.com');
       expect(result.fragmentIdentifier).toBe('first');
-      
+
       // 直接使用 getHash 函数（通过 extract 方法间接测试）
       const urlWithMultipleHashes = 'https://example.com#first#second';
       // 实际验证 URL 中的 # 字符位置
@@ -128,11 +129,11 @@ describe('queryString 覆盖率提升测试 - 第四部分', () => {
       // 测试第590行 - URL构造失败但query为空对象
       const result = queryString.stringifyUrl({
         url: ':invalid-url', // 无效URL
-        query: {}
+        query: {},
       });
-      
+
       // 即使URL无效，但因为query为空，也应该直接返回URL
       expect(result).toBe(':invalid-url');
     });
   });
-}); 
+});
