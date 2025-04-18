@@ -65,6 +65,7 @@ const json = jsonStringify(obj);  // Handles circular references
 - `dequote`: Removes quotes from a string
 - `toString`: Converts a value to its string representation, handling circular references in objects
 - `format`: Simple string formatting utility
+- `splitOnFirst`: Splits a string into two parts at the first occurrence of the specified separator
 
 ### <span id="object-and-property-handling">Object and Property Handling</span>
 
@@ -72,7 +73,9 @@ const json = jsonStringify(obj);  // Handles circular references
 - `setProperty`: Sets a property on an object using dot notation
 - `hasProperty`: Checks if an object has a property using dot notation
 - `decycle`: Removes circular references from an object
-- `deepEqual`: Performs a deep equality check between two values
+- `includeKeys`: Filters object keys and values into a new object using a predicate or array/set of keys to include
+- `excludeKeys`: Filters object keys and values into a new object using a predicate or array/set of keys to exclude
+- `ArrayUtils`: Collection of array utility functions including `remove` and `removeIf`
 
 ### <span id="type-checking">Type Checking</span>
 
@@ -97,6 +100,7 @@ const json = jsonStringify(obj);  // Handles circular references
 - `isHtmlElementHasClass`: Checks if an HTML element has a specific class
 - `fixScroll`: Fixes scroll issues on mobile devices
 - `scrollTo`: Smoothly scrolls to an element or position
+- `getAncestorClasses`: Gets an array of CSS classes from an element and its ancestors
 
 ### <span id="date-and-time-formatting">Date and Time Formatting</span>
 
@@ -125,6 +129,8 @@ const json = jsonStringify(obj);  // Handles circular references
 - `round`: Rounds a number to a specified precision
 - `splitDigits`: Splits a number into digits
 - `stringToMoney`: Formats a string as money
+- `emptyToNull`: Converts empty values to null
+- `restoreVueManaged`: Converts Vue-managed objects back to native objects
 
 ## <span id="contributing">Contributing</span>
 

@@ -65,6 +65,7 @@ const json = jsonStringify(obj);  // 处理循环引用
 - `dequote`: 移除字符串中的引号
 - `toString`: 将值转换为字符串表示形式，可自动处理对象的循环引用
 - `format`: 简单的字符串格式化工具
+- `splitOnFirst`: 在指定分隔符第一次出现的位置将字符串分割成两部分
 
 ### <span id="对象和属性处理">对象和属性处理</span>
 
@@ -72,7 +73,9 @@ const json = jsonStringify(obj);  // 处理循环引用
 - `setProperty`: 使用点号表示法设置对象属性
 - `hasProperty`: 使用点号表示法检查对象是否有特定属性
 - `decycle`: 移除对象中的循环引用
-- `deepEqual`: 执行两个值的深度相等检查
+- `includeKeys`: 使用谓词函数或键数组/集合过滤对象键值，返回包含指定键的新对象
+- `excludeKeys`: 使用谓词函数或键数组/集合过滤对象键值，返回排除指定键的新对象
+- `ArrayUtils`: 数组工具函数集合，包括 `remove` 和 `removeIf` 等功能
 
 ### <span id="类型检查">类型检查</span>
 
@@ -97,6 +100,7 @@ const json = jsonStringify(obj);  // 处理循环引用
 - `isHtmlElementHasClass`: 检查 HTML 元素是否有特定类
 - `fixScroll`: 修复移动设备上的滚动问题
 - `scrollTo`: 平滑滚动到元素或位置
+- `getAncestorClasses`: 获取元素及其祖先元素的 CSS 类数组
 
 ### <span id="日期和时间格式化">日期和时间格式化</span>
 
@@ -125,6 +129,8 @@ const json = jsonStringify(obj);  // 处理循环引用
 - `round`: 将数字舍入到指定精度
 - `splitDigits`: 将数字拆分为各个数字
 - `stringToMoney`: 将字符串格式化为货币形式
+- `emptyToNull`: 将空值转换为 null
+- `restoreVueManaged`: 将 Vue 托管的对象转换回原生对象
 
 ## <span id="贡献">贡献</span>
 
