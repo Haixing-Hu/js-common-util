@@ -31,7 +31,8 @@ describe('excludeKeys', () => {
   test('函数谓词能够访问键、值和原始对象', () => {
     const obj = { a: 1, b: 2, c: 3 };
     // 测试谓词函数能够接收key, value, object参数
-    let receivedKey, receivedValue, receivedObject;
+    let receivedKey; let receivedValue; let
+      receivedObject;
     excludeKeys(obj, (key, value, object) => {
       if (key === 'b') {
         receivedKey = key;
@@ -65,24 +66,24 @@ describe('excludeKeys', () => {
       value: 1,
       enumerable: true,
       configurable: false,
-      writable: false
+      writable: false,
     });
     Object.defineProperty(obj, 'b', {
       value: 2,
-      enumerable: true
+      enumerable: true,
     });
     Object.defineProperty(obj, 'c', {
       value: 3,
-      enumerable: true
+      enumerable: true,
     });
 
     const result = excludeKeys(obj, ['c']);
-    
+
     // 测试属性描述符是否被保留
     const aDesc = Object.getOwnPropertyDescriptor(result, 'a');
     expect(aDesc.configurable).toBe(false);
     expect(aDesc.writable).toBe(false);
-    
+
     // 测试值是否正确
     expect(result.a).toBe(1);
     expect(result.b).toBe(2);
@@ -93,11 +94,11 @@ describe('excludeKeys', () => {
     const obj = {};
     Object.defineProperty(obj, 'a', {
       value: 1,
-      enumerable: false
+      enumerable: false,
     });
     Object.defineProperty(obj, 'b', {
       value: 2,
-      enumerable: true
+      enumerable: true,
     });
 
     // 不可枚举的属性不会出现在结果中
@@ -117,7 +118,7 @@ describe('excludeKeys', () => {
 
     // 排除所有非Symbol键
     const result = excludeKeys(obj, (key) => typeof key !== 'symbol');
-    
+
     // 验证结果，应该只包含Symbol键
     expect(Object.getOwnPropertyNames(result)).toEqual([]);
     expect(Object.getOwnPropertySymbols(result)).toHaveLength(2);
@@ -138,4 +139,4 @@ describe('excludeKeys', () => {
     expect(excludeKeys(obj, new Set())).toEqual({ a: 1, b: 2, c: 3 });
     expect(excludeKeys(obj, () => false)).toEqual({ a: 1, b: 2, c: 3 });
   });
-}); 
+});
