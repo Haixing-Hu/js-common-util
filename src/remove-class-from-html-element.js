@@ -6,8 +6,6 @@
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
-import isHtmlElementHasClass from './is-html-element-has-class';
-import trimString from './trim-string';
 
 /**
  * 从指定的HTML元素的类列表中删除指定的CSS类。
