@@ -237,6 +237,7 @@ describe('addSearchParam', () => {
       };
 
       // 模拟URL构造函数抛出错误
+      // eslint-disable-next-line func-names
       global.URL = function () {
         throw new Error('Invalid URL');
       };
@@ -256,6 +257,7 @@ describe('addSearchParam', () => {
   test('hash为null的情况', () => {
     const url = 'http://192.168.199.2:8081/';
     // 模拟getHash返回null
+    // eslint-disable-next-line no-unused-vars
     const originalGetHash = require('../src/get-hash').default;
     jest.mock('../src/get-hash', () => jest.fn().mockReturnValue(null));
 
@@ -291,6 +293,7 @@ describe('addSearchParam', () => {
       };
 
       // 模拟URL构造函数抛出错误
+      // eslint-disable-next-line func-names
       global.URL = function (url) {
         if (url === 'invalid://url') {
           throw new Error('Invalid URL');
@@ -370,6 +373,7 @@ describe('addSearchParam', () => {
   // 使用Jest的mocking功能来直接验证第35行的执行
   test('直接监控第35行的执行', () => {
     // 备份原始模块和对象
+    // eslint-disable-next-line no-unused-vars
     const originalModule = require('../src/add-search-params');
     const originalLocation = window.location;
 

@@ -38,6 +38,7 @@ describe('redirect', () => {
 
   it('应该在指定延迟后重定向到指定URL', async () => {
     // 调用redirect但不等待它完成
+    // eslint-disable-next-line no-unused-vars
     const promise = redirect('https://example.com');
 
     // 检查地址是否尚未更改

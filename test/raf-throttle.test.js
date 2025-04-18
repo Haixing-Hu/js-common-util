@@ -45,7 +45,9 @@ describe('rafThrottle', () => {
     expect(fn).not.toHaveBeenCalled();
 
     // 等待下一个动画帧
-    await new Promise((resolve) => setTimeout(resolve, 0));
+    await new Promise((resolve) => {
+      setTimeout(resolve, 0);
+    });
 
     // 函数应该在下一个动画帧中被调用
     expect(fn).toHaveBeenCalledTimes(1);
@@ -61,7 +63,9 @@ describe('rafThrottle', () => {
     throttled();
 
     // 等待下一个动画帧
-    await new Promise((resolve) => setTimeout(resolve, 0));
+    await new Promise((resolve) => {
+      setTimeout(resolve, 0);
+    });
 
     // 原始函数应该只被调用一次
     expect(fn).toHaveBeenCalledTimes(1);
@@ -76,7 +80,9 @@ describe('rafThrottle', () => {
     throttled(arg1, arg2);
 
     // 等待下一个动画帧
-    await new Promise((resolve) => setTimeout(resolve, 0));
+    await new Promise((resolve) => {
+      setTimeout(resolve, 0);
+    });
 
     // 验证参数是否正确传递
     expect(fn).toHaveBeenCalledWith(arg1, arg2);
@@ -84,7 +90,7 @@ describe('rafThrottle', () => {
 
   test('节流函数应该保持正确的this上下文', async () => {
     const context = { name: 'test-context' };
-    const fn = jest.fn(function () {
+    const fn = jest.fn(function thisCheck() {
       expect(this).toBe(context);
     });
     const throttled = rafThrottle(fn);
@@ -93,7 +99,9 @@ describe('rafThrottle', () => {
     throttled.call(context);
 
     // 等待下一个动画帧
-    await new Promise((resolve) => setTimeout(resolve, 0));
+    await new Promise((resolve) => {
+      setTimeout(resolve, 0);
+    });
 
     // 确保函数被调用
     expect(fn).toHaveBeenCalledTimes(1);
@@ -107,13 +115,17 @@ describe('rafThrottle', () => {
     throttled();
 
     // 等待第一个动画帧
-    await new Promise((resolve) => setTimeout(resolve, 0));
+    await new Promise((resolve) => {
+      setTimeout(resolve, 0);
+    });
 
     // 第二次调用
     throttled();
 
     // 等待第二个动画帧
-    await new Promise((resolve) => setTimeout(resolve, 0));
+    await new Promise((resolve) => {
+      setTimeout(resolve, 0);
+    });
 
     // 函数应该被调用两次
     expect(fn).toHaveBeenCalledTimes(2);
@@ -127,7 +139,9 @@ describe('rafThrottle', () => {
     throttled('first');
 
     // 等待第一个动画帧
-    await new Promise((resolve) => setTimeout(resolve, 0));
+    await new Promise((resolve) => {
+      setTimeout(resolve, 0);
+    });
 
     // 检查第一次调用
     expect(fn).toHaveBeenCalledTimes(1);
@@ -137,7 +151,9 @@ describe('rafThrottle', () => {
     throttled('second');
 
     // 等待第二个动画帧
-    await new Promise((resolve) => setTimeout(resolve, 0));
+    await new Promise((resolve) => {
+      setTimeout(resolve, 0);
+    });
 
     // 检查第二次调用
     expect(fn).toHaveBeenCalledTimes(2);

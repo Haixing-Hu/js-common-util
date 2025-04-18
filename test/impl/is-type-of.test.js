@@ -124,6 +124,7 @@ describe('isTypeOf', () => {
       typeof 123,        // 'number'
       typeof 'abc',      // 'string'
       typeof 123n,       // 'bigint'
+      // eslint-disable-next-line func-names
       typeof function () {}, // 'function'
       typeof Symbol('test'), // 'symbol'
       typeof {},         // 'object'
@@ -150,15 +151,19 @@ describe('isTypeOf', () => {
 
     // 使用一个hack模拟一个未知类型，这在真实场景中不会发生
     // 但对测试覆盖率有帮助
-    const originalValueOf = Object.prototype.valueOf;
+    const originalValueOf = mockObject.valueOf;
     Object.defineProperty(mockObject, 'valueOf', {
       value() { return {}; },
+      configurable: true,
     });
 
     // 尝试"测试"最后的return语句，虽然实际上无法执行到它
     expect(isTypeOf(mockObject, Object, false)).toBe(true);
 
     // 恢复原始值
-    Object.prototype.valueOf = originalValueOf;
+    Object.defineProperty(mockObject, 'valueOf', {
+      value: originalValueOf,
+      configurable: true,
+    });
   });
 });

@@ -53,4 +53,4 @@ describe('splitOnFirst', () => {
     expect(() => splitOnFirst(123, ',')).toThrow();
     expect(() => splitOnFirst('abc', 123)).toThrow();
   });
-}); 
+});

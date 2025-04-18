@@ -61,6 +61,7 @@ describe('stringToFloat', () => {
 
   // 添加更多测试用例覆盖第23行和后续代码
   test('stringToFloat(function)', () => {
+    // eslint-disable-next-line func-names
     const value = function () {};
     expect(stringToFloat(value)).toBeNaN();
   });

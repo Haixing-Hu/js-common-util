@@ -34,6 +34,7 @@ describe('sleep', () => {
     const mockFn = jest.fn();
 
     // 调用sleep但不等待它完成
+    // eslint-disable-next-line no-unused-vars
     const promise = sleep(500).then(mockFn);
 
     // 确认模拟函数尚未被调用
@@ -59,6 +60,7 @@ describe('sleep', () => {
 
   it('对于0毫秒应立即解析Promise', async () => {
     const mockFn = jest.fn();
+    // eslint-disable-next-line no-unused-vars
     const promise = sleep(0).then(mockFn);
 
     // 确认模拟函数尚未被调用
@@ -75,6 +77,7 @@ describe('sleep', () => {
 
   it('对于负数毫秒应当作0处理', async () => {
     const mockFn = jest.fn();
+    // eslint-disable-next-line no-unused-vars
     const promise = sleep(-100).then(mockFn);
 
     // 确认模拟函数尚未被调用
