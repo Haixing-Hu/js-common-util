@@ -242,6 +242,12 @@ describe('queryString', () => {
     });
 
     test('使用不同的 arrayFormat 选项', () => {
+      // none 格式
+      expect(queryString.stringify({ foo: ['1', '2'] }, { arrayFormat: 'none' })).toBe('foo=1&foo=2');
+
+      // default 格式
+      expect(queryString.stringify({ foo: ['1', '2'] })).toBe('foo=1&foo=2');
+
       // bracket 格式
       expect(queryString.stringify({ foo: ['1', '2'] }, { arrayFormat: 'bracket' })).toBe('foo[]=1&foo[]=2');
 
