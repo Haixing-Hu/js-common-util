@@ -1,6 +1,6 @@
 {
   "name": "@qubit-ltd/common-util",
-  "version": "5.4.6",
+  "version": "5.4.7",
   "description": "A JavaScript ES6 library of common utility functions",
   "author": "Haixing Hu",
   "license": "Apache-2.0",
@@ -48,10 +48,10 @@
     ]
   },
   "peerDependencies": {
-    "@babel/runtime": "^7.26.0",
-    "@qubit-ltd/json": "^1.2.1",
-    "@qubit-ltd/type-detect": "^2.2.0",
-    "@qubit-ltd/typeinfo": "^3.3.0"
+    "@babel/runtime": "^7.28.4",
+    "@qubit-ltd/json": "^1.2.4",
+    "@qubit-ltd/type-detect": "^2.2.3",
+    "@qubit-ltd/typeinfo": "^3.3.4"
   },
   "devDependencies": {
     "@babel/core": "^7.28.4",
@@ -65,7 +65,7 @@
     "@qubit-ltd/json": "^1.2.4",
     "@qubit-ltd/rollup-builder": "^1.8.12",
     "@qubit-ltd/type-detect": "^2.2.3",
-    "@qubit-ltd/typeinfo": "^3.3.3",
+    "@qubit-ltd/typeinfo": "^3.3.4",
     "@rollup/plugin-alias": "^5.1.1",
     "@rollup/plugin-babel": "^6.0.4",
     "@rollup/plugin-commonjs": "^28.0.6",
