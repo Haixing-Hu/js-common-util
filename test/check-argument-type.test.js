@@ -72,12 +72,10 @@ describe('checkArgumentType with single type', () => {
   });
 
   test('Check primitive bigint type - correct', () => {
-    // eslint-disable-next-line no-undef
     expect(() => checkArgumentType('test', BigInt(1), BigInt, false)).not.toThrow();
   });
 
   test('Check primitive bigint type - incorrect', () => {
-    // eslint-disable-next-line no-undef
     expect(() => checkArgumentType('test', 123, BigInt, false)).toThrow(/'test' must be a BigInt/);
   });
 
@@ -158,7 +156,6 @@ describe('checkArgumentType with single type', () => {
   });
 
   test('Check primitive bigint value, correct required type', () => {
-    // eslint-disable-next-line no-undef
     expect(() => checkArgumentType('test', 123n, BigInt, true)).not.toThrow();
   });
 
@@ -167,7 +164,6 @@ describe('checkArgumentType with single type', () => {
   });
 
   test('Check primitive function value, correct required type', () => {
-    // eslint-disable-next-line no-undef
     expect(() => checkArgumentType('test', () => 0, Function, true)).not.toThrow();
   });
 
