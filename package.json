@@ -34,7 +34,7 @@
     "build": "cross-env NODE_ENV=production rollup -c rollup.config.mjs",
     "build:dev": "cross-env NODE_ENV=development rollup -c rollup.config.mjs",
     "build:all": "npm run clean && npm run doc && npm run build:dev && npm run build",
-    "test": "jest --runInBand",
+    "test": "jest --config jest.config.cjs --runInBand",
     "lint": "eslint --config eslint.config.mjs ./src ./test",
     "doc": "jsdoc -c jsdoc.json",
     "es5": "check-es-version -e 5 -s true -d ./dist",
