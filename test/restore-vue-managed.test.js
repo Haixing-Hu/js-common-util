@@ -6,7 +6,7 @@
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
-import Vue from 'vue';
+import { defineComponent } from 'vue';
 import { mount } from '@vue/test-utils';
 import { restoreVueManaged } from '../src';
 import ManagedObj from './model/ManagedObj';
@@ -17,7 +17,7 @@ import ManagedObj from './model/ManagedObj';
  * @author 胡海星
  */
 describe('restoreVueManaged', () => {
-  const Wrapper = Vue.extend({
+  const Wrapper = defineComponent({
     data() {
       const obj = new ManagedObj();
       return {
@@ -97,7 +97,7 @@ describe('restoreVueManaged', () => {
       g: undefined,
     };
 
-    const wrapper = mount(Vue.extend({
+    const wrapper = mount(defineComponent({
       data() {
         return { obj: complexNestedObj };
       },
@@ -116,7 +116,7 @@ describe('restoreVueManaged', () => {
   test('测试空数组的恢复', () => {
     const emptyArray = [];
 
-    const wrapper = mount(Vue.extend({
+    const wrapper = mount(defineComponent({
       data() {
         return { arr: emptyArray };
       },
@@ -136,7 +136,7 @@ describe('restoreVueManaged', () => {
   test('测试空对象的恢复', () => {
     const emptyObject = {};
 
-    const wrapper = mount(Vue.extend({
+    const wrapper = mount(defineComponent({
       data() {
         return { obj: emptyObject };
       },
@@ -160,7 +160,7 @@ describe('restoreVueManaged', () => {
       [{ name: 'nested', value: 3 }],
     ];
 
-    const wrapper = mount(Vue.extend({
+    const wrapper = mount(defineComponent({
       data() {
         return { arr: arrayWithVueObjects };
       },
@@ -193,7 +193,7 @@ describe('restoreVueManaged', () => {
       },
     };
 
-    const wrapper = mount(Vue.extend({
+    const wrapper = mount(defineComponent({
       data() {
         return { obj: objectWithVueArrays };
       },
