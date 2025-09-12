@@ -36,7 +36,7 @@ function addSearchParams(params, url) {
   } else if (!(url instanceof URL)) {
     try {
       url = new URL(url);
-    } catch (e) {
+    } catch (_e) {
       // if the URL is invalid, fall back to window.location
       url = window.location;
     }
