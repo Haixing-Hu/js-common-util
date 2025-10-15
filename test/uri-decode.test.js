@@ -66,6 +66,63 @@ describe('uriDecode', () => {
     expect(() => uriDecode(undefined)).toThrow(TypeError);
     expect(() => uriDecode(undefined)).toThrow('Expected `str` to be of type `string`, got `undefined`');
   });
+
+  // 测试包含多个非法编码序列的情况，覆盖decode函数的for循环（第35-37行）
+  test('包含多个非法编码序列', () => {
+    // 这种情况会触发decode函数中的for循环多次迭代
+    expect(uriDecode('%E4%BD%A0%E5%A5%BD%')).toBe('你好%');
+    expect(uriDecode('%ab%cd%ef')).toBe('%ab%cd%ef');
+  });
+
+  // 测试混合了合法和非法编码的复杂情况
+  test('混合合法和非法编码', () => {
+    // 这会触发decodeComponents的递归调用（第27行）和不同的split值（第23行）
+    expect(uriDecode('%E4%BD%A0%xy%E5%A5%BD')).toBe('你%xy好');
+    expect(uriDecode('test%20%zz%20end')).toBe('test %zz end');
+  });
+
+  // 测试连续的非法编码序列
+  test('连续的非法编码序列', () => {
+    // 触发decode函数中tokens.length > 1的情况
+    expect(uriDecode('%a%b%c')).toBe('%a%b%c');
+    expect(uriDecode('%zz%yy%xx')).toBe('%zz%yy%xx');
+  });
+
+  // 测试单个编码字符和文本混合
+  test('单个编码字符和文本混合', () => {
+    // 测试singleMatcher匹配不同token的情况
+    expect(uriDecode('a%20b%20c')).toBe('a b c');
+    expect(uriDecode('hello%2Bworld')).toBe('hello+world');
+  });
+
+  // 测试只有单个非法编码的情况（覆盖components.length === 1的分支）
+  test('单个非法编码', () => {
+    expect(uriDecode('%')).toBe('%');
+    expect(uriDecode('%z')).toBe('%z');
+  });
+
+  // 测试复杂的非法编码组合（触发decode函数中match返回null的情况）
+  test('复杂非法编码组合', () => {
+    // 包含多个连续的非法编码，触发for循环的多次迭代
+    expect(uriDecode('%E4%BD%A0%ab%cd%E5%A5%BD')).toBe('你%ab%cd好');
+    // 测试整个字符串无法匹配singleMatcher的情况
+    expect(uriDecode('normaltext')).toBe('normaltext');
+  });
+
+  // 测试特殊的编码序列组合（覆盖for循环中的各种路径）
+  test('特殊编码序列组合', () => {
+    // 测试包含多个token的情况，使for循环执行多次
+    expect(uriDecode('%E4%BD%A0%E5%A5')).toBe('你%E5%A5');
+    expect(uriDecode('%20%20%20')).toBe('   ');
+    // 测试非常短的非法编码
+    expect(uriDecode('%1')).toBe('%1');
+  });
+
+  // 测试空字符串和边界情况
+  test('空字符串和边界情况', () => {
+    expect(uriDecode('')).toBe('');
+    expect(uriDecode('   ')).toBe('   ');
+  });
 });
 
 /**
